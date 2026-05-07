@@ -125,8 +125,8 @@ const PROJECTS = [
     description:
       'A fitness client was manually following up with hundreds of leads each week — completely unsustainable. I built a full GoHighLevel pipeline with automated SMS sequences, email follow-ups, and appointment booking.',
     results: ['Zero manual follow-up required', 'Consistent, timely lead nurturing', 'Measurably better booking rates'],
-    accent: 'from-red-500/10 to-transparent',
-    border: 'border-red-500/20',
+    accent: 'from-green-600/10 to-transparent',
+    border: 'border-green-500/20',
   },
   {
     title: 'Zapier CRM Integration',
@@ -157,8 +157,8 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
 // ─── Section label ─────────────────────────────────────────────────────────────
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.25em] uppercase text-red-500 mb-4">
-      <span className="w-6 h-px bg-red-500" />
+    <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.25em] uppercase text-green-500 mb-4">
+      <span className="w-6 h-px bg-green-500" />
       {children}
     </p>
   )
@@ -221,7 +221,7 @@ export default function Home() {
                 className="relative text-sm text-zinc-400 hover:text-white transition-colors group"
               >
                 {link}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-gradient-to-r from-red-500 to-red-900 group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-gradient-to-r from-green-600 to-green-900 group-hover:w-full transition-all duration-300" />
               </button>
             ))}
           </div>
@@ -238,7 +238,7 @@ export default function Home() {
             {/* Hire CTA */}
             <button
               onClick={() => scrollTo('contact')}
-              className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-gradient-to-r from-red-600 to-red-900 rounded-xl text-white hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_20px_rgba(220,38,38,0.25)]"
+              className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-gradient-to-r from-green-700 to-green-900 rounded-xl text-white hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_20px_rgba(22,163,74,0.25)]"
             >
               Hire Me
             </button>
@@ -271,7 +271,7 @@ export default function Home() {
             ))}
             <button
               onClick={() => scrollTo('contact')}
-              className="mt-1 w-full py-2.5 text-sm font-semibold bg-gradient-to-r from-red-600 to-red-900 rounded-xl text-white"
+              className="mt-1 w-full py-2.5 text-sm font-semibold bg-gradient-to-r from-green-700 to-green-900 rounded-xl text-white"
             >
               Hire Me
             </button>
@@ -282,9 +282,9 @@ export default function Home() {
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section id="home" className="relative min-h-[100dvh] flex items-center overflow-hidden pt-20">
         {/* Background blobs */}
-        <div className="absolute top-32 left-8 w-[480px] h-[480px] bg-red-600/8 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-32 left-8 w-[480px] h-[480px] bg-green-800/8 rounded-full blur-[140px] pointer-events-none" />
         <div
-          className="absolute bottom-24 right-8 w-[400px] h-[400px] bg-red-900/8 rounded-full blur-[140px] pointer-events-none animate-pulse"
+          className="absolute bottom-24 right-8 w-[400px] h-[400px] bg-green-900/6 rounded-full blur-[140px] pointer-events-none animate-pulse"
           style={{ animationDelay: '0.7s', animationDuration: '4s' }}
         />
 
@@ -297,15 +297,15 @@ export default function Home() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold tracking-[0.28em] uppercase text-red-400 bg-red-500/10 border border-red-500/20 rounded-full mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold tracking-[0.28em] uppercase text-green-400 bg-green-500/10 border border-green-500/20 rounded-full mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                 AI AUTOMATION SPECIALIST
               </div>
 
               {/* Heading */}
               <h1 className="text-5xl lg:text-[5.5rem] font-black leading-[1.04] tracking-tight text-white mb-6">
                 I Build<br />
-                <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
                   Automations
                 </span>
                 <br />That Scale.
@@ -320,7 +320,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-4 mb-10">
                 <button
                   onClick={() => scrollTo('contact')}
-                  className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-gradient-to-r from-red-600 to-red-900 rounded-xl font-semibold text-white overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_24px_rgba(220,38,38,0.35)]"
+                  className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-gradient-to-r from-green-700 to-green-900 rounded-xl font-semibold text-white overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_24px_rgba(22,163,74,0.35)]"
                 >
                   <span className="absolute inset-0 bg-white/10 -translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-xl" />
                   <span className="relative">Let&apos;s Collaborate</span>
@@ -328,7 +328,7 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => scrollTo('projects')}
-                  className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-zinc-700 rounded-xl font-semibold text-zinc-300 hover:border-red-500/50 hover:text-white transition-all duration-300"
+                  className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-zinc-700 rounded-xl font-semibold text-zinc-300 hover:border-green-500/50 hover:text-white transition-all duration-300"
                 >
                   View My Work
                 </button>
@@ -346,7 +346,7 @@ export default function Home() {
                     target={href.startsWith('http') ? '_blank' : undefined}
                     rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     aria-label={label}
-                    className="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-800 text-zinc-500 hover:text-red-400 hover:border-red-500/50 transition-all duration-300"
+                    className="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-800 text-zinc-500 hover:text-green-400 hover:border-green-500/50 transition-all duration-300"
                   >
                     <Icon size={17} />
                   </a>
@@ -365,7 +365,7 @@ export default function Home() {
           >
             <div className="relative">
               {/* Glow ring behind avatar */}
-              <div className="absolute inset-[-20px] rounded-full bg-red-600/8 blur-3xl pointer-events-none" />
+              <div className="absolute inset-[-20px] rounded-full bg-green-800/8 blur-3xl pointer-events-none" />
               <Avatar state="idle" size={300} />
             </div>
           </motion.div>
@@ -377,7 +377,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <div className="relative flex justify-center lg:justify-start">
-              <div className="absolute inset-[-16px] rounded-full bg-red-600/6 blur-3xl pointer-events-none" />
+              <div className="absolute inset-[-16px] rounded-full bg-green-700/6 blur-3xl pointer-events-none" />
               <Avatar state="idle" size={280} />
             </div>
           </FadeIn>
@@ -386,7 +386,7 @@ export default function Home() {
             <SectionLabel>About Me</SectionLabel>
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
               A Problem Solver<br />
-              <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
                 By Instinct
               </span>
             </h2>
@@ -419,7 +419,7 @@ export default function Home() {
 
             <a
               href="mailto:dizonahmedabdullah@gmail.com?subject=Let%27s%20Work%20Together"
-              className="inline-flex items-center gap-2.5 px-6 py-3 bg-gradient-to-r from-red-600 to-red-900 rounded-xl font-semibold text-white hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_20px_rgba(220,38,38,0.25)]"
+              className="inline-flex items-center gap-2.5 px-6 py-3 bg-gradient-to-r from-green-700 to-green-900 rounded-xl font-semibold text-white hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_20px_rgba(22,163,74,0.25)]"
             >
               Get in Touch <ArrowRight size={15} weight="bold" />
             </a>
@@ -434,7 +434,7 @@ export default function Home() {
             <SectionLabel>What I Do</SectionLabel>
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
               Skills &{' '}
-              <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
                 Expertise
               </span>
             </h2>
@@ -448,13 +448,13 @@ export default function Home() {
               const Icon = skill.icon
               return (
                 <FadeIn key={skill.category} delay={i * 0.06}>
-                  <div className={`group h-full p-6 rounded-2xl border transition-all duration-300 hover:border-red-500/30 hover:-translate-y-1 ${
+                  <div className={`group h-full p-6 rounded-2xl border transition-all duration-300 hover:border-green-500/30 hover:-translate-y-1 ${
                     skill.featured
-                      ? 'bg-gradient-to-br from-red-500/10 to-zinc-900/50 border-red-500/25'
+                      ? 'bg-gradient-to-br from-green-600/10 to-zinc-900/50 border-green-500/25'
                       : 'bg-zinc-900/40 border-zinc-800/60'
                   }`}>
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${
-                      skill.featured ? 'bg-red-500/20 text-red-400' : 'bg-zinc-800 text-zinc-400 group-hover:text-red-400 group-hover:bg-red-500/15 transition-all'
+                      skill.featured ? 'bg-green-500/20 text-green-400' : 'bg-zinc-800 text-zinc-400 group-hover:text-green-400 group-hover:bg-green-500/15 transition-all'
                     }`}>
                       <Icon size={20} weight="bold" />
                     </div>
@@ -494,13 +494,13 @@ export default function Home() {
                 <FadeIn key={exp.title} delay={i * 0.07}>
                   <div className="lg:pl-10 relative">
                     {/* Dot */}
-                    <div className="absolute left-[-4.5px] top-2 w-2.5 h-2.5 rounded-full bg-red-500 border-2 border-[#080808] hidden lg:block" />
+                    <div className="absolute left-[-4.5px] top-2 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-[#080808] hidden lg:block" />
 
                     <div className="p-6 bg-zinc-900/40 border border-zinc-800/60 rounded-2xl hover:border-zinc-700/60 transition-colors">
                       <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
                         <div>
                           <h3 className="font-bold text-white text-lg leading-tight">{exp.title}</h3>
-                          <p className="text-sm text-red-400/80 mt-0.5">{exp.company}</p>
+                          <p className="text-sm text-green-400/80 mt-0.5">{exp.company}</p>
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
                           <span className="px-2.5 py-1 text-[10px] font-semibold text-zinc-400 bg-zinc-800 rounded-full">
@@ -512,7 +512,7 @@ export default function Home() {
                       <ul className="space-y-1.5">
                         {exp.highlights.map((h, j) => (
                           <li key={j} className="flex gap-2.5 items-start text-sm text-zinc-500">
-                            <span className="text-red-500/70 mt-0.5 flex-shrink-0 text-xs">▸</span>
+                            <span className="text-green-500/70 mt-0.5 flex-shrink-0 text-xs">▸</span>
                             {h}
                           </li>
                         ))}
@@ -533,7 +533,7 @@ export default function Home() {
             <SectionLabel>Case Studies</SectionLabel>
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
               Featured{' '}
-              <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
                 Projects
               </span>
             </h2>
@@ -558,7 +558,7 @@ export default function Home() {
                   <div className="space-y-2">
                     {proj.results.map(r => (
                       <div key={r} className="flex items-center gap-2.5 text-sm text-zinc-300">
-                        <CheckCircle size={15} className="text-red-400 flex-shrink-0" weight="fill" />
+                        <CheckCircle size={15} className="text-green-400 flex-shrink-0" weight="fill" />
                         {r}
                       </div>
                     ))}
@@ -577,7 +577,7 @@ export default function Home() {
             <SectionLabel>Get In Touch</SectionLabel>
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
               Let&apos;s Work{' '}
-              <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
                 Together
               </span>
             </h2>
@@ -617,7 +617,7 @@ export default function Home() {
                 <div
                   className={`p-5 bg-zinc-900/40 border border-zinc-800/60 rounded-2xl hover:border-zinc-700/60 transition-colors ${href ? 'group' : ''}`}
                 >
-                  <div className="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center mb-4 group-hover:bg-red-500/20 group-hover:text-red-400 text-zinc-500 transition-all">
+                  <div className="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center mb-4 group-hover:bg-green-500/20 group-hover:text-green-400 text-zinc-500 transition-all">
                     <Icon size={17} />
                   </div>
                   <p className="text-[10px] font-semibold text-zinc-600 uppercase tracking-widest mb-1">{label}</p>
@@ -626,7 +626,7 @@ export default function Home() {
                       href={href}
                       target={href.startsWith('http') ? '_blank' : undefined}
                       rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="text-sm text-zinc-300 hover:text-red-400 transition-colors break-all"
+                      className="text-sm text-zinc-300 hover:text-green-400 transition-colors break-all"
                     >
                       {value}
                     </a>
@@ -641,7 +641,7 @@ export default function Home() {
           <FadeIn delay={0.3} className="mt-12 text-center">
             <a
               href="mailto:dizonahmedabdullah@gmail.com?subject=Let%27s%20Work%20Together"
-              className="group relative inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-red-600 to-red-900 rounded-2xl font-bold text-lg text-white overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_32px_rgba(220,38,38,0.35)]"
+              className="group relative inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-green-700 to-green-900 rounded-2xl font-bold text-lg text-white overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_32px_rgba(22,163,74,0.35)]"
             >
               <span className="absolute inset-0 bg-white/10 -translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-2xl" />
               <span className="relative">Send Me an Email</span>

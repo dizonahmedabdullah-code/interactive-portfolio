@@ -25,7 +25,7 @@ function renderInline(text: string): React.ReactNode[] {
     if (part.startsWith('**') && part.endsWith('**'))
       return <strong key={i} className="font-semibold text-zinc-100">{part.slice(2, -2)}</strong>
     if (part.startsWith('`') && part.endsWith('`'))
-      return <code key={i} className="font-mono text-xs text-red-400 bg-red-500/10 px-1.5 py-0.5 rounded">{part.slice(1, -1)}</code>
+      return <code key={i} className="font-mono text-xs text-green-400 bg-green-500/10 px-1.5 py-0.5 rounded">{part.slice(1, -1)}</code>
     if (part.startsWith('*') && part.endsWith('*'))
       return <em key={i} className="italic text-zinc-300">{part.slice(1, -1)}</em>
     return part
@@ -42,7 +42,7 @@ function MarkdownContent({ content }: { content: string }) {
         if (line.startsWith('- ') || line.startsWith('• '))
           return (
             <div key={i} className="flex gap-2 items-start">
-              <span className="text-red-500 mt-0.5 flex-shrink-0 text-xs">▸</span>
+              <span className="text-green-500 mt-0.5 flex-shrink-0 text-xs">▸</span>
               <span>{renderInline(line.slice(2))}</span>
             </div>
           )
@@ -63,8 +63,8 @@ function MarkdownContent({ content }: { content: string }) {
 function TypingDots() {
   return (
     <div className="flex gap-2.5 items-start">
-      <div className="w-6 h-6 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-        <div className="w-1.5 h-1.5 rounded-full bg-red-500/70" />
+      <div className="w-6 h-6 rounded-full bg-green-500/15 border border-green-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+        <div className="w-1.5 h-1.5 rounded-full bg-green-500/70" />
       </div>
       <div className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-zinc-900/80">
         {[0, 1, 2].map(i => (
@@ -133,7 +133,7 @@ export default function ChatWidget() {
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.94 }}
             onClick={() => setOpen(true)}
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-5 py-3 bg-gradient-to-r from-red-600 to-red-900 rounded-2xl font-semibold text-sm text-white shadow-[0_0_28px_rgba(220,38,38,0.45)] hover:shadow-[0_0_40px_rgba(220,38,38,0.6)] transition-shadow"
+            className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-5 py-3 bg-gradient-to-r from-green-700 to-green-900 rounded-2xl font-semibold text-sm text-white shadow-[0_0_28px_rgba(22,163,74,0.45)] hover:shadow-[0_0_40px_rgba(22,163,74,0.6)] transition-shadow"
           >
             <Robot size={16} weight="bold" />
             Chat with AI
@@ -184,13 +184,13 @@ export default function ChatWidget() {
                     className={`flex gap-2.5 items-start ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
                   >
                     {msg.role === 'assistant' && (
-                      <div className="w-6 h-6 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-red-500/70" />
+                      <div className="w-6 h-6 rounded-full bg-green-500/15 border border-green-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500/70" />
                       </div>
                     )}
                     <div className={`max-w-[83%] ${msg.role === 'user'
                       ? 'bg-zinc-900 border border-zinc-800/70 rounded-2xl rounded-tr-sm px-3.5 py-2'
-                      : 'border-l-2 border-red-500/25 pl-3 pt-0.5'}`}
+                      : 'border-l-2 border-green-500/25 pl-3 pt-0.5'}`}
                     >
                       {msg.role === 'assistant'
                         ? <MarkdownContent content={msg.content} />
@@ -209,7 +209,7 @@ export default function ChatWidget() {
               </AnimatePresence>
 
               {error && (
-                <div className="border-l-2 border-red-500/40 pl-3">
+                <div className="border-l-2 border-green-500/40 pl-3">
                   <p className="text-sm text-red-400">Something went wrong. Check your API key.</p>
                 </div>
               )}
@@ -222,7 +222,7 @@ export default function ChatWidget() {
                       <button
                         key={s}
                         onClick={() => append({ role: 'user', content: s })}
-                        className="px-2.5 py-1 text-xs text-zinc-500 border border-zinc-800 rounded-full hover:border-red-500/40 hover:text-zinc-300 transition-all"
+                        className="px-2.5 py-1 text-xs text-zinc-500 border border-zinc-800 rounded-full hover:border-green-500/40 hover:text-zinc-300 transition-all"
                       >
                         {s}
                       </button>
@@ -245,12 +245,12 @@ export default function ChatWidget() {
                   placeholder="Ask me anything…"
                   rows={1}
                   style={{ height: `${inputHeight}px`, minHeight: '44px', maxHeight: '120px' }}
-                  className="w-full bg-zinc-900/80 border border-zinc-800 rounded-xl px-4 py-2.5 pr-11 text-[16px] md:text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-red-500/40 focus:ring-1 focus:ring-red-500/15 resize-none transition-all font-sans"
+                  className="w-full bg-zinc-900/80 border border-zinc-800 rounded-xl px-4 py-2.5 pr-11 text-[16px] md:text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-green-500/40 focus:ring-1 focus:ring-green-500/15 resize-none transition-all font-sans"
                 />
                 <button
                   type="submit"
                   disabled={isLoading || !input.trim()}
-                  className="absolute right-2 bottom-2 w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-red-600 to-red-900 text-white disabled:opacity-25 hover:from-red-500 hover:to-red-800 transition-all active:scale-95"
+                  className="absolute right-2 bottom-2 w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-green-700 to-green-900 text-white disabled:opacity-25 hover:from-green-600 hover:to-green-800 transition-all active:scale-95"
                 >
                   <ArrowUp size={13} weight="bold" />
                 </button>
