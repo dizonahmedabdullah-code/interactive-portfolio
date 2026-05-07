@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# environment variables (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# source video (frames are in public/avatar-frames/)
+avatar.mp4
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
+
+# Vercel
+.vercel
