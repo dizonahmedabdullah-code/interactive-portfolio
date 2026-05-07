@@ -1,501 +1,677 @@
 'use client'
 
-import { useChat } from 'ai/react'
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Avatar, { type AvatarState } from '@/components/Avatar'
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { motion } from 'framer-motion'
+import Avatar from '@/components/Avatar'
 import MouseEffect from '@/components/MouseEffect'
+import ChatWidget from '@/components/ChatWidget'
 import {
-  ArrowUp,
+  ArrowRight,
   EnvelopeSimple,
   LinkedinLogo,
+  Lightning,
+  Funnel,
+  UsersThree,
+  ShareNetwork,
+  Table,
+  PencilSimple,
+  List,
+  X,
+  MapPin,
+  Phone,
+  CheckCircle,
   Sun,
   Moon,
 } from '@phosphor-icons/react'
 
-// ─── Suggestion chips ─────────────────────────────────────────────────────────
-const SUGGESTIONS = [
-  'Show me your best projects',
-  'What tools do you use?',
-  'How can we work together?',
-  'Tell me a fun fact',
-  "What's your automation process?",
-  'How much do you charge?',
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const NAV_LINKS = ['About', 'Skills', 'Experience', 'Projects', 'Contact']
+
+const SKILLS = [
+  {
+    icon: Lightning,
+    category: 'Automation & AI',
+    description: 'Building workflows that run themselves so teams can focus on what matters.',
+    tools: ['Zapier', 'Make', 'n8n', 'GoHighLevel', 'ChatGPT'],
+    featured: true,
+  },
+  {
+    icon: UsersThree,
+    category: 'Lead Generation',
+    description: 'Full pipeline from cold contact to qualified, ready-to-book lead.',
+    tools: ['LinkedIn Sales Navigator', 'Email Outreach', 'DM Campaigns', 'Appointment Setting'],
+    featured: false,
+  },
+  {
+    icon: Funnel,
+    category: 'CRM & Sales',
+    description: 'Pipeline management, follow-up sequences, and automated CRM hygiene.',
+    tools: ['HubSpot', 'Salesforce', 'Zoho', 'GoHighLevel'],
+    featured: false,
+  },
+  {
+    icon: ShareNetwork,
+    category: 'Social Media',
+    description: 'Content calendars, scheduling, community management, and growth.',
+    tools: ['Facebook', 'Instagram', 'LinkedIn', 'Meta Business Suite', 'Metricool'],
+    featured: false,
+  },
+  {
+    icon: Table,
+    category: 'Data & Admin',
+    description: 'Reporting, spreadsheets, documentation, and back-office ops.',
+    tools: ['Google Sheets', 'Excel', 'QuickBooks', 'Google Workspace'],
+    featured: false,
+  },
+  {
+    icon: PencilSimple,
+    category: 'Creative',
+    description: 'Brand assets, promotional videos, and social content production.',
+    tools: ['Canva', 'CapCut', 'Video Editing'],
+    featured: false,
+  },
 ]
 
-// ─── Welcome message ──────────────────────────────────────────────────────────
-const WELCOME: { id: string; role: 'assistant'; content: string } = {
-  id: 'welcome',
-  role: 'assistant',
-  content:
-    "Hey there! 👋 I'm Ahmed — well, my AI avatar. I know everything about my work, projects, and background. Ask me anything: what I build, how I automate businesses, or just say hi. What's on your mind?",
-}
+const EXPERIENCES = [
+  {
+    title: 'Lead Generation & Appointment Setting Specialist',
+    company: 'Fitness Company',
+    period: 'Mar 2024 – Feb 2026',
+    type: 'Remote',
+    highlights: [
+      'Rebuilt lead response process via Instagram DM and Facebook Messenger with structured follow-up sequences that boosted conversion rates',
+      'Designed follow-up campaign for warm leads, consistently growing secured bookings month-over-month',
+      'Built onboarding SOPs that cut ramp-up time and standardized quality across the team',
+    ],
+  },
+  {
+    title: 'Executive Assistant to Head of Sales',
+    company: 'Events Company',
+    period: 'May 2023 – Jan 2026',
+    type: 'Remote',
+    highlights: [
+      'Leveraged LinkedIn Sales Navigator to systematically identify and qualify high-value event prospects',
+      'Streamlined full attendee lifecycle — registration, payments, and post-event communication',
+      'Built weekly/monthly sales performance reports with trend comparisons for faster decisions',
+    ],
+  },
+  {
+    title: 'Admin Assistant, SMM & Video Editor',
+    company: 'Chiropractic Company',
+    period: 'Aug 2023 – Feb 2025',
+    type: 'Remote',
+    highlights: [
+      'Managed MRI forms, referrals, and patient records with zero-error accuracy across two locations',
+      'Produced and edited video content that expanded patient outreach and social media presence',
+    ],
+  },
+  {
+    title: 'Technical Support Team Leader',
+    company: 'Mobile Company — US Account',
+    period: 'Feb 2019 – Jan 2022',
+    type: 'On-site',
+    highlights: [
+      'Stepped into Team Leader role — coaching staff, monitoring KPIs, and handling complex escalations',
+      'Facilitated daily huddles that kept the whole team aligned and consistently performing',
+    ],
+  },
+]
 
-// ─── Inline markdown renderer ──────────────────────────────────────────────────
-function renderInline(text: string): React.ReactNode[] {
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g)
-  return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return (
-        <strong key={i} className="font-semibold text-zinc-900 dark:text-zinc-100">
-          {part.slice(2, -2)}
-        </strong>
-      )
-    }
-    if (part.startsWith('`') && part.endsWith('`')) {
-      return (
-        <code
-          key={i}
-          className="font-mono text-xs text-cyan-700 bg-sky-50 dark:text-cyan-400 dark:bg-zinc-800 px-1.5 py-0.5 rounded"
-        >
-          {part.slice(1, -1)}
-        </code>
-      )
-    }
-    if (part.startsWith('*') && part.endsWith('*')) {
-      return (
-        <em key={i} className="italic text-zinc-600 dark:text-zinc-300">
-          {part.slice(1, -1)}
-        </em>
-      )
-    }
-    return part
-  })
-}
+const PROJECTS = [
+  {
+    title: 'GHL Lead Nurture Automation',
+    tags: ['GoHighLevel', 'SMS Automation', 'Email Sequences'],
+    description:
+      'A fitness client was manually following up with hundreds of leads each week — completely unsustainable. I built a full GoHighLevel pipeline with automated SMS sequences, email follow-ups, and appointment booking.',
+    results: ['Zero manual follow-up required', 'Consistent, timely lead nurturing', 'Measurably better booking rates'],
+    accent: 'from-red-500/10 to-transparent',
+    border: 'border-red-500/20',
+  },
+  {
+    title: 'Zapier CRM Integration',
+    tags: ['Zapier', 'Facebook Lead Ads', 'CRM', 'Slack'],
+    description:
+      'A sales team had leads from Facebook Lead Ads with no reliable routing. Data was scattered, entry was manual, leads were slipping. I connected the full pipeline: Lead Ads → CRM → Slack → Google Sheets in a single Zap.',
+    results: ['Instant lead alerts to Slack', 'Zero manual data entry', 'Full pipeline visibility in Sheets'],
+    accent: 'from-zinc-800/40 to-transparent',
+    border: 'border-zinc-700/40',
+  },
+]
 
-function MarkdownContent({ content }: { content: string }) {
-  const lines = content.split('\n')
-  return (
-    <div className="text-sm leading-relaxed space-y-1.5 text-zinc-600 dark:text-zinc-300">
-      {lines.map((line, i) => {
-        if (!line.trim()) return <div key={i} className="h-1" />
-
-        if (line.startsWith('### ')) {
-          return (
-            <p key={i} className="font-semibold text-zinc-900 dark:text-zinc-100 mt-2">
-              {renderInline(line.slice(4))}
-            </p>
-          )
-        }
-        if (line.startsWith('## ')) {
-          return (
-            <p key={i} className="font-semibold text-zinc-900 dark:text-zinc-100 text-base mt-2">
-              {renderInline(line.slice(3))}
-            </p>
-          )
-        }
-        if (line.startsWith('- ') || line.startsWith('• ')) {
-          const text = line.slice(2)
-          return (
-            <div key={i} className="flex gap-2 items-start">
-              <span className="text-cyan-600 dark:text-cyan-500 mt-0.5 flex-shrink-0 text-xs">▸</span>
-              <span>{renderInline(text)}</span>
-            </div>
-          )
-        }
-        if (/^\d+\.\s/.test(line)) {
-          const match = line.match(/^(\d+)\.\s(.+)/)
-          if (match) {
-            return (
-              <div key={i} className="flex gap-2 items-start">
-                <span className="text-zinc-400 dark:text-zinc-600 flex-shrink-0 font-mono text-xs mt-0.5">
-                  {match[1]}.
-                </span>
-                <span>{renderInline(match[2])}</span>
-              </div>
-            )
-          }
-        }
-        return <p key={i}>{renderInline(line)}</p>
-      })}
-    </div>
-  )
-}
-
-// ─── Avatar dot ───────────────────────────────────────────────────────────────
-function AvatarDot() {
-  return (
-    <div className="flex-shrink-0 w-7 h-7 rounded-full border border-cyan-500/30 bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center mt-0.5">
-      <div className="w-2.5 h-2.5 rounded-full bg-cyan-500/85 dark:bg-cyan-400/85" />
-    </div>
-  )
-}
-
-// ─── Typing indicator ──────────────────────────────────────────────────────────
-function TypingIndicator() {
+// ─── Fade-in-view wrapper ──────────────────────────────────────────────────────
+function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -4 }}
-      transition={{ duration: 0.25 }}
-      className="flex gap-3 items-start"
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
     >
-      <AvatarDot />
-      <div className="flex items-center gap-1.5 px-4 py-3 rounded-2xl bg-zinc-100 dark:bg-zinc-900/60">
-        {[0, 1, 2].map((i) => (
-          <motion.span
-            key={i}
-            className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500"
-            animate={{ opacity: [0.25, 1, 0.25], y: [0, -3, 0] }}
-            transition={{ duration: 0.65, repeat: Infinity, delay: i * 0.2 }}
-          />
-        ))}
-      </div>
+      {children}
     </motion.div>
+  )
+}
+
+// ─── Section label ─────────────────────────────────────────────────────────────
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.25em] uppercase text-red-500 mb-4">
+      <span className="w-6 h-px bg-red-500" />
+      {children}
+    </p>
   )
 }
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function Home() {
+  const [mobileOpen, setMobileOpen] = useState(false)
   const [isDark, setIsDark] = useState(true)
-  const [avatarState, setAvatarState] = useState<AvatarState>('idle')
-  const [inputHeight, setInputHeight] = useState(48)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const finishTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [scrolled, setScrolled] = useState(false)
   const glowRef = useRef<HTMLDivElement>(null)
 
-  // ── Theme toggle ─────────────────────────────────────────────────────────
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   const toggleTheme = useCallback(() => {
     document.documentElement.classList.add('theme-transitioning')
-    setIsDark((prev) => {
+    setIsDark(prev => {
       const next = !prev
-      if (next) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
+      document.documentElement.classList.toggle('dark', next)
       return next
     })
     setTimeout(() => document.documentElement.classList.remove('theme-transitioning'), 300)
   }, [])
 
-  // ── Chat ─────────────────────────────────────────────────────────────────
-  const {
-    messages,
-    input,
-    handleInputChange: baseHandleInputChange,
-    handleSubmit,
-    isLoading,
-    error,
-    append,
-  } = useChat({
-    api: '/api/chat',
-    initialMessages: [WELCOME],
-    onResponse: (res) => { if (res.ok) setAvatarState('talking') },
-    onFinish: () => {
-      finishTimerRef.current = setTimeout(() => setAvatarState('idle'), 600)
-    },
-    onError: () => setAvatarState('idle'),
-  })
-
-  useEffect(() => {
-    if (isLoading) setAvatarState((prev) => (prev === 'idle' ? 'thinking' : prev))
-  }, [isLoading])
-
-  useEffect(() => () => { if (finishTimerRef.current) clearTimeout(finishTimerRef.current) }, [])
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages, isLoading])
-
-  const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      baseHandleInputChange(e)
-      const el = e.target
-      el.style.height = 'auto'
-      const next = Math.min(el.scrollHeight, 120)
-      el.style.height = `${next}px`
-      setInputHeight(next)
-    },
-    [baseHandleInputChange]
-  )
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault()
-        handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>)
-        if (textareaRef.current) {
-          textareaRef.current.style.height = '48px'
-          setInputHeight(48)
-        }
-      }
-    },
-    [handleSubmit]
-  )
-
-  const sendSuggestion = useCallback(
-    (text: string) => append({ role: 'user', content: text }),
-    [append]
-  )
-
-  const hasUserMessages = messages.some((m) => m.role === 'user')
+  const scrollTo = useCallback((id: string) => {
+    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })
+    setMobileOpen(false)
+  }, [])
 
   return (
-    <main className="flex h-[100dvh] overflow-hidden relative bg-[#f2f0ec] dark:bg-[#050505]">
-      {/* ── Rainbow glow layer (absolute, behind all content) ─────────────── */}
-      <div
-        ref={glowRef}
-        className="absolute inset-0 pointer-events-none"
-        style={{ opacity: 0, transition: 'opacity 1.8s ease', zIndex: 0 }}
-      />
-
-      {/* ── Mouse effect: splash only (glow managed via ref above) ────────── */}
+    <div className="bg-[#080808] text-zinc-100 overflow-x-hidden">
+      {/* Global mouse gradient overlay */}
+      <div ref={glowRef} className="fixed inset-0 pointer-events-none" style={{ opacity: 0, transition: 'opacity 1.8s ease', zIndex: 0 }} />
       <MouseEffect glowRef={glowRef} isDark={isDark} />
 
-      {/* ── Theme toggle (fixed, top-right) ───────────────────────────────── */}
-      <button
-        onClick={toggleTheme}
-        aria-label="Toggle theme"
-        className="fixed top-4 right-4 z-50 w-8 h-8 flex items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors duration-150 active:scale-[0.94]"
+      {/* ── Navbar ─────────────────────────────────────────────────────────── */}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? 'border-b border-white/5 bg-[#080808]/85 backdrop-blur-xl' : 'bg-transparent'
+        }`}
       >
-        {isDark ? <Sun size={14} weight="regular" /> : <Moon size={14} weight="regular" />}
-      </button>
-
-      {/* ── Left panel — bio (desktop only) ───────────────────────────────── */}
-      <aside className="hidden md:flex flex-col justify-center items-start w-[220px] xl:w-[260px] border-r border-zinc-200/60 dark:border-zinc-900/50 px-7 xl:px-9 py-10 relative overflow-hidden flex-shrink-0" style={{ zIndex: 1 }}>
-        <div className="absolute inset-0 grid-texture pointer-events-none opacity-60 dark:opacity-100" />
-
-        <div className="relative z-10 flex flex-col items-start gap-0">
-          {/* Name + title */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-0.5"
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <button
+            onClick={() => scrollTo('home')}
+            className="text-xl font-black text-white tracking-tight hover:scale-105 transition-transform"
           >
-            <h1 className="font-sans text-[clamp(1rem,1.4vw,1.25rem)] font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 leading-tight">
-              Ahmed Abdullah Dizon
-            </h1>
-            <p className="text-[10px] font-medium text-cyan-600 dark:text-cyan-400 tracking-[0.12em] uppercase">
-              AI Automation Specialist
-            </p>
-            <p className="text-[10px] text-zinc-500 dark:text-zinc-600 pt-0.5">Philippines · UTC+8</p>
-          </motion.div>
+            Ahmed.
+          </button>
 
-          {/* Status */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="mt-4 flex items-center gap-2"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-            </span>
-            <span className="text-[10px] text-zinc-500 dark:text-zinc-500">Available for projects</span>
-          </motion.div>
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-8">
+            {NAV_LINKS.map(link => (
+              <button
+                key={link}
+                onClick={() => scrollTo(link)}
+                className="relative text-sm text-zinc-400 hover:text-white transition-colors group"
+              >
+                {link}
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-gradient-to-r from-red-500 to-red-900 group-hover:w-full transition-all duration-300" />
+              </button>
+            ))}
+          </div>
 
-          {/* Links */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.38 }}
-            className="mt-6 flex flex-col gap-2.5"
-          >
-            <a
-              href="mailto:dizonahmedabdullah@gmail.com"
-              className="flex items-center gap-2 text-[10px] text-zinc-500 dark:text-zinc-600 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-200"
+          <div className="flex items-center gap-3">
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="w-8 h-8 hidden md:flex items-center justify-center rounded-lg border border-zinc-800 text-zinc-500 hover:text-zinc-200 hover:border-zinc-600 transition-all"
             >
-              <EnvelopeSimple size={12} weight="regular" />
-              dizonahmedabdullah@gmail.com
-            </a>
-            <a
-              href="https://linkedin.com/in/ahmed-abdullah-dizon-06459137b"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-[10px] text-zinc-500 dark:text-zinc-600 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-200"
+              {isDark ? <Sun size={14} /> : <Moon size={14} />}
+            </button>
+            {/* Hire CTA */}
+            <button
+              onClick={() => scrollTo('contact')}
+              className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-gradient-to-r from-red-600 to-red-900 rounded-xl text-white hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_20px_rgba(220,38,38,0.25)]"
             >
-              <LinkedinLogo size={12} weight="regular" />
-              LinkedIn Profile
-            </a>
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.45 }}
-            className="mt-6"
-          >
-            <a
-              href="mailto:dizonahmedabdullah@gmail.com?subject=Let%27s%20Work%20Together"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[10px] font-semibold text-white bg-cyan-600 dark:text-[#050505] dark:bg-cyan-400 rounded-lg hover:bg-cyan-500 dark:hover:bg-cyan-300 transition-colors duration-200 active:scale-[0.97]"
+              Hire Me
+            </button>
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-800 text-zinc-400"
             >
-              Get in touch
-            </a>
-          </motion.div>
+              {mobileOpen ? <X size={18} /> : <List size={18} />}
+            </button>
+          </div>
         </div>
-      </aside>
 
-      {/* ── Center panel — avatar (desktop only) ──────────────────────────── */}
-      <div className="hidden md:flex flex-col justify-center items-center flex-1 relative overflow-hidden" style={{ zIndex: 1 }}>
-        {/* Accent glow behind avatar */}
-        <div className="absolute w-[320px] h-[320px] bg-cyan-500/[0.05] dark:bg-cyan-400/[0.04] rounded-full blur-3xl pointer-events-none" />
-        {/* Radial vignette */}
+        {/* Mobile menu */}
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="md:hidden border-t border-zinc-800/60 bg-[#080808]/95 backdrop-blur-xl px-6 py-4 flex flex-col gap-4"
+          >
+            {NAV_LINKS.map(link => (
+              <button
+                key={link}
+                onClick={() => scrollTo(link)}
+                className="text-left text-sm text-zinc-400 hover:text-white transition-colors py-1"
+              >
+                {link}
+              </button>
+            ))}
+            <button
+              onClick={() => scrollTo('contact')}
+              className="mt-1 w-full py-2.5 text-sm font-semibold bg-gradient-to-r from-red-600 to-red-900 rounded-xl text-white"
+            >
+              Hire Me
+            </button>
+          </motion.div>
+        )}
+      </nav>
+
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
+      <section id="home" className="relative min-h-[100dvh] flex items-center overflow-hidden pt-20">
+        {/* Background blobs */}
+        <div className="absolute top-32 left-8 w-[480px] h-[480px] bg-red-600/8 rounded-full blur-[140px] pointer-events-none" />
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(ellipse 70% 70% at 50% 50%, transparent 35%, ${isDark ? '#050505' : '#f2f0ec'} 100%)`,
-          }}
+          className="absolute bottom-24 right-8 w-[400px] h-[400px] bg-red-900/8 rounded-full blur-[140px] pointer-events-none animate-pulse"
+          style={{ animationDelay: '0.7s', animationDuration: '4s' }}
         />
 
-        <motion.div
-          className="relative z-10"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Avatar state={avatarState} size={260} />
-        </motion.div>
-      </div>
-
-      {/* ── Right panel — chat ─────────────────────────────────────────────── */}
-      <div className="flex-1 md:flex-none md:w-[340px] xl:w-[380px] flex flex-col border-l border-zinc-200/60 dark:border-zinc-900/50 min-w-0" style={{ zIndex: 1 }}>
-        {/* Mobile header */}
-        <header className="md:hidden flex items-center gap-3 px-4 py-3 border-b border-zinc-200/70 dark:border-zinc-900/50 flex-shrink-0 bg-[#f2f0ec] dark:bg-[#050505]">
-          <div className="w-9 h-9 rounded-full overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-            <Avatar state={avatarState} size={36} />
-          </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 lg:py-24 grid lg:grid-cols-2 gap-16 items-center w-full">
+          {/* Left */}
           <div>
-            <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 leading-none">Ahmed</p>
-            <p className="text-xs text-zinc-500 dark:text-zinc-600 mt-0.5">AI Automation Specialist</p>
-          </div>
-          <div className="ml-auto flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            <span className="text-xs text-zinc-500 dark:text-zinc-600">Online</span>
-          </div>
-        </header>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold tracking-[0.28em] uppercase text-red-400 bg-red-500/10 border border-red-500/20 rounded-full mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                AI AUTOMATION SPECIALIST
+              </div>
 
-        {/* Desktop chat header */}
-        <div className="hidden md:flex items-center justify-between px-5 xl:px-7 pt-3 pb-2 flex-shrink-0">
-          <p className="text-xs text-zinc-500 dark:text-zinc-600 uppercase tracking-wider">
-            Chat with Ahmed&apos;s AI
-          </p>
-          <p className="text-[10px] text-zinc-400 dark:text-zinc-700 mr-10">
-            Groq Llama 3.3 · All info from Ahmed&apos;s actual background
-          </p>
-        </div>
+              {/* Heading */}
+              <h1 className="text-5xl lg:text-[5.5rem] font-black leading-[1.04] tracking-tight text-white mb-6">
+                I Build<br />
+                <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+                  Automations
+                </span>
+                <br />That Scale.
+              </h1>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto chat-scroll px-4 md:px-5 xl:px-6 pt-2 pb-4 space-y-5">
-          <AnimatePresence initial={false}>
-            {messages.map((message) => (
-              <motion.div
-                key={message.id}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className={`flex gap-3 ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start`}
-              >
-                {message.role === 'assistant' && <AvatarDot />}
+              <p className="text-lg text-zinc-400 leading-relaxed max-w-[500px] mb-10">
+                9+ years eliminating manual work from businesses. Expert in Zapier, Make, n8n, and GoHighLevel.
+                Philippines-based, globally available.
+              </p>
 
-                <div
-                  className={`max-w-[78%] md:max-w-[82%] ${
-                    message.role === 'user'
-                      ? 'bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 rounded-2xl rounded-tr-sm px-4 py-2.5'
-                      : 'border-l-2 border-cyan-500/30 dark:border-cyan-500/25 pl-3.5 pt-0.5'
-                  }`}
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-4 mb-10">
+                <button
+                  onClick={() => scrollTo('contact')}
+                  className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-gradient-to-r from-red-600 to-red-900 rounded-xl font-semibold text-white overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_24px_rgba(220,38,38,0.35)]"
                 >
-                  {message.role === 'assistant' ? (
-                    <MarkdownContent content={message.content} />
+                  <span className="absolute inset-0 bg-white/10 -translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-xl" />
+                  <span className="relative">Let&apos;s Collaborate</span>
+                  <ArrowRight size={16} weight="bold" className="relative" />
+                </button>
+                <button
+                  onClick={() => scrollTo('projects')}
+                  className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-zinc-700 rounded-xl font-semibold text-zinc-300 hover:border-red-500/50 hover:text-white transition-all duration-300"
+                >
+                  View My Work
+                </button>
+              </div>
+
+              {/* Social */}
+              <div className="flex items-center gap-3">
+                {[
+                  { icon: EnvelopeSimple, href: 'mailto:dizonahmedabdullah@gmail.com', label: 'Email' },
+                  { icon: LinkedinLogo, href: 'https://linkedin.com/in/ahmed-abdullah-dizon-06459137b', label: 'LinkedIn' },
+                ].map(({ icon: Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith('http') ? '_blank' : undefined}
+                    rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    aria-label={label}
+                    className="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-800 text-zinc-500 hover:text-red-400 hover:border-red-500/50 transition-all duration-300"
+                  >
+                    <Icon size={17} />
+                  </a>
+                ))}
+                <span className="text-xs text-zinc-600 ml-1">Philippines · UTC+8</span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right: Avatar */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="flex justify-center lg:justify-end"
+          >
+            <div className="relative">
+              {/* Glow ring behind avatar */}
+              <div className="absolute inset-[-20px] rounded-full bg-red-600/8 blur-3xl pointer-events-none" />
+              <Avatar state="idle" size={300} />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── About ──────────────────────────────────────────────────────────── */}
+      <section id="about" className="py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+          <FadeIn>
+            <div className="relative flex justify-center lg:justify-start">
+              <div className="absolute inset-[-16px] rounded-full bg-red-600/6 blur-3xl pointer-events-none" />
+              <Avatar state="idle" size={280} />
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            <SectionLabel>About Me</SectionLabel>
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
+              A Problem Solver<br />
+              <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+                By Instinct
+              </span>
+            </h2>
+            <div className="space-y-4 text-zinc-400 leading-relaxed mb-8">
+              <p>
+                I look at broken processes and immediately start thinking about how to fix them. That instinct is
+                what led me into AI automation. With 9+ years of remote work across lead generation, executive
+                support, and social media, I kept finding the same problem: businesses drowning in manual,
+                repetitive work.
+              </p>
+              <p>
+                Now I build the systems that eliminate it — multi-step automations, CRM pipelines, AI-powered
+                workflows — across industries and time zones.
+              </p>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-4 mb-8">
+              {[
+                { value: '9+', label: 'Years Remote' },
+                { value: '5', label: 'Automation Platforms' },
+                { value: '8+', label: 'Industries' },
+              ].map(stat => (
+                <div key={stat.label} className="p-4 bg-zinc-900/50 border border-zinc-800/60 rounded-xl text-center">
+                  <p className="text-2xl font-black text-white mb-0.5">{stat.value}</p>
+                  <p className="text-xs text-zinc-500">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <a
+              href="mailto:dizonahmedabdullah@gmail.com?subject=Let%27s%20Work%20Together"
+              className="inline-flex items-center gap-2.5 px-6 py-3 bg-gradient-to-r from-red-600 to-red-900 rounded-xl font-semibold text-white hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_20px_rgba(220,38,38,0.25)]"
+            >
+              Get in Touch <ArrowRight size={15} weight="bold" />
+            </a>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── Skills ─────────────────────────────────────────────────────────── */}
+      <section id="skills" className="py-24 lg:py-32 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <FadeIn>
+            <SectionLabel>What I Do</SectionLabel>
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
+              Skills &{' '}
+              <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+                Expertise
+              </span>
+            </h2>
+            <p className="text-zinc-500 max-w-[52ch] mb-14">
+              From automation architecture to content creation — every service I offer is built around one goal: removing friction from your business.
+            </p>
+          </FadeIn>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {SKILLS.map((skill, i) => {
+              const Icon = skill.icon
+              return (
+                <FadeIn key={skill.category} delay={i * 0.06}>
+                  <div className={`group h-full p-6 rounded-2xl border transition-all duration-300 hover:border-red-500/30 hover:-translate-y-1 ${
+                    skill.featured
+                      ? 'bg-gradient-to-br from-red-500/10 to-zinc-900/50 border-red-500/25'
+                      : 'bg-zinc-900/40 border-zinc-800/60'
+                  }`}>
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${
+                      skill.featured ? 'bg-red-500/20 text-red-400' : 'bg-zinc-800 text-zinc-400 group-hover:text-red-400 group-hover:bg-red-500/15 transition-all'
+                    }`}>
+                      <Icon size={20} weight="bold" />
+                    </div>
+                    <h3 className="font-bold text-white mb-2">{skill.category}</h3>
+                    <p className="text-sm text-zinc-500 mb-4 leading-relaxed">{skill.description}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {skill.tools.map(t => (
+                        <span key={t} className="px-2 py-0.5 text-[10px] font-medium text-zinc-400 bg-zinc-800/80 rounded-md">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </FadeIn>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Experience ─────────────────────────────────────────────────────── */}
+      <section id="experience" className="py-24 lg:py-32 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <FadeIn>
+            <SectionLabel>Work History</SectionLabel>
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-14 leading-tight">
+              Experience
+            </h2>
+          </FadeIn>
+
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-0 top-2 bottom-2 w-px bg-zinc-800 hidden lg:block" />
+
+            <div className="space-y-8">
+              {EXPERIENCES.map((exp, i) => (
+                <FadeIn key={exp.title} delay={i * 0.07}>
+                  <div className="lg:pl-10 relative">
+                    {/* Dot */}
+                    <div className="absolute left-[-4.5px] top-2 w-2.5 h-2.5 rounded-full bg-red-500 border-2 border-[#080808] hidden lg:block" />
+
+                    <div className="p-6 bg-zinc-900/40 border border-zinc-800/60 rounded-2xl hover:border-zinc-700/60 transition-colors">
+                      <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+                        <div>
+                          <h3 className="font-bold text-white text-lg leading-tight">{exp.title}</h3>
+                          <p className="text-sm text-red-400/80 mt-0.5">{exp.company}</p>
+                        </div>
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <span className="px-2.5 py-1 text-[10px] font-semibold text-zinc-400 bg-zinc-800 rounded-full">
+                            {exp.type}
+                          </span>
+                          <span className="text-xs text-zinc-600">{exp.period}</span>
+                        </div>
+                      </div>
+                      <ul className="space-y-1.5">
+                        {exp.highlights.map((h, j) => (
+                          <li key={j} className="flex gap-2.5 items-start text-sm text-zinc-500">
+                            <span className="text-red-500/70 mt-0.5 flex-shrink-0 text-xs">▸</span>
+                            {h}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Projects ───────────────────────────────────────────────────────── */}
+      <section id="projects" className="py-24 lg:py-32 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <FadeIn>
+            <SectionLabel>Case Studies</SectionLabel>
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
+              Featured{' '}
+              <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+                Projects
+              </span>
+            </h2>
+            <p className="text-zinc-500 max-w-[52ch] mb-14">
+              Real automations built for real businesses. Each one replaced hours of manual work with a system that runs itself.
+            </p>
+          </FadeIn>
+
+          <div className="grid lg:grid-cols-2 gap-6">
+            {PROJECTS.map((proj, i) => (
+              <FadeIn key={proj.title} delay={i * 0.1}>
+                <div className={`h-full p-8 bg-gradient-to-br ${proj.accent} border ${proj.border} rounded-2xl flex flex-col`}>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {proj.tags.map(t => (
+                      <span key={t} className="px-2.5 py-1 text-[10px] font-semibold text-zinc-400 bg-zinc-800/70 rounded-full">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="text-2xl font-black text-white mb-4 leading-tight">{proj.title}</h3>
+                  <p className="text-zinc-400 leading-relaxed mb-6 flex-1">{proj.description}</p>
+                  <div className="space-y-2">
+                    {proj.results.map(r => (
+                      <div key={r} className="flex items-center gap-2.5 text-sm text-zinc-300">
+                        <CheckCircle size={15} className="text-red-400 flex-shrink-0" weight="fill" />
+                        {r}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Contact ────────────────────────────────────────────────────────── */}
+      <section id="contact" className="py-24 lg:py-32 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <FadeIn>
+            <SectionLabel>Get In Touch</SectionLabel>
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
+              Let&apos;s Work{' '}
+              <span className="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">
+                Together
+              </span>
+            </h2>
+            <p className="text-zinc-500 max-w-[52ch] mb-14">
+              Open for freelance automation builds, full-time AI roles, and consulting. Best reached by email.
+            </p>
+          </FadeIn>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                icon: EnvelopeSimple,
+                label: 'Email',
+                value: 'dizonahmedabdullah@gmail.com',
+                href: 'mailto:dizonahmedabdullah@gmail.com',
+              },
+              {
+                icon: LinkedinLogo,
+                label: 'LinkedIn',
+                value: 'ahmed-abdullah-dizon',
+                href: 'https://linkedin.com/in/ahmed-abdullah-dizon-06459137b',
+              },
+              {
+                icon: Phone,
+                label: 'Phone',
+                value: '+63 977 115 6569',
+                href: 'tel:+639771156569',
+              },
+              {
+                icon: MapPin,
+                label: 'Location',
+                value: 'Philippines · UTC+8',
+                href: undefined,
+              },
+            ].map(({ icon: Icon, label, value, href }, i) => (
+              <FadeIn key={label} delay={i * 0.07}>
+                <div
+                  className={`p-5 bg-zinc-900/40 border border-zinc-800/60 rounded-2xl hover:border-zinc-700/60 transition-colors ${href ? 'group' : ''}`}
+                >
+                  <div className="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center mb-4 group-hover:bg-red-500/20 group-hover:text-red-400 text-zinc-500 transition-all">
+                    <Icon size={17} />
+                  </div>
+                  <p className="text-[10px] font-semibold text-zinc-600 uppercase tracking-widest mb-1">{label}</p>
+                  {href ? (
+                    <a
+                      href={href}
+                      target={href.startsWith('http') ? '_blank' : undefined}
+                      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="text-sm text-zinc-300 hover:text-red-400 transition-colors break-all"
+                    >
+                      {value}
+                    </a>
                   ) : (
-                    <p className="text-sm leading-relaxed text-zinc-800 dark:text-zinc-200">
-                      {message.content}
-                    </p>
+                    <p className="text-sm text-zinc-300">{value}</p>
                   )}
                 </div>
-              </motion.div>
+              </FadeIn>
             ))}
-          </AnimatePresence>
+          </div>
 
-          {/* Typing indicator */}
-          <AnimatePresence>
-            {isLoading && avatarState === 'thinking' && <TypingIndicator />}
-          </AnimatePresence>
-
-          {/* Error state */}
-          <AnimatePresence>
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="flex gap-3 items-start"
-              >
-                <AvatarDot />
-                <div className="border-l-2 border-red-400/40 pl-3.5 pt-0.5">
-                  <p className="text-sm text-red-500 dark:text-red-400">
-                    Something went wrong. Check your{' '}
-                    <code className="font-mono text-xs">.env.local</code> API key and restart the server.
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Suggestion chips */}
-          <AnimatePresence>
-            {!hasUserMessages && !isLoading && (
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8, transition: { duration: 0.2 } }}
-                transition={{ duration: 0.45, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="pt-2"
-              >
-                <p className="text-[10px] text-zinc-400 dark:text-zinc-700 uppercase tracking-[0.1em] mb-3">
-                  Try asking
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {SUGGESTIONS.map((s, i) => (
-                    <motion.button
-                      key={s}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.12 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                      onClick={() => sendSuggestion(s)}
-                      className="px-3 py-1.5 text-xs text-zinc-500 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-800 rounded-full bg-white dark:bg-zinc-900/40 hover:border-cyan-400/50 dark:hover:border-cyan-500/40 hover:text-zinc-800 dark:hover:text-zinc-300 hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.97]"
-                    >
-                      {s}
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* ── Input bar ──────────────────────────────────────────────────── */}
-        <div className="flex-shrink-0 border-t border-zinc-200/60 dark:border-zinc-900/50 px-4 md:px-5 xl:px-6 py-3">
-          <form onSubmit={handleSubmit} className="relative">
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              placeholder="Ask me anything…"
-              rows={1}
-              style={{ height: `${inputHeight}px`, minHeight: '48px', maxHeight: '120px' }}
-              className="w-full bg-white dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 pr-12 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-cyan-500/50 dark:focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/15 resize-none transition-all duration-200 font-sans"
-            />
-            <button
-              type="submit"
-              disabled={isLoading || !input.trim()}
-              aria-label="Send message"
-              className="absolute right-2.5 bottom-2.5 w-8 h-8 flex items-center justify-center rounded-lg bg-cyan-600 dark:bg-cyan-400 text-white dark:text-[#050505] disabled:opacity-25 disabled:cursor-not-allowed hover:bg-cyan-500 dark:hover:bg-cyan-300 transition-all duration-200 active:scale-[0.93] flex-shrink-0"
+          <FadeIn delay={0.3} className="mt-12 text-center">
+            <a
+              href="mailto:dizonahmedabdullah@gmail.com?subject=Let%27s%20Work%20Together"
+              className="group relative inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-red-600 to-red-900 rounded-2xl font-bold text-lg text-white overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_32px_rgba(220,38,38,0.35)]"
             >
-              <ArrowUp size={15} weight="bold" />
-            </button>
-          </form>
+              <span className="absolute inset-0 bg-white/10 -translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-2xl" />
+              <span className="relative">Send Me an Email</span>
+              <ArrowRight size={18} weight="bold" className="relative" />
+            </a>
+          </FadeIn>
         </div>
-      </div>
-    </main>
+      </section>
+
+      {/* ── Footer ─────────────────────────────────────────────────────────── */}
+      <footer className="border-t border-zinc-900 py-8">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm font-black text-white tracking-tight">Ahmed.</p>
+          <div className="flex items-center gap-6">
+            {NAV_LINKS.map(link => (
+              <button
+                key={link}
+                onClick={() => scrollTo(link)}
+                className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+              >
+                {link}
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-zinc-700">© 2025 Ahmed Abdullah Dizon</p>
+        </div>
+      </footer>
+
+      {/* ── Floating chat widget ───────────────────────────────────────────── */}
+      <ChatWidget />
+    </div>
   )
 }

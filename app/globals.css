@@ -19,7 +19,7 @@ html.dark {
 
 body {
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* Smooth theme transitions (only triggered via JS class) */
@@ -101,4 +101,17 @@ html:not(.dark) .chat-scroll::-webkit-scrollbar-thumb {
 /* ── Textarea auto-resize ──────────────────────────────────────────────────── */
 textarea {
   field-sizing: content;
+}
+
+/* ── Mobile safe-area input bar ────────────────────────────────────────────── */
+.input-bar-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+/* ── Hide scrollbar on chip rows ───────────────────────────────────────────── */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
