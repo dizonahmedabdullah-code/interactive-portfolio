@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
+import { useState, useEffect } from 'react'
+import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
+import { X } from '@phosphor-icons/react'
 
 const PROJECTS = [
   {
@@ -113,138 +113,156 @@ const PROJECTS = [
   },
 ]
 
-const slideVariants = {
-  enter: (dir: number) => ({ x: dir > 0 ? '60%' : '-60%', opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({ x: dir > 0 ? '-60%' : '60%', opacity: 0 }),
-}
+const SPRING = { type: 'spring' as const, stiffness: 120, damping: 22, mass: 1 }
 
 export default function ProjectCarousel() {
-  const [current, setCurrent] = useState(0)
-  const [direction, setDirection] = useState(1)
+  const [selectedId, setSelectedId] = useState<number | null>(null)
+  const selected = PROJECTS.find(p => p.id === selectedId) ?? null
 
-  const go = (idx: number) => {
-    setDirection(idx > current ? 1 : -1)
-    setCurrent(idx)
-  }
-
-  const prev = () => { if (current > 0) go(current - 1) }
-  const next = () => { if (current < PROJECTS.length - 1) go(current + 1) }
-
-  const proj = PROJECTS[current]
+  // Lock body scroll while modal is open
+  useEffect(() => {
+    document.body.style.overflow = selectedId !== null ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [selectedId])
 
   return (
-    <div>
-      {/* Slide */}
-      <div className="relative overflow-hidden rounded-2xl border border-zinc-800/60 bg-zinc-900/30">
-        <AnimatePresence custom={direction} mode="wait">
+    <LayoutGroup>
+      {/* ── Tile grid ──────────────────────────────────────────────────────── */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {PROJECTS.map(proj => (
           <motion.div
             key={proj.id}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ type: 'spring', stiffness: 280, damping: 28 }}
+            layoutId={`proj-${proj.id}`}
+            onClick={() => setSelectedId(proj.id)}
+            className="cursor-pointer rounded-xl overflow-hidden border border-zinc-800/60 bg-zinc-900/40 hover:border-green-500/30 transition-colors"
+            animate={{ opacity: selectedId === proj.id ? 0 : 1 }}
+            transition={{ duration: 0.15 }}
+            whileHover={{ scale: 1.015 }}
+            whileTap={{ scale: 0.985 }}
+            style={{ willChange: 'transform' }}
           >
-            {/* Full image — no crop, natural aspect ratio */}
+            {/* Full screenshot — no crop */}
             <img
               src={proj.image}
               alt={proj.title}
               className="w-full h-auto block"
+              draggable={false}
             />
-
-            {/* Content below image */}
-            <div className="p-6 lg:p-8 border-t border-zinc-800/50">
-              {/* Platform badge + title */}
-              <div className="mb-6">
-                <span className={`inline-flex items-center px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase rounded-full mb-3 ${proj.platformClass}`}>
-                  {proj.platform}
-                </span>
-                <h3 className="text-xl lg:text-2xl font-black text-white leading-tight">{proj.title}</h3>
-              </div>
-
-              {/* 3-col grid on desktop, stack on mobile */}
-              <div className="grid md:grid-cols-3 gap-6">
-                {/* Problem */}
-                <div>
-                  <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2">The Problem</p>
-                  <p className="text-sm text-zinc-500 leading-relaxed">{proj.problem}</p>
-                </div>
-
-                {/* What it does */}
-                <div>
-                  <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2.5">What It Does</p>
-                  <ul className="space-y-1.5">
-                    {proj.whatItDoes.map((item, j) => (
-                      <li key={j} className="flex gap-2 items-start text-sm text-zinc-400">
-                        <span className="text-green-500 flex-shrink-0 mt-[3px] text-[10px]">▸</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Result + tools */}
-                <div className="space-y-4">
-                  <div className="p-4 rounded-xl border" style={{ background: 'rgba(34,197,94,0.06)', borderColor: 'rgba(34,197,94,0.15)' }}>
-                    <p className="text-[10px] font-bold text-green-500 uppercase tracking-[0.18em] mb-1.5">The Result</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{proj.result}</p>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {proj.tools.map(t => (
-                      <span key={t} className="px-2.5 py-1 text-[10px] font-medium text-zinc-400 bg-zinc-800/80 rounded-full">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+            {/* Minimal info strip */}
+            <div className="px-3 py-2.5 border-t border-zinc-800/50">
+              <span className={`inline-block px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase rounded-full mb-1.5 ${proj.platformClass}`}>
+                {proj.platform}
+              </span>
+              <p className="text-xs font-bold text-zinc-200 leading-snug line-clamp-2">{proj.title}</p>
             </div>
           </motion.div>
-        </AnimatePresence>
+        ))}
       </div>
 
-      {/* Navigation row */}
-      <div className="flex items-center justify-between mt-5">
-        <button
-          onClick={prev}
-          disabled={current === 0}
-          className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-zinc-400 border border-zinc-800 rounded-xl hover:border-green-500/40 hover:text-green-400 disabled:opacity-25 disabled:cursor-not-allowed transition-all active:scale-95"
-        >
-          <ArrowLeft size={15} weight="bold" />
-          Previous
-        </button>
+      {/* ── Backdrop ────────────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-40 bg-black/70 backdrop-blur-md"
+            onClick={() => setSelectedId(null)}
+          />
+        )}
+      </AnimatePresence>
 
-        {/* Dot indicators */}
-        <div className="flex items-center gap-2">
-          {PROJECTS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => go(i)}
-              className={`rounded-full transition-all duration-300 ${
-                i === current
-                  ? 'w-6 h-2 bg-green-500'
-                  : 'w-2 h-2 bg-zinc-700 hover:bg-zinc-500'
-              }`}
-            />
-          ))}
-        </div>
+      {/* ── Expanded modal ──────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {selected && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10 pointer-events-none">
+            <motion.div
+              layoutId={`proj-${selected.id}`}
+              className="relative w-full max-w-3xl max-h-[88dvh] overflow-y-auto rounded-2xl border border-zinc-700/60 bg-zinc-950 shadow-[0_32px_80px_rgba(0,0,0,0.8)] pointer-events-auto"
+              transition={SPRING}
+            >
+              {/* Close button */}
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ delay: 0.25, duration: 0.2 }}
+                onClick={() => setSelectedId(null)}
+                className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-zinc-900/90 border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all"
+              >
+                <X size={14} />
+              </motion.button>
 
-        <button
-          onClick={next}
-          disabled={current === PROJECTS.length - 1}
-          className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-zinc-400 border border-zinc-800 rounded-xl hover:border-green-500/40 hover:text-green-400 disabled:opacity-25 disabled:cursor-not-allowed transition-all active:scale-95"
-        >
-          Next
-          <ArrowRight size={15} weight="bold" />
-        </button>
-      </div>
+              {/* Full-width screenshot */}
+              <img
+                src={selected.image}
+                alt={selected.title}
+                className="w-full h-auto block rounded-t-2xl"
+                draggable={false}
+              />
 
-      {/* Counter */}
-      <p className="text-center text-xs text-zinc-700 mt-3">
-        {current + 1} / {PROJECTS.length}
-      </p>
-    </div>
+              {/* Detail content fades in after the card finishes expanding */}
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 6 }}
+                transition={{ delay: 0.28, duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                className="p-6 lg:p-8"
+              >
+                {/* Platform + title */}
+                <div className="mb-6">
+                  <span className={`inline-block px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase rounded-full mb-3 ${selected.platformClass}`}>
+                    {selected.platform}
+                  </span>
+                  <h3 className="text-xl lg:text-2xl font-black text-white leading-tight">{selected.title}</h3>
+                </div>
+
+                {/* 3-col grid */}
+                <div className="grid md:grid-cols-3 gap-6">
+                  {/* Problem */}
+                  <div>
+                    <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2">The Problem</p>
+                    <p className="text-sm text-zinc-500 leading-relaxed">{selected.problem}</p>
+                  </div>
+
+                  {/* What it does */}
+                  <div>
+                    <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2.5">What It Does</p>
+                    <ul className="space-y-1.5">
+                      {selected.whatItDoes.map((item, j) => (
+                        <li key={j} className="flex gap-2 items-start text-sm text-zinc-400">
+                          <span className="text-green-500 flex-shrink-0 mt-[3px] text-[10px]">▸</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Result + tools */}
+                  <div className="space-y-4">
+                    <div
+                      className="p-4 rounded-xl border"
+                      style={{ background: 'rgba(34,197,94,0.06)', borderColor: 'rgba(34,197,94,0.15)' }}
+                    >
+                      <p className="text-[10px] font-bold text-green-500 uppercase tracking-[0.18em] mb-1.5">The Result</p>
+                      <p className="text-sm text-zinc-300 leading-relaxed">{selected.result}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {selected.tools.map(t => (
+                        <span key={t} className="px-2.5 py-1 text-[10px] font-medium text-zinc-400 bg-zinc-800/80 rounded-full">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </LayoutGroup>
   )
 }
