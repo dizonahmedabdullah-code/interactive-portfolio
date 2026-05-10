@@ -19,7 +19,6 @@ import {
   X,
   MapPin,
   Phone,
-  CheckCircle,
   Sun,
   Moon,
 } from '@phosphor-icons/react'
@@ -120,22 +119,110 @@ const EXPERIENCES = [
 
 const PROJECTS = [
   {
-    title: 'GHL Lead Nurture Automation',
-    tags: ['GoHighLevel', 'SMS Automation', 'Email Sequences'],
-    description:
-      'A fitness client was manually following up with hundreds of leads each week — completely unsustainable. I built a full GoHighLevel pipeline with automated SMS sequences, email follow-ups, and appointment booking.',
-    results: ['Zero manual follow-up required', 'Consistent, timely lead nurturing', 'Measurably better booking rates'],
-    accent: 'from-green-600/10 to-transparent',
-    border: 'border-green-500/20',
+    id: 1,
+    platform: 'Make.com',
+    platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
+    image: '/make-project-1.jpg',
+    title: 'AI-Powered Email Attachment Organizer',
+    problem:
+      'Managing email attachments manually is one of the most time-consuming admin tasks in any business. Files arrive with generic names, get buried in inboxes, and never make it into the right folder.',
+    whatItDoes: [
+      'Watches Gmail inbox for incoming emails with attachments',
+      'Extracts and lists all attachments automatically',
+      'Uses AI to analyze each file and generate a meaningful, organized file name',
+      'Uploads the renamed file directly to Google Drive',
+      'Logs each attachment with metadata into a Google Sheets record',
+      'Sends an automated email notification confirming the task is done',
+    ],
+    result:
+      'Zero manual file sorting. Every attachment arrives organized, properly named, backed up to Drive, and logged — with no human involved in the process.',
+    tools: ['Make (Integromat)', 'Gmail', 'Google Drive', 'Google Sheets', 'AI Module'],
   },
   {
-    title: 'Zapier CRM Integration',
-    tags: ['Zapier', 'Facebook Lead Ads', 'CRM', 'Slack'],
-    description:
-      'A sales team had leads from Facebook Lead Ads with no reliable routing. Data was scattered, entry was manual, leads were slipping. I connected the full pipeline: Lead Ads → CRM → Slack → Google Sheets in a single Zap.',
-    results: ['Instant lead alerts to Slack', 'Zero manual data entry', 'Full pipeline visibility in Sheets'],
-    accent: 'from-zinc-800/40 to-transparent',
-    border: 'border-zinc-700/40',
+    id: 2,
+    platform: 'Make.com',
+    platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
+    image: '/make-project-2.jpg',
+    title: 'Asana → Xero Finance Data Sync',
+    problem:
+      'Finance and project teams work in separate tools. Accountants live in Xero while project managers work in Asana, and syncing transaction data required manual exporting, formatting, and uploading every single time.',
+    whatItDoes: [
+      'Triggers automatically when an Asana task is marked as complete',
+      'Pulls account transaction data from Xero via API',
+      'Routes data through two parallel paths simultaneously using a Router',
+      'Logs individual transactions row by row into Google Sheets',
+      'Aggregates all data into a formatted CSV file',
+      'Uploads the CSV as an attachment directly to the original Asana task',
+      'Clears the Google Sheets range to reset for the next cycle',
+    ],
+    result:
+      'Finance data reaches the project team automatically the moment a task is completed. No manual exports, no file transfers, no back-and-forth between departments.',
+    tools: ['Make (Integromat)', 'Asana', 'Xero', 'Google Sheets'],
+  },
+  {
+    id: 3,
+    platform: 'n8n',
+    platformClass: 'bg-orange-500/15 text-orange-400 border border-orange-500/25',
+    image: '/n8n-project-1.jpg',
+    title: 'AI Webhook Request Handler with Gemini',
+    problem:
+      'Businesses receive repetitive questions through web forms or external apps that require intelligent, context-aware responses. Answering manually every time is slow, inconsistent, and impossible to scale.',
+    whatItDoes: [
+      'Receives incoming requests via Webhook from any connected app or form',
+      'Routes requests through an If condition to filter valid from invalid inputs',
+      'Retrieves the relevant document or knowledge base entry for valid requests',
+      'Passes the document and request to a Google Gemini AI Agent with Simple Memory',
+      'AI Agent generates a context-aware, intelligent response',
+      'Sends the response back via HTTP Request to the originating system',
+    ],
+    result:
+      'An always-on AI assistant that handles incoming requests intelligently, retrieves the right information, and responds automatically — without any human involvement.',
+    tools: ['n8n', 'Webhook', 'Google Gemini', 'AI Agent', 'HTTP Request'],
+  },
+  {
+    id: 4,
+    platform: 'n8n',
+    platformClass: 'bg-orange-500/15 text-orange-400 border border-orange-500/25',
+    image: '/n8n-project-2.jpg',
+    title: 'AI Job Application Pipeline via Slack',
+    problem:
+      'Job hunting is repetitive and time-consuming. Searching for listings, reading each posting, tailoring a resume, and drafting application emails manually takes hours that most professionals simply do not have.',
+    whatItDoes: [
+      'Triggered by a Slack message with a job search query',
+      'Validates the query before processing begins',
+      'Scrapes live job listings from the web via HTTP request',
+      'Loops through each job result individually',
+      "Retrieves the user's existing resume from Google Drive",
+      'Uses OpenRouter AI to rewrite and optimize the resume for each specific role',
+      'Copies and updates the tailored resume in Google Docs',
+      'Auto-creates a Gmail draft ready for sending',
+      'Sends a completion summary back to the user in Slack',
+    ],
+    result:
+      'A complete job application pipeline triggered by a single Slack message. The system finds jobs, tailors the resume, and prepares the email draft — automatically, with no manual work required.',
+    tools: ['n8n', 'Slack', 'HTTP Request', 'Google Drive', 'Google Docs', 'OpenRouter AI', 'Gmail'],
+  },
+  {
+    id: 5,
+    platform: 'n8n',
+    platformClass: 'bg-orange-500/15 text-orange-400 border border-orange-500/25',
+    image: '/n8n-project-3.jpg',
+    title: 'Automated Short-Form Video Creator & Publisher',
+    problem:
+      'Creating and publishing short-form video content consistently is one of the biggest challenges for creators and brands. Writing scripts, generating videos, and uploading them manually to multiple platforms is a daily time drain that prevents real scale.',
+    whatItDoes: [
+      'Runs automatically on a set schedule — no manual trigger needed',
+      'Uses Google Gemini AI to generate a creative video prompt',
+      'Authenticates with the video generation API using secure JWT token exchange',
+      'Sends the prompt to generate a short-form video via API',
+      'Polls the API until the video is fully rendered',
+      'Validates the output and filters errors or unusable results',
+      'Converts the Base64 video string into a proper video file',
+      'Uploads the finished video directly to YouTube',
+    ],
+    result:
+      'A fully automated content machine that generates, renders, and publishes short-form videos on a schedule. No scripting, no manual uploading, no repetitive work.',
+    tools: ['n8n', 'Google Gemini', 'JWT', 'Video Generation API', 'HTTP Request', 'YouTube'],
   },
 ]
 
@@ -532,36 +619,78 @@ export default function Home() {
           <FadeIn>
             <SectionLabel>Case Studies</SectionLabel>
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
-              Featured{' '}
-              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+              Automation{' '}
+              <span className="bg-gradient-to-r from-green-500 to-green-800 bg-clip-text text-transparent">
                 Projects
               </span>
             </h2>
             <p className="text-zinc-500 max-w-[52ch] mb-14">
-              Real automations built for real businesses. Each one replaced hours of manual work with a system that runs itself.
+              Real workflows built on Make.com and n8n. Each one replaced hours of manual work with a system that runs itself.
             </p>
           </FadeIn>
 
-          <div className="grid lg:grid-cols-2 gap-6">
+          <div className="space-y-8">
             {PROJECTS.map((proj, i) => (
-              <FadeIn key={proj.title} delay={i * 0.1}>
-                <div className={`h-full p-8 bg-gradient-to-br ${proj.accent} border ${proj.border} rounded-2xl flex flex-col`}>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {proj.tags.map(t => (
-                      <span key={t} className="px-2.5 py-1 text-[10px] font-semibold text-zinc-400 bg-zinc-800/70 rounded-full">
-                        {t}
-                      </span>
-                    ))}
+              <FadeIn key={proj.id}>
+                <div className="grid lg:grid-cols-5 rounded-2xl overflow-hidden border border-zinc-800/60 bg-zinc-900/30 hover:border-zinc-700/60 transition-colors">
+                  {/* Screenshot */}
+                  <div className={`lg:col-span-2 relative min-h-[220px] lg:min-h-0 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+                    <img
+                      src={proj.image}
+                      alt={proj.title}
+                      className="absolute inset-0 w-full h-full object-cover object-top"
+                    />
+                    {/* Fade edge toward content */}
+                    <div className={`absolute inset-0 ${i % 2 === 1
+                      ? 'bg-gradient-to-l from-zinc-900/30 to-transparent'
+                      : 'bg-gradient-to-r from-transparent to-zinc-900/30'} hidden lg:block`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 to-transparent lg:hidden" />
                   </div>
-                  <h3 className="text-2xl font-black text-white mb-4 leading-tight">{proj.title}</h3>
-                  <p className="text-zinc-400 leading-relaxed mb-6 flex-1">{proj.description}</p>
-                  <div className="space-y-2">
-                    {proj.results.map(r => (
-                      <div key={r} className="flex items-center gap-2.5 text-sm text-zinc-300">
-                        <CheckCircle size={15} className="text-green-400 flex-shrink-0" weight="fill" />
-                        {r}
-                      </div>
-                    ))}
+
+                  {/* Content */}
+                  <div className={`lg:col-span-3 p-6 lg:p-8 flex flex-col gap-5 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    {/* Platform + title */}
+                    <div>
+                      <span className={`inline-flex items-center px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase rounded-full mb-3 ${proj.platformClass}`}>
+                        {proj.platform}
+                      </span>
+                      <h3 className="text-xl lg:text-2xl font-black text-white leading-tight">{proj.title}</h3>
+                    </div>
+
+                    {/* Problem */}
+                    <div>
+                      <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2">The Problem</p>
+                      <p className="text-sm text-zinc-500 leading-relaxed">{proj.problem}</p>
+                    </div>
+
+                    {/* What it does */}
+                    <div>
+                      <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2.5">What It Does</p>
+                      <ul className="space-y-1.5">
+                        {proj.whatItDoes.map((item, j) => (
+                          <li key={j} className="flex gap-2.5 items-start text-sm text-zinc-400">
+                            <span className="text-green-500 flex-shrink-0 mt-[3px] text-[10px]">▸</span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Result */}
+                    <div className="p-4 bg-green-500/8 border border-green-500/15 rounded-xl">
+                      <p className="text-[10px] font-bold text-green-500 uppercase tracking-[0.18em] mb-1.5">The Result</p>
+                      <p className="text-sm text-zinc-300 leading-relaxed">{proj.result}</p>
+                    </div>
+
+                    {/* Tools */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {proj.tools.map(t => (
+                        <span key={t} className="px-2.5 py-1 text-[10px] font-medium text-zinc-400 bg-zinc-800/80 rounded-full">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </FadeIn>
