@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
 import { X } from '@phosphor-icons/react'
 
@@ -113,6 +113,48 @@ const PROJECTS = [
   },
 ]
 
+const ZOOM = 2.5
+const LENS = 152
+
+function MagnifyImage({ src, alt }: { src: string; alt: string }) {
+  const [pos, setPos] = useState<{ x: number; y: number } | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+  }
+
+  const w = containerRef.current?.offsetWidth ?? 0
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative select-none cursor-crosshair"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setPos(null)}
+    >
+      <img src={src} alt={alt} className="w-full h-auto block rounded-t-2xl" draggable={false} />
+
+      {pos && w > 0 && (
+        <div
+          className="absolute pointer-events-none rounded-full shadow-[0_0_0_2px_rgba(255,255,255,0.18),0_8px_32px_rgba(0,0,0,0.6)]"
+          style={{
+            width: LENS,
+            height: LENS,
+            left: pos.x - LENS / 2,
+            top: pos.y - LENS / 2,
+            backgroundImage: `url(${src})`,
+            backgroundSize: `${w * ZOOM}px auto`,
+            backgroundPosition: `${-(pos.x * ZOOM - LENS / 2)}px ${-(pos.y * ZOOM - LENS / 2)}px`,
+            backgroundRepeat: 'no-repeat',
+          }}
+        />
+      )}
+    </div>
+  )
+}
+
 const SPRING = { type: 'spring' as const, stiffness: 120, damping: 22, mass: 1 }
 
 export default function ProjectCarousel() {
@@ -195,13 +237,8 @@ export default function ProjectCarousel() {
                 <X size={14} />
               </motion.button>
 
-              {/* Full-width screenshot */}
-              <img
-                src={selected.image}
-                alt={selected.title}
-                className="w-full h-auto block rounded-t-2xl"
-                draggable={false}
-              />
+              {/* Full-width screenshot — hover to magnify */}
+              <MagnifyImage src={selected.image} alt={selected.title} />
 
               {/* Detail content fades in after the card finishes expanding */}
               <motion.div
