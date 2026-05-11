@@ -26,7 +26,7 @@ import {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const NAV_LINKS = ['About', 'Skills', 'Experience', 'Projects', 'Contact']
+const NAV_LINKS = ['About', 'Skills', 'Projects', 'Experience', 'Contact']
 
 const SKILLS = [
   {
@@ -454,6 +454,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Projects ───────────────────────────────────────────────────────── */}
+      <section id="projects" className="py-24 lg:py-32 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <FadeIn>
+            <SectionLabel>Case Studies</SectionLabel>
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
+              Automation{' '}
+              <span className="bg-gradient-to-r from-green-500 to-green-800 bg-clip-text text-transparent">
+                Projects
+              </span>
+            </h2>
+            <p className="text-zinc-500 max-w-[52ch] mb-14">
+              Real workflows built on Make.com and n8n. Each one replaced hours of manual work with a system that runs itself.
+            </p>
+          </FadeIn>
+
+          <FadeIn>
+            <ProjectCarousel />
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ── Experience ─────────────────────────────────────────────────────── */}
       <section id="experience" className="py-24 lg:py-32 border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6">
@@ -502,28 +524,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── Projects ───────────────────────────────────────────────────────── */}
-      <section id="projects" className="py-24 lg:py-32 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6">
-          <FadeIn>
-            <SectionLabel>Case Studies</SectionLabel>
-            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
-              Automation{' '}
-              <span className="bg-gradient-to-r from-green-500 to-green-800 bg-clip-text text-transparent">
-                Projects
-              </span>
-            </h2>
-            <p className="text-zinc-500 max-w-[52ch] mb-14">
-              Real workflows built on Make.com and n8n. Each one replaced hours of manual work with a system that runs itself.
-            </p>
-          </FadeIn>
-
-          <FadeIn>
-            <ProjectCarousel />
-          </FadeIn>
         </div>
       </section>
 

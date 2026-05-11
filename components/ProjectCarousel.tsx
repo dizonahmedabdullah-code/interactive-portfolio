@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { LayoutGroup, motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { X } from '@phosphor-icons/react'
 
 const PROJECTS = [
@@ -113,6 +113,7 @@ const PROJECTS = [
   },
 ]
 
+// ── Magnifying glass (modal image only) ───────────────────────────────────────
 const ZOOM = 2.5
 const LENS = 152
 
@@ -135,7 +136,6 @@ function MagnifyImage({ src, alt }: { src: string; alt: string }) {
       onMouseLeave={() => setPos(null)}
     >
       <img src={src} alt={alt} className="w-full h-auto block rounded-t-2xl" draggable={false} />
-
       {pos && w > 0 && (
         <div
           className="absolute pointer-events-none rounded-full shadow-[0_0_0_2px_rgba(255,255,255,0.18),0_8px_32px_rgba(0,0,0,0.6)]"
@@ -155,16 +155,76 @@ function MagnifyImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
+// ── 3-D tilt tile (grid only) ─────────────────────────────────────────────────
+type Project = (typeof PROJECTS)[0]
+
+interface TiltTileProps {
+  proj: Project
+  hidden: boolean
+  onSelect: (id: number) => void
+}
+
+function TiltTile({ proj, hidden, onSelect }: TiltTileProps) {
+  const rawX = useMotionValue(0)
+  const rawY = useMotionValue(0)
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [14, -14]), { stiffness: 210, damping: 22 })
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-14, 14]), { stiffness: 210, damping: 22 })
+
+  const onMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    rawX.set((e.clientX - r.left - r.width / 2) / (r.width / 2))
+    rawY.set((e.clientY - r.top - r.height / 2) / (r.height / 2))
+  }, [rawX, rawY])
+
+  const onLeave = useCallback(() => { rawX.set(0); rawY.set(0) }, [rawX, rawY])
+
+  return (
+    <div style={{ perspective: 700 }} onMouseMove={onMove} onMouseLeave={onLeave}>
+      <motion.div
+        layoutId={`proj-${proj.id}`}
+        onClick={() => !hidden && onSelect(proj.id)}
+        className="cursor-pointer rounded-xl overflow-hidden border border-zinc-800/60 bg-zinc-900/40 hover:border-green-500/30 transition-colors"
+        animate={{ opacity: hidden ? 0 : 1 }}
+        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+        transition={{ duration: 0.15 }}
+        whileTap={{ scale: 0.985 }}
+      >
+        <img src={proj.image} alt={proj.title} className="w-full h-auto block" draggable={false} />
+        <div className="px-3 py-2.5 border-t border-zinc-800/50">
+          <span className={`inline-block px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase rounded-full mb-1.5 ${proj.platformClass}`}>
+            {proj.platform}
+          </span>
+          <p className="text-xs font-bold text-zinc-200 leading-snug line-clamp-2">{proj.title}</p>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+// ── Spring config ─────────────────────────────────────────────────────────────
 const SPRING = { type: 'spring' as const, stiffness: 120, damping: 22, mass: 1 }
 
+// ── Main component ────────────────────────────────────────────────────────────
 export default function ProjectCarousel() {
   const [selectedId, setSelectedId] = useState<number | null>(null)
+  const [hiddenId, setHiddenId] = useState<number | null>(null)
   const selected = PROJECTS.find(p => p.id === selectedId) ?? null
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Lock body scroll while modal is open
   useEffect(() => {
     document.body.style.overflow = selectedId !== null ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
+  }, [selectedId])
+
+  useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current) }, [])
+
+  const handleClose = useCallback(() => {
+    const id = selectedId
+    setHiddenId(id)
+    setSelectedId(null)
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    // Keep tile invisible until the FLIP pull-out animation settles (~800 ms)
+    closeTimer.current = setTimeout(() => setHiddenId(null), 820)
   }, [selectedId])
 
   return (
@@ -172,32 +232,12 @@ export default function ProjectCarousel() {
       {/* ── Tile grid ──────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {PROJECTS.map(proj => (
-          <motion.div
+          <TiltTile
             key={proj.id}
-            layoutId={`proj-${proj.id}`}
-            onClick={() => setSelectedId(proj.id)}
-            className="cursor-pointer rounded-xl overflow-hidden border border-zinc-800/60 bg-zinc-900/40 hover:border-green-500/30 transition-colors"
-            animate={{ opacity: selectedId === proj.id ? 0 : 1 }}
-            transition={{ duration: 0.15 }}
-            whileHover={{ scale: 1.015 }}
-            whileTap={{ scale: 0.985 }}
-            style={{ willChange: 'transform' }}
-          >
-            {/* Full screenshot — no crop */}
-            <img
-              src={proj.image}
-              alt={proj.title}
-              className="w-full h-auto block"
-              draggable={false}
-            />
-            {/* Minimal info strip */}
-            <div className="px-3 py-2.5 border-t border-zinc-800/50">
-              <span className={`inline-block px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase rounded-full mb-1.5 ${proj.platformClass}`}>
-                {proj.platform}
-              </span>
-              <p className="text-xs font-bold text-zinc-200 leading-snug line-clamp-2">{proj.title}</p>
-            </div>
-          </motion.div>
+            proj={proj}
+            hidden={proj.id === selectedId || proj.id === hiddenId}
+            onSelect={setSelectedId}
+          />
         ))}
       </div>
 
@@ -211,7 +251,7 @@ export default function ProjectCarousel() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
             className="fixed inset-0 z-40 bg-black/70 backdrop-blur-md"
-            onClick={() => setSelectedId(null)}
+            onClick={handleClose}
           />
         )}
       </AnimatePresence>
@@ -219,10 +259,10 @@ export default function ProjectCarousel() {
       {/* ── Expanded modal ──────────────────────────────────────────────────── */}
       <AnimatePresence>
         {selected && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10 pointer-events-none">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 pointer-events-none">
             <motion.div
               layoutId={`proj-${selected.id}`}
-              className="relative w-full max-w-3xl max-h-[88dvh] overflow-y-auto rounded-2xl border border-zinc-700/60 bg-zinc-950 shadow-[0_32px_80px_rgba(0,0,0,0.8)] pointer-events-auto"
+              className="relative w-full max-w-[92vw] xl:max-w-6xl max-h-[90dvh] overflow-y-auto rounded-2xl border border-zinc-700/60 bg-zinc-950 shadow-[0_32px_80px_rgba(0,0,0,0.8)] pointer-events-auto"
               transition={SPRING}
             >
               {/* Close button */}
@@ -231,7 +271,7 @@ export default function ProjectCarousel() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ delay: 0.25, duration: 0.2 }}
-                onClick={() => setSelectedId(null)}
+                onClick={handleClose}
                 className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-zinc-900/90 border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all"
               >
                 <X size={14} />
