@@ -345,7 +345,7 @@ export default function Home() {
             <div className="relative">
               {/* Glow ring behind avatar */}
               <div className="absolute inset-[-20px] rounded-full bg-green-800/8 blur-3xl pointer-events-none" />
-              <Avatar state="idle" size={300} />
+              <Avatar state="idle" size={450} />
             </div>
           </motion.div>
         </div>
@@ -357,7 +357,7 @@ export default function Home() {
           <FadeIn>
             <div className="relative flex justify-center lg:justify-start">
               <div className="absolute inset-[-16px] rounded-full bg-green-700/6 blur-3xl pointer-events-none" />
-              <Avatar state="idle" size={280} />
+              <Avatar state="idle" size={420} />
             </div>
           </FadeIn>
 
