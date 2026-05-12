@@ -7,6 +7,28 @@ import { X } from '@phosphor-icons/react'
 const PROJECTS = [
   {
     id: 1,
+    platform: 'Zapier',
+    platformClass: 'bg-orange-600/15 text-orange-300 border border-orange-600/25',
+    image: '/zapier-project-1.jpg',
+    title: 'AI Content Repurposing: Audio to Blog Posts and Social Media',
+    problem:
+      'Creating content across multiple platforms from a single piece of media is time-consuming. Most creators and businesses record audio or video but then have to manually transcribe it, write blog posts, craft social captions, and post everything one by one. The process takes hours and rarely happens consistently.',
+    whatItDoes: [
+      'Triggers automatically when a new file is added to a Google Drive folder',
+      'Filters the file using a condition check before processing',
+      'Uses AI to generate a full transcript from the audio or video file',
+      'Passes the transcript to a second AI step that creates two full blog posts',
+      'Loops through each blog post individually using Looping by Zapier',
+      'Splits into two paths based on a keyword condition in the title or content',
+      'If the condition is met, publishes the post to Facebook Pages and shares it on LinkedIn',
+      'If the condition is not met, the content is held and not published',
+    ],
+    result:
+      'One file upload triggers a complete content repurposing pipeline. Two blog posts created, reviewed by condition logic, and published to social media automatically with zero manual writing, formatting, or posting involved.',
+    tools: ['Zapier', 'Google Drive', 'AI by Zapier', 'Looping by Zapier', 'Paths by Zapier', 'Facebook Pages', 'LinkedIn'],
+  },
+  {
+    id: 2,
     platform: 'Make.com',
     platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
     image: '/make-project-1.jpg',
@@ -26,7 +48,7 @@ const PROJECTS = [
     tools: ['Make (Integromat)', 'Gmail', 'Google Drive', 'Google Sheets', 'AI Module'],
   },
   {
-    id: 2,
+    id: 3,
     platform: 'Make.com',
     platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
     image: '/make-project-2.jpg',
@@ -47,9 +69,9 @@ const PROJECTS = [
     tools: ['Make (Integromat)', 'Asana', 'Xero', 'Google Sheets'],
   },
   {
-    id: 3,
+    id: 4,
     platform: 'n8n',
-    platformClass: 'bg-orange-500/15 text-orange-400 border border-orange-500/25',
+    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
     image: '/n8n-project-1.jpg',
     title: 'AI Webhook Request Handler with Gemini',
     problem:
@@ -67,9 +89,9 @@ const PROJECTS = [
     tools: ['n8n', 'Webhook', 'Google Gemini', 'AI Agent', 'HTTP Request'],
   },
   {
-    id: 4,
+    id: 5,
     platform: 'n8n',
-    platformClass: 'bg-orange-500/15 text-orange-400 border border-orange-500/25',
+    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
     image: '/n8n-project-2.jpg',
     title: 'AI Job Application Pipeline via Slack',
     problem:
@@ -90,9 +112,9 @@ const PROJECTS = [
     tools: ['n8n', 'Slack', 'HTTP Request', 'Google Drive', 'Google Docs', 'OpenRouter AI', 'Gmail'],
   },
   {
-    id: 5,
+    id: 6,
     platform: 'n8n',
-    platformClass: 'bg-orange-500/15 text-orange-400 border border-orange-500/25',
+    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
     image: '/n8n-project-3.jpg',
     title: 'Automated Short-Form Video Creator & Publisher',
     problem:
@@ -111,6 +133,12 @@ const PROJECTS = [
       'A fully automated content machine that generates, renders, and publishes short-form videos on a schedule. No scripting, no manual uploading, no repetitive work.',
     tools: ['n8n', 'Google Gemini', 'JWT', 'Video Generation API', 'HTTP Request', 'YouTube'],
   },
+]
+
+const GROUPS: { platform: string; accentClass: string }[] = [
+  { platform: 'Zapier',   accentClass: 'text-orange-300 border-orange-600/30' },
+  { platform: 'Make.com', accentClass: 'text-violet-400 border-violet-500/30' },
+  { platform: 'n8n',      accentClass: 'text-amber-400  border-amber-500/30'  },
 ]
 
 // ── Magnifying glass (modal image only) ───────────────────────────────────────
@@ -155,7 +183,7 @@ function MagnifyImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
-// ── 3-D tilt tile (grid only) ─────────────────────────────────────────────────
+// ── 3-D tilt tile ─────────────────────────────────────────────────────────────
 type Project = (typeof PROJECTS)[0]
 
 interface TiltTileProps {
@@ -201,7 +229,6 @@ function TiltTile({ proj, hidden, onSelect }: TiltTileProps) {
   )
 }
 
-// ── Spring config ─────────────────────────────────────────────────────────────
 const SPRING = { type: 'spring' as const, stiffness: 120, damping: 22, mass: 1 }
 
 // ── Main component ────────────────────────────────────────────────────────────
@@ -223,22 +250,40 @@ export default function ProjectCarousel() {
     setHiddenId(id)
     setSelectedId(null)
     if (closeTimer.current) clearTimeout(closeTimer.current)
-    // Keep tile invisible until the FLIP pull-out animation settles (~800 ms)
     closeTimer.current = setTimeout(() => setHiddenId(null), 820)
   }, [selectedId])
 
   return (
     <LayoutGroup>
-      {/* ── Tile grid ──────────────────────────────────────────────────────── */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {PROJECTS.map(proj => (
-          <TiltTile
-            key={proj.id}
-            proj={proj}
-            hidden={proj.id === selectedId || proj.id === hiddenId}
-            onSelect={setSelectedId}
-          />
-        ))}
+      {/* ── Grouped tile grid ──────────────────────────────────────────────── */}
+      <div className="space-y-10">
+        {GROUPS.map(group => {
+          const tiles = PROJECTS.filter(p => p.platform === group.platform)
+          return (
+            <div key={group.platform}>
+              {/* Sub-category label */}
+              <div className={`flex items-center gap-3 mb-4 pb-3 border-b ${group.accentClass}`}>
+                <span className={`text-[11px] font-bold tracking-[0.2em] uppercase ${group.accentClass.split(' ')[0]}`}>
+                  {group.platform}
+                </span>
+                <span className="text-[10px] text-zinc-700 font-medium">
+                  {tiles.length} project{tiles.length !== 1 ? 's' : ''}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {tiles.map(proj => (
+                  <TiltTile
+                    key={proj.id}
+                    proj={proj}
+                    hidden={proj.id === selectedId || proj.id === hiddenId}
+                    onSelect={setSelectedId}
+                  />
+                ))}
+              </div>
+            </div>
+          )
+        })}
       </div>
 
       {/* ── Backdrop ────────────────────────────────────────────────────────── */}
@@ -280,7 +325,7 @@ export default function ProjectCarousel() {
               {/* Full-width screenshot — hover to magnify */}
               <MagnifyImage src={selected.image} alt={selected.title} />
 
-              {/* Detail content fades in after the card finishes expanding */}
+              {/* Detail content */}
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -298,13 +343,11 @@ export default function ProjectCarousel() {
 
                 {/* 3-col grid */}
                 <div className="grid md:grid-cols-3 gap-6">
-                  {/* Problem */}
                   <div>
                     <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2">The Problem</p>
                     <p className="text-sm text-zinc-500 leading-relaxed">{selected.problem}</p>
                   </div>
 
-                  {/* What it does */}
                   <div>
                     <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2.5">What It Does</p>
                     <ul className="space-y-1.5">
@@ -317,7 +360,6 @@ export default function ProjectCarousel() {
                     </ul>
                   </div>
 
-                  {/* Result + tools */}
                   <div className="space-y-4">
                     <div
                       className="p-4 rounded-xl border"
