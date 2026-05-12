@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import Avatar from '@/components/Avatar'
+import ProcessSteps from '@/components/ProcessSteps'
+import ToolsBanner from '@/components/ToolsBanner'
 import MouseEffect from '@/components/MouseEffect'
 import ChatWidget from '@/components/ChatWidget'
 import ProjectCarousel from '@/components/ProjectCarousel'
@@ -335,18 +337,14 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Right: Avatar */}
+          {/* Right: 4-step process */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="flex justify-center lg:justify-end"
           >
-            <div className="relative">
-              {/* Glow ring behind avatar */}
-              <div className="absolute inset-[-20px] rounded-full bg-green-800/8 blur-3xl pointer-events-none" />
-              <Avatar state="idle" size={450} />
-            </div>
+            <ProcessSteps />
           </motion.div>
         </div>
       </section>
@@ -453,6 +451,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── Tools Banner ───────────────────────────────────────────────────── */}
+      <div className="border-t border-zinc-900 pt-8 pb-6">
+        <p className="text-[10px] text-zinc-700 uppercase tracking-[0.22em] text-center mb-5">
+          Tools &amp; Platforms
+        </p>
+        <ToolsBanner />
+      </div>
 
       {/* ── Projects ───────────────────────────────────────────────────────── */}
       <section id="projects" className="py-24 lg:py-32 border-t border-zinc-900">
