@@ -114,6 +114,36 @@ textarea {
   to   { transform: translateX(-50%) }
 }
 
+/* ── Light mode overrides ──────────────────────────────────────────────────── */
+/* Text */
+html:not(.dark) .text-white    { color: #18181b !important; }
+html:not(.dark) .text-zinc-100 { color: #18181b !important; }
+html:not(.dark) .text-zinc-200 { color: #27272a !important; }
+html:not(.dark) .text-zinc-300 { color: #3f3f46 !important; }
+html:not(.dark) .text-zinc-400 { color: #52525b !important; }
+html:not(.dark) .text-zinc-500 { color: #71717a !important; }
+html:not(.dark) .text-zinc-600 { color: #71717a !important; }
+/* Backgrounds */
+html:not(.dark) .bg-zinc-950              { background-color: #ebebе6 !important; }
+html:not(.dark) .bg-zinc-900              { background-color: #e8e8e3 !important; }
+html:not(.dark) .bg-zinc-900\/40          { background-color: rgba(0,0,0,0.04) !important; }
+html:not(.dark) .bg-zinc-900\/50          { background-color: rgba(0,0,0,0.05) !important; }
+html:not(.dark) .bg-zinc-900\/60          { background-color: rgba(0,0,0,0.05) !important; }
+html:not(.dark) .bg-zinc-900\/80          { background-color: rgba(0,0,0,0.06) !important; }
+html:not(.dark) .bg-zinc-800\/80          { background-color: rgba(0,0,0,0.07) !important; }
+html:not(.dark) .bg-zinc-800              { background-color: rgba(0,0,0,0.09) !important; }
+html:not(.dark) .bg-\[\#0d0d0d\]         { background-color: #f0f0eb !important; }
+/* Borders */
+html:not(.dark) .border-zinc-900          { border-color: rgba(0,0,0,0.07) !important; }
+html:not(.dark) .border-zinc-800          { border-color: rgba(0,0,0,0.1)  !important; }
+html:not(.dark) .border-zinc-800\/60      { border-color: rgba(0,0,0,0.09) !important; }
+html:not(.dark) .border-zinc-800\/50      { border-color: rgba(0,0,0,0.08) !important; }
+html:not(.dark) .border-zinc-800\/70      { border-color: rgba(0,0,0,0.1)  !important; }
+html:not(.dark) .border-zinc-700          { border-color: rgba(0,0,0,0.12) !important; }
+html:not(.dark) .border-zinc-700\/60      { border-color: rgba(0,0,0,0.11) !important; }
+html:not(.dark) .border-white\/5          { border-color: rgba(0,0,0,0.05) !important; }
+html:not(.dark) .border-white\/10         { border-color: rgba(0,0,0,0.08) !important; }
+
 /* ── Hide scrollbar on chip rows ───────────────────────────────────────────── */
 .scrollbar-none {
   scrollbar-width: none;

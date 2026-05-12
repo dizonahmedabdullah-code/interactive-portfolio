@@ -153,6 +153,12 @@ export default function Home() {
   const glowRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Restore saved theme preference
+    const saved = localStorage.getItem('theme')
+    if (saved === 'light') {
+      setIsDark(false)
+      document.documentElement.classList.remove('dark')
+    }
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -163,6 +169,7 @@ export default function Home() {
     setIsDark(prev => {
       const next = !prev
       document.documentElement.classList.toggle('dark', next)
+      localStorage.setItem('theme', next ? 'dark' : 'light')
       return next
     })
     setTimeout(() => document.documentElement.classList.remove('theme-transitioning'), 300)
@@ -174,7 +181,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="bg-[#080808] text-zinc-100 overflow-x-hidden">
+    <div className={`${isDark ? 'bg-[#080808] text-zinc-100' : 'bg-[#f5f5f0] text-zinc-900'} overflow-x-hidden transition-colors`}>
       {/* Global mouse gradient overlay */}
       <div ref={glowRef} className="fixed inset-0 pointer-events-none" style={{ opacity: 0, transition: 'opacity 1.8s ease', zIndex: 0 }} />
       <MouseEffect glowRef={glowRef} isDark={isDark} />
@@ -182,7 +189,9 @@ export default function Home() {
       {/* ── Navbar ─────────────────────────────────────────────────────────── */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'border-b border-white/5 bg-[#080808]/85 backdrop-blur-xl' : 'bg-transparent'
+          scrolled
+            ? `border-b backdrop-blur-xl ${isDark ? 'border-white/5 bg-[#080808]/85' : 'border-black/6 bg-[#f5f5f0]/90'}`
+            : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
