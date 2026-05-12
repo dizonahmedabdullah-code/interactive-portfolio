@@ -10,14 +10,10 @@ interface AvatarProps {
   size?: number
 }
 
-const RING = 4
-
 const Avatar = memo(function Avatar({ state = 'idle', size = 200 }: AvatarProps) {
   const isThinking = state === 'thinking'
   const isTalking = state === 'talking'
-  const containerSize = size + RING * 2
 
-  // 3-D tilt — useMotionValue so no re-renders
   const rawX = useMotionValue(0)
   const rawY = useMotionValue(0)
 
@@ -43,8 +39,8 @@ const Avatar = memo(function Avatar({ state = 'idle', size = 200 }: AvatarProps)
     >
       <motion.div
         style={{
-          width: containerSize,
-          height: containerSize,
+          width: size,
+          height: size,
           position: 'relative',
           rotateX,
           rotateY,
@@ -57,39 +53,23 @@ const Avatar = memo(function Avatar({ state = 'idle', size = 200 }: AvatarProps)
             : { duration: 3.8, repeat: Infinity, ease: 'easeInOut' }
         }
       >
-        {/* Rotating rainbow ring */}
-        <motion.div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: '50%',
-            background:
-              'conic-gradient(from 0deg, #ef4444, #f97316, #eab308, #22c55e, #06b6d4, #6366f1, #ec4899, #ef4444)',
-          }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-        />
-
-        {/* Photo — inset by RING px so only the ring border shows */}
+        {/* Circular crop — yellow corners clipped, rainbow ring in image shows */}
         <div
           style={{
-            position: 'absolute',
-            top: RING,
-            left: RING,
-            right: RING,
-            bottom: RING,
+            width: size,
+            height: size,
             borderRadius: '50%',
             overflow: 'hidden',
           }}
         >
           <img
-            src="/professional-photo.png"
+            src="/new-avatar.png"
             alt="Ahmed Abdullah Dizon"
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              objectPosition: 'center top',
+              objectPosition: 'center center',
               display: 'block',
             }}
           />

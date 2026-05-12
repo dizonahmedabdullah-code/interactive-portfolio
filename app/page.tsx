@@ -199,7 +199,7 @@ export default function Home() {
             onClick={() => scrollTo('home')}
             className="text-xl font-black text-white tracking-tight hover:scale-105 transition-transform"
           >
-            Ahmed.
+            Automated by Med.
           </button>
 
           {/* Desktop links */}
@@ -626,7 +626,7 @@ export default function Home() {
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
       <footer className="border-t border-zinc-900 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm font-black text-white tracking-tight">Ahmed.</p>
+          <p className="text-sm font-black text-white tracking-tight">Automated by Med.</p>
           <div className="flex items-center gap-6">
             {NAV_LINKS.map(link => (
               <button
