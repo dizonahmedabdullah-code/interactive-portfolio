@@ -51,6 +51,30 @@ const PROJECTS = [
     id: 3,
     platform: 'Make.com',
     platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
+    image: '/make-project-3.jpg',
+    title: 'Automated Client Onboarding Across 5 Platforms',
+    problem:
+      'Onboarding a new client manually means logging their details, creating a folder, sending a welcome email, notifying the team, and setting up a project card — all done one by one across multiple tools. It is repetitive, easy to miss a step, and takes time away from actual client work.',
+    whatItDoes: [
+      'Watches Google Forms for new client submissions',
+      'Sleeps briefly to allow data to fully process before continuing',
+      'Searches the Client Sheet to check if the client already exists in the tracker',
+      'Routes through a Router based on whether the client is new or already in the system',
+      'If new: creates a dedicated Google Drive folder for the client',
+      'Adds the client as a new row in the database sheet',
+      'Routes through a second Router to trigger all follow-on actions',
+      'Sends a welcome email to the client via Gmail',
+      'Posts a notification to the team in Slack',
+      'Creates a Trello card to kick off the client project workflow',
+    ],
+    result:
+      'One form submission triggers the entire onboarding process across five platforms with zero manual work. No missed steps, no duplicate entries, no back and forth between tools.',
+    tools: ['Make (Integromat)', 'Google Forms', 'Google Sheets', 'Google Drive', 'Gmail', 'Slack', 'Trello'],
+  },
+  {
+    id: 4,
+    platform: 'Make.com',
+    platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
     image: '/make-project-2.jpg',
     title: 'Asana → Xero Finance Data Sync',
     problem:
@@ -69,7 +93,7 @@ const PROJECTS = [
     tools: ['Make (Integromat)', 'Asana', 'Xero', 'Google Sheets'],
   },
   {
-    id: 4,
+    id: 5,
     platform: 'n8n',
     platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
     image: '/n8n-project-1.jpg',
@@ -89,7 +113,7 @@ const PROJECTS = [
     tools: ['n8n', 'Webhook', 'Google Gemini', 'AI Agent', 'HTTP Request'],
   },
   {
-    id: 5,
+    id: 6,
     platform: 'n8n',
     platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
     image: '/n8n-project-2.jpg',
@@ -112,7 +136,7 @@ const PROJECTS = [
     tools: ['n8n', 'Slack', 'HTTP Request', 'Google Drive', 'Google Docs', 'OpenRouter AI', 'Gmail'],
   },
   {
-    id: 6,
+    id: 7,
     platform: 'n8n',
     platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
     image: '/n8n-project-3.jpg',
