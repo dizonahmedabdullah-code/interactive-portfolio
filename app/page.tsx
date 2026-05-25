@@ -24,6 +24,8 @@ import {
   Phone,
   Sun,
   Moon,
+  Globe,
+  CalendarCheckIcon,
 } from '@phosphor-icons/react'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -142,6 +144,114 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
       <span className="w-6 h-px bg-green-500" />
       {children}
     </p>
+  )
+}
+
+// ─── Contact form ─────────────────────────────────────────────────────────────
+function ContactForm() {
+  const [fields, setFields] = useState({ name: '', email: '', phone: '', message: '' })
+  const [sent, setSent] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const { name, email, phone, message } = fields
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`
+    )
+    window.location.href = `mailto:dizonahmedabdullah@gmail.com?subject=Inquiry from ${encodeURIComponent(name)}&body=${body}`
+    setSent(true)
+  }
+
+  const inputClass =
+    'w-full bg-zinc-900/60 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 transition-colors'
+
+  return (
+    <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-2xl p-8">
+      {sent ? (
+        <div className="flex flex-col items-center justify-center py-12 text-center">
+          <div className="w-14 h-14 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center mb-4">
+            <CalendarCheckIcon size={26} className="text-green-400" />
+          </div>
+          <p className="text-lg font-black text-white mb-1">Message sent</p>
+          <p className="text-sm text-zinc-500">I&apos;ll get back to you shortly.</p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block mb-1.5">Name</label>
+              <input
+                type="text"
+                required
+                placeholder="Juan dela Cruz"
+                className={inputClass}
+                value={fields.name}
+                onChange={e => setFields(f => ({ ...f, name: e.target.value }))}
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block mb-1.5">Email</label>
+              <input
+                type="email"
+                required
+                placeholder="juan@company.com"
+                className={inputClass}
+                value={fields.email}
+                onChange={e => setFields(f => ({ ...f, email: e.target.value }))}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block mb-1.5">Contact Number</label>
+            <input
+              type="tel"
+              placeholder="+63 912 345 6789"
+              className={inputClass}
+              value={fields.phone}
+              onChange={e => setFields(f => ({ ...f, phone: e.target.value }))}
+            />
+          </div>
+
+          <div>
+            <label className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block mb-1.5">Message</label>
+            <textarea
+              required
+              rows={4}
+              placeholder="Tell me what you're working on and where you're losing the most time..."
+              className={`${inputClass} resize-none`}
+              value={fields.message}
+              onChange={e => setFields(f => ({ ...f, message: e.target.value }))}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-sm font-bold text-zinc-200 transition-colors active:scale-[0.98]"
+          >
+            Send Message
+          </button>
+
+          <div className="flex items-center gap-3 py-1">
+            <div className="flex-1 h-px bg-zinc-800" />
+            <span className="text-[10px] text-zinc-700 uppercase tracking-widest">or</span>
+            <div className="flex-1 h-px bg-zinc-800" />
+          </div>
+
+          <a
+            href="https://calendly.com/dizonahmedabdullah/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative w-full inline-flex items-center justify-center gap-2.5 py-4 rounded-xl font-black text-sm text-zinc-900 overflow-hidden active:scale-[0.98] transition-transform"
+            style={{ background: 'linear-gradient(135deg, #f5c842 0%, #e6a817 100%)' }}
+          >
+            <span className="absolute inset-0 bg-white/20 -translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-xl" />
+            <CalendarCheckIcon size={18} className="relative flex-shrink-0" />
+            <span className="relative">Book My Free Strategy Call</span>
+          </a>
+        </form>
+      )}
+    </div>
   )
 }
 
@@ -545,81 +655,69 @@ export default function Home() {
       {/* ── Contact ────────────────────────────────────────────────────────── */}
       <section id="contact" className="py-24 lg:py-32 border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6">
-          <FadeIn>
-            <SectionLabel>Get In Touch</SectionLabel>
-            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
-              Let&apos;s Work{' '}
-              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
-                Together
-              </span>
-            </h2>
-            <p className="text-zinc-500 max-w-[52ch] mb-14">
-              Open for freelance automation builds, full-time AI roles, and consulting. Best reached by email.
-            </p>
-          </FadeIn>
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              {
-                icon: EnvelopeSimple,
-                label: 'Email',
-                value: 'dizonahmedabdullah@gmail.com',
-                href: 'mailto:dizonahmedabdullah@gmail.com',
-              },
-              {
-                icon: LinkedinLogo,
-                label: 'LinkedIn',
-                value: 'ahmed-abdullah-dizon',
-                href: 'https://linkedin.com/in/ahmed-abdullah-dizon-06459137b',
-              },
-              {
-                icon: Phone,
-                label: 'Phone',
-                value: '+63 977 115 6569',
-                href: 'tel:+639771156569',
-              },
-              {
-                icon: MapPin,
-                label: 'Location',
-                value: 'Philippines · UTC+8',
-                href: undefined,
-              },
-            ].map(({ icon: Icon, label, value, href }, i) => (
-              <FadeIn key={label} delay={i * 0.07}>
-                <div
-                  className={`p-5 bg-zinc-900/40 border border-zinc-800/60 rounded-2xl hover:border-zinc-700/60 transition-colors ${href ? 'group' : ''}`}
-                >
-                  <div className="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center mb-4 group-hover:bg-green-500/20 group-hover:text-green-400 text-zinc-500 transition-all">
-                    <Icon size={17} />
+            {/* Left — info block */}
+            <FadeIn>
+              <SectionLabel>Get In Touch</SectionLabel>
+              <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
+                Ready to get your<br />time back?
+              </h2>
+              <p className="text-zinc-500 leading-relaxed mb-10 max-w-[48ch]">
+                If you&apos;re spending hours on tasks that could run on their own, let&apos;s talk. I&apos;ll map out exactly where automation can free up your time — no fluff, no pressure, just a clear plan.
+              </p>
+
+              <div className="space-y-6">
+                {[
+                  {
+                    icon: EnvelopeSimple,
+                    label: 'Email',
+                    value: 'dizonahmedabdullah@gmail.com',
+                    href: 'mailto:dizonahmedabdullah@gmail.com',
+                  },
+                  {
+                    icon: Globe,
+                    label: 'Website',
+                    value: 'automated-by-med.vercel.app',
+                    href: 'https://automated-by-med.vercel.app',
+                  },
+                  {
+                    icon: MapPin,
+                    label: 'Location',
+                    value: 'Philippines · UTC+8',
+                    href: undefined,
+                  },
+                ].map(({ icon: Icon, label, value, href }) => (
+                  <div key={label} className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500 flex-shrink-0">
+                      <Icon size={18} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-semibold text-zinc-600 uppercase tracking-widest mb-0.5">{label}</p>
+                      {href ? (
+                        <a
+                          href={href}
+                          target={href.startsWith('http') ? '_blank' : undefined}
+                          rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          className="text-sm text-zinc-300 hover:text-green-400 transition-colors"
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <p className="text-sm text-zinc-300">{value}</p>
+                      )}
+                    </div>
                   </div>
-                  <p className="text-[10px] font-semibold text-zinc-600 uppercase tracking-widest mb-1">{label}</p>
-                  {href ? (
-                    <a
-                      href={href}
-                      target={href.startsWith('http') ? '_blank' : undefined}
-                      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="text-sm text-zinc-300 hover:text-green-400 transition-colors break-all"
-                    >
-                      {value}
-                    </a>
-                  ) : (
-                    <p className="text-sm text-zinc-300">{value}</p>
-                  )}
-                </div>
-              </FadeIn>
-            ))}
-          </div>
+                ))}
+              </div>
+            </FadeIn>
 
-          <FadeIn delay={0.3} className="mt-12 text-center">
-            <a
-              href="mailto:dizonahmedabdullah@gmail.com?subject=Let%27s%20Work%20Together"
-              className="group relative inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-green-700 to-green-900 rounded-2xl font-bold text-lg text-white overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_32px_rgba(22,163,74,0.35)]"
-            >
-              <span className="absolute inset-0 bg-white/10 -translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-2xl" />
-              <span className="relative">Send Me an Email</span>
-              <ArrowRight size={18} weight="bold" className="relative" />
-            </a>
-          </FadeIn>
+            {/* Right — lead capture form */}
+            <FadeIn delay={0.12}>
+              <ContactForm />
+            </FadeIn>
+
+          </div>
         </div>
       </section>
 
