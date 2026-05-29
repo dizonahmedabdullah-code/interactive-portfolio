@@ -82,7 +82,7 @@ const Avatar = memo(function Avatar({ state = 'idle', size = 200 }: AvatarProps)
               position: 'absolute',
               inset: -7,
               borderRadius: '50%',
-              border: '2px solid rgba(34,197,94,0.5)',
+              border: '2px solid rgba(232,201,122,0.5)',
               pointerEvents: 'none',
             }}
             animate={{ opacity: [0.3, 1, 0.3], scale: [0.97, 1.03, 0.97] }}
@@ -97,7 +97,7 @@ const Avatar = memo(function Avatar({ state = 'idle', size = 200 }: AvatarProps)
               position: 'absolute',
               inset: -7,
               borderRadius: '50%',
-              border: '2px solid rgba(34,197,94,0.65)',
+              border: '2px solid rgba(232,201,122,0.65)',
               pointerEvents: 'none',
             }}
             animate={{ opacity: [0.5, 1, 0.5] }}

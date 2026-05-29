@@ -235,18 +235,18 @@ function TiltTile({ proj, hidden, onSelect }: TiltTileProps) {
       <motion.div
         layoutId={`proj-${proj.id}`}
         onClick={() => !hidden && onSelect(proj.id)}
-        className="cursor-pointer rounded-xl overflow-hidden border border-zinc-800/60 bg-zinc-900/40 hover:border-green-500/30 transition-colors"
+        className="cursor-pointer rounded-xl overflow-hidden border border-white/7 bg-[#0E1117]/60 hover:border-white/13 transition-colors"
         animate={{ opacity: hidden ? 0 : 1 }}
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         transition={{ duration: 0.15 }}
         whileTap={{ scale: 0.985 }}
       >
         <img src={proj.image} alt={proj.title} className="w-full h-auto block" draggable={false} />
-        <div className="px-3 py-2.5 border-t border-zinc-800/50">
+        <div className="px-3 py-2.5 border-t border-white/7">
           <span className={`inline-block px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase rounded-full mb-1.5 ${proj.platformClass}`}>
             {proj.platform}
           </span>
-          <p className="text-xs font-bold text-zinc-200 leading-snug line-clamp-2">{proj.title}</p>
+          <p className="text-xs font-bold text-[#F0EEE6] leading-snug line-clamp-2">{proj.title}</p>
         </div>
       </motion.div>
     </div>
@@ -290,7 +290,7 @@ export default function ProjectCarousel() {
                 <span className={`text-[11px] font-bold tracking-[0.2em] uppercase ${group.accentClass.split(' ')[0]}`}>
                   {group.platform}
                 </span>
-                <span className="text-[10px] text-zinc-700 font-medium">
+                <span className="text-[10px] text-[#4A5060] font-medium">
                   {tiles.length} project{tiles.length !== 1 ? 's' : ''}
                 </span>
               </div>
@@ -331,7 +331,7 @@ export default function ProjectCarousel() {
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 pointer-events-none">
             <motion.div
               layoutId={`proj-${selected.id}`}
-              className="relative w-full max-w-[92vw] xl:max-w-6xl max-h-[90dvh] overflow-y-auto rounded-2xl border border-zinc-700/60 bg-zinc-950 shadow-[0_32px_80px_rgba(0,0,0,0.8)] pointer-events-auto"
+              className="relative w-full max-w-[92vw] xl:max-w-6xl max-h-[90dvh] overflow-y-auto rounded-2xl border border-white/10 bg-[#080A0E] shadow-[0_32px_80px_rgba(0,0,0,0.8)] pointer-events-auto"
               transition={SPRING}
             >
               {/* Close button */}
@@ -341,7 +341,7 @@ export default function ProjectCarousel() {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ delay: 0.25, duration: 0.2 }}
                 onClick={handleClose}
-                className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-zinc-900/90 border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all"
+                className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-[#0E1117]/90 border border-white/7 text-[#7A8090] hover:text-[#F0EEE6] hover:border-white/13 transition-all"
               >
                 <X size={14} />
               </motion.button>
@@ -362,22 +362,22 @@ export default function ProjectCarousel() {
                   <span className={`inline-block px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase rounded-full mb-3 ${selected.platformClass}`}>
                     {selected.platform}
                   </span>
-                  <h3 className="text-xl lg:text-2xl font-black text-white leading-tight">{selected.title}</h3>
+                  <h3 className="text-xl lg:text-2xl font-black text-[#F0EEE6] leading-tight">{selected.title}</h3>
                 </div>
 
                 {/* 3-col grid */}
                 <div className="grid md:grid-cols-3 gap-6">
                   <div>
-                    <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2">The Problem</p>
-                    <p className="text-sm text-zinc-500 leading-relaxed">{selected.problem}</p>
+                    <p className="text-[10px] font-bold text-[#4A5060] uppercase tracking-[0.18em] mb-2">The Problem</p>
+                    <p className="text-sm text-[#7A8090] leading-relaxed">{selected.problem}</p>
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.18em] mb-2.5">What It Does</p>
+                    <p className="text-[10px] font-bold text-[#4A5060] uppercase tracking-[0.18em] mb-2.5">What It Does</p>
                     <ul className="space-y-1.5">
                       {selected.whatItDoes.map((item, j) => (
-                        <li key={j} className="flex gap-2 items-start text-sm text-zinc-400">
-                          <span className="text-green-500 flex-shrink-0 mt-[3px] text-[10px]">▸</span>
+                        <li key={j} className="flex gap-2 items-start text-sm text-[#7A8090]">
+                          <span className="text-[#E8C97A] flex-shrink-0 mt-[3px] text-[10px]">▸</span>
                           {item}
                         </li>
                       ))}
@@ -387,14 +387,14 @@ export default function ProjectCarousel() {
                   <div className="space-y-4">
                     <div
                       className="p-4 rounded-xl border"
-                      style={{ background: 'rgba(34,197,94,0.06)', borderColor: 'rgba(34,197,94,0.15)' }}
+                      style={{ background: 'rgba(232,201,122,0.06)', borderColor: 'rgba(232,201,122,0.15)' }}
                     >
-                      <p className="text-[10px] font-bold text-green-500 uppercase tracking-[0.18em] mb-1.5">The Result</p>
-                      <p className="text-sm text-zinc-300 leading-relaxed">{selected.result}</p>
+                      <p className="text-[10px] font-bold text-[#E8C97A] uppercase tracking-[0.18em] mb-1.5">The Result</p>
+                      <p className="text-sm text-[#F0EEE6] leading-relaxed">{selected.result}</p>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {selected.tools.map(t => (
-                        <span key={t} className="px-2.5 py-1 text-[10px] font-medium text-zinc-400 bg-zinc-800/80 rounded-full">
+                        <span key={t} className="px-2.5 py-1 text-[10px] font-medium text-[#7A8090] bg-[#141820] rounded-full">
                           {t}
                         </span>
                       ))}

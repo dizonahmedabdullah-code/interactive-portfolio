@@ -41,12 +41,12 @@ export default function ProcessSteps() {
   return (
     <div className="w-full max-w-[460px]">
       <div
-        className="relative rounded-2xl border border-zinc-800/70 bg-zinc-900/40 p-8 overflow-hidden"
+        className="relative rounded-2xl border border-white/7 bg-[#0E1117]/60 p-8 overflow-hidden"
         style={{ minHeight: 280 }}
       >
         {/* Ambient glow */}
         <div className="absolute -top-16 -left-16 w-48 h-48 rounded-full blur-3xl pointer-events-none"
-          style={{ background: 'rgba(34,197,94,0.06)' }} />
+          style={{ background: 'rgba(232,201,122,0.06)' }} />
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -60,15 +60,15 @@ export default function ProcessSteps() {
             <div className="flex items-center gap-3 mb-6">
               <span
                 className="font-mono text-5xl font-black leading-none select-none"
-                style={{ color: 'rgba(34,197,94,0.22)' }}
+                style={{ color: 'rgba(232,201,122,0.22)' }}
               >
                 {step.num}
               </span>
-              <div className="flex-1 h-px bg-gradient-to-r from-green-500/20 to-transparent" />
+              <div className="flex-1 h-px bg-gradient-to-r from-[#E8C97A]/20 to-transparent" />
             </div>
 
-            <h3 className="text-2xl font-black text-white mb-3 leading-tight">{step.title}</h3>
-            <p className="text-sm text-zinc-500 leading-relaxed">{step.desc}</p>
+            <h3 className="text-2xl font-black text-[#F0EEE6] mb-3 leading-tight">{step.title}</h3>
+            <p className="text-sm text-[#7A8090] leading-relaxed">{step.desc}</p>
           </motion.div>
         </AnimatePresence>
 
@@ -81,16 +81,16 @@ export default function ProcessSteps() {
                 onClick={() => setCurrent(i)}
                 aria-label={`Step ${i + 1}`}
                 className={`h-1 rounded-full transition-all duration-300 ${
-                  i === current ? 'w-6 bg-green-500' : 'w-2 bg-zinc-700 hover:bg-zinc-600'
+                  i === current ? 'w-6 bg-[#E8C97A]' : 'w-2 bg-[#4A5060] hover:bg-[#7A8090]'
                 }`}
               />
             ))}
           </div>
-          <div className="w-full h-px bg-zinc-800 rounded-full overflow-hidden">
+          <div className="w-full h-px bg-white/7 rounded-full overflow-hidden">
             <motion.div
               key={`bar-${current}`}
               className="h-full rounded-full"
-              style={{ background: 'rgba(34,197,94,0.5)' }}
+              style={{ background: 'rgba(232,201,122,0.5)' }}
               initial={{ width: '0%' }}
               animate={{ width: '100%' }}
               transition={{ duration: (TICK - 100) / 1000, ease: 'linear' }}
@@ -99,7 +99,7 @@ export default function ProcessSteps() {
         </div>
       </div>
 
-      <p className="text-[10px] text-zinc-700 uppercase tracking-[0.2em] mt-4">
+      <p className="text-[10px] text-[#4A5060] uppercase tracking-[0.2em] mt-4">
         How I approach every automation
       </p>
     </div>

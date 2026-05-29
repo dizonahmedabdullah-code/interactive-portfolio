@@ -143,8 +143,8 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
 // ─── Section label ─────────────────────────────────────────────────────────────
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.25em] uppercase text-green-500 mb-4">
-      <span className="w-6 h-px bg-green-500" />
+    <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.25em] uppercase text-[#E8C97A] mb-4">
+      <span className="w-6 h-px bg-[#E8C97A]" />
       {children}
     </p>
   )
@@ -182,24 +182,24 @@ const FAQS = [
 function FAQSection() {
   const [open, setOpen] = useState<number | null>(null)
   return (
-    <section className="py-24 lg:py-32 border-t border-zinc-900">
+    <section className="py-24 lg:py-32 border-t border-white/7">
       <div className="max-w-7xl mx-auto px-6">
         <FadeIn>
           <SectionLabel>FAQ</SectionLabel>
-          <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-12 leading-tight">
+          <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-12 leading-tight">
             Frequently Asked<br />Questions
           </h2>
         </FadeIn>
         <div className="max-w-3xl space-y-3">
           {FAQS.map((faq, i) => (
             <FadeIn key={i} delay={i * 0.05}>
-              <div className="border border-zinc-800/60 rounded-2xl bg-zinc-900/30 overflow-hidden">
+              <div className="border border-white/7 rounded-2xl bg-[#0E1117]/40 overflow-hidden">
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-zinc-800/20 transition-colors"
+                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-[#141820]/40 transition-colors"
                 >
-                  <span className="font-bold text-zinc-200 text-sm leading-snug">{faq.q}</span>
-                  <span className="flex-shrink-0 text-green-500">
+                  <span className="font-bold text-[#F0EEE6] text-sm leading-snug">{faq.q}</span>
+                  <span className="flex-shrink-0 text-[#E8C97A]">
                     {open === i ? <Minus size={16} /> : <Plus size={16} />}
                   </span>
                 </button>
@@ -213,7 +213,7 @@ function FAQSection() {
                       transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 pt-1 text-sm text-zinc-500 leading-relaxed border-t border-zinc-800/50">
+                      <p className="px-6 pb-5 pt-1 text-sm text-[#7A8090] leading-relaxed border-t border-white/7">
                         {faq.a}
                       </p>
                     </motion.div>
@@ -244,14 +244,14 @@ function ContactForm() {
   }
 
   const inputClass =
-    'w-full bg-zinc-900/60 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 transition-colors'
+    'w-full bg-[#0E1117] border border-white/7 rounded-xl px-4 py-3 text-sm text-[#F0EEE6] placeholder-[#4A5060] focus:outline-none focus:border-white/13 transition-colors'
 
   return (
-    <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-2xl p-8">
+    <div className="bg-[#0E1117] border border-white/7 rounded-2xl p-8">
       {sent ? (
         <div className="flex flex-col items-center justify-center py-12 text-center">
-          <div className="w-14 h-14 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center mb-4">
-            <CalendarCheckIcon size={26} className="text-green-400" />
+          <div className="w-14 h-14 rounded-full bg-[#E8C97A]/10 border border-[#E8C97A]/20 flex items-center justify-center mb-4">
+            <CalendarCheckIcon size={26} className="text-[#E8C97A]" />
           </div>
           <p className="text-lg font-black text-white mb-1">Message sent</p>
           <p className="text-sm text-zinc-500">I&apos;ll get back to you shortly.</p>
@@ -260,7 +260,7 @@ function ContactForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block mb-1.5">Name</label>
+              <label className="text-[10px] font-bold text-[#4A5060] uppercase tracking-widest block mb-1.5">Name</label>
               <input
                 type="text"
                 required
@@ -271,7 +271,7 @@ function ContactForm() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block mb-1.5">Email</label>
+              <label className="text-[10px] font-bold text-[#4A5060] uppercase tracking-widest block mb-1.5">Email</label>
               <input
                 type="email"
                 required
@@ -308,15 +308,15 @@ function ContactForm() {
 
           <button
             type="submit"
-            className="w-full py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-sm font-bold text-zinc-200 transition-colors active:scale-[0.98]"
+            className="w-full py-3 rounded-xl bg-[#141820] hover:bg-[#141820]/80 border border-white/7 text-sm font-bold text-[#F0EEE6] transition-colors active:scale-[0.98]"
           >
             Send Message
           </button>
 
           <div className="flex items-center gap-3 py-1">
-            <div className="flex-1 h-px bg-zinc-800" />
-            <span className="text-[10px] text-zinc-700 uppercase tracking-widest">or</span>
-            <div className="flex-1 h-px bg-zinc-800" />
+            <div className="flex-1 h-px bg-white/7" />
+            <span className="text-[10px] text-[#4A5060] uppercase tracking-widest">or</span>
+            <div className="flex-1 h-px bg-white/7" />
           </div>
 
           <a
@@ -324,7 +324,7 @@ function ContactForm() {
             target="_blank"
             rel="noopener noreferrer"
             className="group relative w-full inline-flex items-center justify-center gap-2.5 py-4 rounded-xl font-black text-sm text-zinc-900 overflow-hidden active:scale-[0.98] transition-transform"
-            style={{ background: 'linear-gradient(135deg, #f5c842 0%, #e6a817 100%)' }}
+            style={{ background: 'linear-gradient(135deg, #E8C97A 0%, #C4A35A 100%)' }}
           >
             <span className="absolute inset-0 bg-white/20 -translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-xl" />
             <CalendarCheckIcon size={18} className="relative flex-shrink-0" />
@@ -376,7 +376,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className={`${isDark ? 'bg-[#080808] text-zinc-100' : 'bg-[#f5f5f0] text-zinc-900'} overflow-x-hidden transition-colors`}>
+    <div className={`${isDark ? 'bg-[#080A0E] text-[#F0EEE6]' : 'bg-[#f5f5f0] text-zinc-900'} overflow-x-hidden transition-colors`}>
       {/* Global mouse gradient overlay */}
       <div ref={glowRef} className="fixed inset-0 pointer-events-none" style={{ opacity: 0, transition: 'opacity 1.8s ease', zIndex: 0 }} />
       <MouseEffect glowRef={glowRef} isDark={isDark} />
@@ -385,14 +385,14 @@ export default function Home() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? `border-b backdrop-blur-xl ${isDark ? 'border-white/5 bg-[#080808]/85' : 'border-black/6 bg-[#f5f5f0]/90'}`
+            ? `border-b backdrop-blur-xl ${isDark ? 'border-white/5 bg-[#080A0E]/90' : 'border-black/6 bg-[#f5f5f0]/90'}`
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <button
             onClick={() => scrollTo('home')}
-            className="text-xl font-black text-white tracking-tight hover:scale-105 transition-transform"
+            className="text-xl font-black text-[#F0EEE6] tracking-tight hover:scale-105 transition-transform"
           >
             Automated by Med.
           </button>
@@ -403,10 +403,10 @@ export default function Home() {
               <button
                 key={link}
                 onClick={() => scrollTo(link)}
-                className="relative text-sm text-zinc-400 hover:text-white transition-colors group"
+                className="relative text-sm text-[#7A8090] hover:text-[#F0EEE6] transition-colors group"
               >
                 {link}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-gradient-to-r from-green-600 to-green-900 group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-[#E8C97A] group-hover:w-full transition-all duration-300" />
               </button>
             ))}
           </div>
@@ -416,21 +416,21 @@ export default function Home() {
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="w-8 h-8 hidden md:flex items-center justify-center rounded-lg border border-zinc-800 text-zinc-500 hover:text-zinc-200 hover:border-zinc-600 transition-all"
+              className="w-8 h-8 hidden md:flex items-center justify-center rounded-lg border border-white/7 text-[#7A8090] hover:text-[#F0EEE6] hover:border-white/13 transition-all"
             >
               {isDark ? <Sun size={14} /> : <Moon size={14} />}
             </button>
             {/* Hire CTA */}
             <button
               onClick={() => scrollTo('contact')}
-              className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-gradient-to-r from-green-700 to-green-900 rounded-xl text-white hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_20px_rgba(22,163,74,0.25)]"
+              className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-[#E8C97A] rounded-xl text-[#080A0E] hover:scale-[1.03] active:scale-[0.97] transition-transform"
             >
               Hire Me
             </button>
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-800 text-zinc-400"
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-white/7 text-[#7A8090]"
             >
               {mobileOpen ? <X size={18} /> : <List size={18} />}
             </button>
@@ -443,20 +443,20 @@ export default function Home() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="md:hidden border-t border-zinc-800/60 bg-[#080808]/95 backdrop-blur-xl px-6 py-4 flex flex-col gap-4"
+            className="md:hidden border-t border-white/7 bg-[#080A0E]/95 backdrop-blur-xl px-6 py-4 flex flex-col gap-4"
           >
             {NAV_LINKS.map(link => (
               <button
                 key={link}
                 onClick={() => scrollTo(link)}
-                className="text-left text-sm text-zinc-400 hover:text-white transition-colors py-1"
+                className="text-left text-sm text-[#7A8090] hover:text-[#F0EEE6] transition-colors py-1"
               >
                 {link}
               </button>
             ))}
             <button
               onClick={() => scrollTo('contact')}
-              className="mt-1 w-full py-2.5 text-sm font-semibold bg-gradient-to-r from-green-700 to-green-900 rounded-xl text-white"
+              className="mt-1 w-full py-2.5 text-sm font-semibold bg-[#E8C97A] rounded-xl text-[#080A0E]"
             >
               Hire Me
             </button>
@@ -467,24 +467,24 @@ export default function Home() {
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section id="home" className="relative min-h-[100dvh] flex items-center overflow-hidden pt-20">
         {/* ── Ticker strip ─────────────────────────────────────────────────── */}
-        <div className="absolute top-16 left-0 right-0 z-10 border-y border-zinc-800/40 bg-zinc-950/60 backdrop-blur-sm overflow-hidden py-2.5">
+        <div className="absolute top-16 left-0 right-0 z-10 border-y border-white/7 bg-[#080A0E]/80 backdrop-blur-sm overflow-hidden py-2.5">
           <div
             className="flex w-max gap-0"
             style={{ animation: 'marquee 28s linear infinite' }}
           >
             {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-              <span key={i} className="flex items-center text-[11px] font-bold tracking-[0.2em] uppercase text-zinc-600 whitespace-nowrap">
+              <span key={i} className="flex items-center text-[11px] font-bold tracking-[0.2em] uppercase text-[#4A5060] whitespace-nowrap">
                 {item}
-                <span className="mx-4 text-green-500/40">·</span>
+                <span className="mx-4 text-[#E8C97A]/30">·</span>
               </span>
             ))}
           </div>
         </div>
 
         {/* Background blobs */}
-        <div className="absolute top-32 left-8 w-[480px] h-[480px] bg-green-800/8 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-32 left-8 w-[480px] h-[480px] bg-[#E8C97A]/8 rounded-full blur-[140px] pointer-events-none" />
         <div
-          className="absolute bottom-24 right-8 w-[400px] h-[400px] bg-green-900/6 rounded-full blur-[140px] pointer-events-none animate-pulse"
+          className="absolute bottom-24 right-8 w-[400px] h-[400px] bg-[#E8C97A]/6 rounded-full blur-[140px] pointer-events-none animate-pulse"
           style={{ animationDelay: '0.7s', animationDuration: '4s' }}
         />
 
@@ -497,15 +497,15 @@ export default function Home() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold tracking-[0.28em] uppercase text-green-400 bg-green-500/10 border border-green-500/20 rounded-full mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold tracking-[0.28em] uppercase text-[#E8C97A] bg-[#E8C97A]/10 border border-[#E8C97A]/20 rounded-full mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E8C97A] animate-pulse" />
                 AI AUTOMATION SPECIALIST
               </div>
 
               {/* Heading */}
-              <h1 className="text-5xl lg:text-[5.5rem] font-black leading-[1.04] tracking-tight text-white mb-6">
+              <h1 className="text-5xl lg:text-[5.5rem] font-black leading-[1.04] tracking-tight text-[#F0EEE6] mb-6">
                 I Build<br />
-                <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
                   Automations
                 </span>
                 <br />That Scale.
@@ -520,7 +520,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-4 mb-8">
                 <button
                   onClick={() => scrollTo('contact')}
-                  className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-gradient-to-r from-green-700 to-green-900 rounded-xl font-semibold text-white overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_24px_rgba(22,163,74,0.35)]"
+                  className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-[#E8C97A] rounded-xl font-semibold text-[#080A0E] overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform"
                 >
                   <span className="absolute inset-0 bg-white/10 -translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-xl" />
                   <span className="relative">Let&apos;s Collaborate</span>
@@ -528,14 +528,14 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => scrollTo('projects')}
-                  className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-zinc-700 rounded-xl font-semibold text-zinc-300 hover:border-green-500/50 hover:text-white transition-all duration-300"
+                  className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-white/7 rounded-xl font-semibold text-[#7A8090] hover:border-[#E8C97A]/40 hover:text-[#F0EEE6] transition-all duration-300"
                 >
                   View My Work
                 </button>
               </div>
 
               {/* Stats row */}
-              <div className="border-t border-zinc-800/50 pt-6 mb-8 grid grid-cols-4 gap-x-4 gap-y-4">
+              <div className="border-t border-white/7 pt-6 mb-8 grid grid-cols-4 gap-x-4 gap-y-4">
                 {[
                   { value: '9+', label: 'Years Remote' },
                   { value: '5',  label: 'Automation Platforms' },
@@ -543,8 +543,8 @@ export default function Home() {
                   { value: '7',  label: 'Case Studies' },
                 ].map(({ value, label }) => (
                   <div key={label}>
-                    <p className="text-2xl font-black text-white leading-none mb-1">{value}</p>
-                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.16em] leading-tight">{label}</p>
+                    <p className="text-2xl font-black text-[#F0EEE6] leading-none mb-1">{value}</p>
+                    <p className="text-[10px] text-[#4A5060] uppercase tracking-[0.16em] leading-tight">{label}</p>
                   </div>
                 ))}
               </div>
@@ -561,12 +561,12 @@ export default function Home() {
                     target={href.startsWith('http') ? '_blank' : undefined}
                     rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     aria-label={label}
-                    className="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-800 text-zinc-500 hover:text-green-400 hover:border-green-500/50 transition-all duration-300"
+                    className="w-10 h-10 flex items-center justify-center rounded-xl border border-white/7 text-[#7A8090] hover:text-[#E8C97A] hover:border-[#E8C97A]/40 transition-all duration-300"
                   >
                     <Icon size={17} />
                   </a>
                 ))}
-                <span className="text-xs text-zinc-600 ml-1">Philippines · UTC+8</span>
+                <span className="text-xs text-[#4A5060] ml-1">Philippines · UTC+8</span>
               </div>
             </motion.div>
           </div>
@@ -588,20 +588,20 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <div className="relative flex justify-center lg:justify-start">
-              <div className="absolute inset-[-16px] rounded-full bg-green-700/6 blur-3xl pointer-events-none" />
+              <div className="absolute inset-[-16px] rounded-full bg-[#E8C97A]/6 blur-3xl pointer-events-none" />
               <Avatar state="idle" size={420} />
             </div>
           </FadeIn>
 
           <FadeIn delay={0.1}>
             <SectionLabel>About Me</SectionLabel>
-            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-6 leading-tight">
               A Problem Solver<br />
-              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
                 By Instinct
               </span>
             </h2>
-            <div className="space-y-4 text-zinc-400 leading-relaxed mb-8">
+            <div className="space-y-4 text-[#7A8090] leading-relaxed mb-8">
               <p>
                 I look at broken processes and immediately start thinking about how to fix them. That instinct is
                 what led me into AI automation. With 9+ years of remote work across lead generation, executive
@@ -621,16 +621,16 @@ export default function Home() {
                 { value: '5', label: 'Automation Platforms' },
                 { value: '8+', label: 'Industries' },
               ].map(stat => (
-                <div key={stat.label} className="p-4 bg-zinc-900/50 border border-zinc-800/60 rounded-xl text-center">
-                  <p className="text-2xl font-black text-white mb-0.5">{stat.value}</p>
-                  <p className="text-xs text-zinc-500">{stat.label}</p>
+                <div key={stat.label} className="p-4 bg-[#0E1117] border border-white/7 rounded-xl text-center">
+                  <p className="text-2xl font-black text-[#F0EEE6] mb-0.5">{stat.value}</p>
+                  <p className="text-xs text-[#7A8090]">{stat.label}</p>
                 </div>
               ))}
             </div>
 
             <a
               href="mailto:dizonahmedabdullah@gmail.com?subject=Let%27s%20Work%20Together"
-              className="inline-flex items-center gap-2.5 px-6 py-3 bg-gradient-to-r from-green-700 to-green-900 rounded-xl font-semibold text-white hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_20px_rgba(22,163,74,0.25)]"
+              className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#E8C97A] rounded-xl font-semibold text-[#080A0E] hover:scale-[1.03] active:scale-[0.97] transition-transform"
             >
               Get in Touch <ArrowRight size={15} weight="bold" />
             </a>
@@ -639,17 +639,17 @@ export default function Home() {
       </section>
 
       {/* ── Skills ─────────────────────────────────────────────────────────── */}
-      <section id="skills" className="py-24 lg:py-32 border-t border-zinc-900">
+      <section id="skills" className="py-24 lg:py-32 border-t border-white/7">
         <div className="max-w-7xl mx-auto px-6">
           <FadeIn>
             <SectionLabel>What I Do</SectionLabel>
-            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-4 leading-tight">
               Skills &{' '}
-              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
                 Expertise
               </span>
             </h2>
-            <p className="text-zinc-500 max-w-[52ch] mb-14">
+            <p className="text-[#7A8090] max-w-[52ch] mb-14">
               From automation architecture to content creation — every service I offer is built around one goal: removing friction from your business.
             </p>
           </FadeIn>
@@ -659,21 +659,21 @@ export default function Home() {
               const Icon = skill.icon
               return (
                 <FadeIn key={skill.category} delay={i * 0.06}>
-                  <div className={`group h-full p-6 rounded-2xl border transition-all duration-300 hover:border-green-500/30 hover:-translate-y-1 ${
+                  <div className={`group h-full p-6 rounded-2xl border transition-all duration-300 hover:border-[#E8C97A]/25 hover:-translate-y-1 ${
                     skill.featured
-                      ? 'bg-gradient-to-br from-green-600/10 to-zinc-900/50 border-green-500/25'
-                      : 'bg-zinc-900/40 border-zinc-800/60'
+                      ? 'bg-gradient-to-br from-[#E8C97A]/8 to-[#0E1117]/80 border-[#E8C97A]/20'
+                      : 'bg-[#0E1117]/60 border-white/7'
                   }`}>
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${
-                      skill.featured ? 'bg-green-500/20 text-green-400' : 'bg-zinc-800 text-zinc-400 group-hover:text-green-400 group-hover:bg-green-500/15 transition-all'
+                      skill.featured ? 'bg-[#E8C97A]/15 text-[#E8C97A]' : 'bg-[#141820] text-[#7A8090] group-hover:text-[#E8C97A] group-hover:bg-[#E8C97A]/10 transition-all'
                     }`}>
                       <Icon size={20} weight="bold" />
                     </div>
-                    <h3 className="font-bold text-white mb-2">{skill.category}</h3>
-                    <p className="text-sm text-zinc-500 mb-4 leading-relaxed">{skill.description}</p>
+                    <h3 className="font-bold text-[#F0EEE6] mb-2">{skill.category}</h3>
+                    <p className="text-sm text-[#7A8090] mb-4 leading-relaxed">{skill.description}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {skill.tools.map(t => (
-                        <span key={t} className="px-2 py-0.5 text-[10px] font-medium text-zinc-400 bg-zinc-800/80 rounded-md">
+                        <span key={t} className="px-2 py-0.5 text-[10px] font-medium text-[#7A8090] bg-[#141820] rounded-md">
                           {t}
                         </span>
                       ))}
@@ -687,25 +687,25 @@ export default function Home() {
       </section>
 
       {/* ── Tools Banner ───────────────────────────────────────────────────── */}
-      <div className="border-t border-zinc-900 pt-8 pb-6">
-        <p className="text-[10px] text-zinc-700 uppercase tracking-[0.22em] text-center mb-5">
+      <div className="border-t border-white/7 pt-8 pb-6">
+        <p className="text-[10px] text-[#4A5060] uppercase tracking-[0.22em] text-center mb-5">
           Tools &amp; Platforms
         </p>
         <ToolsBanner />
       </div>
 
       {/* ── Projects ───────────────────────────────────────────────────────── */}
-      <section id="projects" className="py-24 lg:py-32 border-t border-zinc-900">
+      <section id="projects" className="py-24 lg:py-32 border-t border-white/7">
         <div className="max-w-7xl mx-auto px-6">
           <FadeIn>
             <SectionLabel>Case Studies</SectionLabel>
-            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-4 leading-tight">
               Automation{' '}
-              <span className="bg-gradient-to-r from-green-500 to-green-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
                 Projects
               </span>
             </h2>
-            <p className="text-zinc-500 max-w-[52ch] mb-14">
+            <p className="text-[#7A8090] max-w-[52ch] mb-14">
               Real workflows built on Make.com and n8n. Each one replaced hours of manual work with a system that runs itself.
             </p>
           </FadeIn>
@@ -717,43 +717,43 @@ export default function Home() {
       </section>
 
       {/* ── Experience ─────────────────────────────────────────────────────── */}
-      <section id="experience" className="py-24 lg:py-32 border-t border-zinc-900">
+      <section id="experience" className="py-24 lg:py-32 border-t border-white/7">
         <div className="max-w-7xl mx-auto px-6">
           <FadeIn>
             <SectionLabel>Work History</SectionLabel>
-            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-14 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-14 leading-tight">
               Experience
             </h2>
           </FadeIn>
 
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-0 top-2 bottom-2 w-px bg-zinc-800 hidden lg:block" />
+            <div className="absolute left-0 top-2 bottom-2 w-px bg-white/7 hidden lg:block" />
 
             <div className="space-y-8">
               {EXPERIENCES.map((exp, i) => (
                 <FadeIn key={exp.title} delay={i * 0.07}>
                   <div className="lg:pl-10 relative">
                     {/* Dot */}
-                    <div className="absolute left-[-4.5px] top-2 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-[#080808] hidden lg:block" />
+                    <div className="absolute left-[-4.5px] top-2 w-2.5 h-2.5 rounded-full bg-[#E8C97A] border-2 border-[#080A0E] hidden lg:block" />
 
-                    <div className="p-6 bg-zinc-900/40 border border-zinc-800/60 rounded-2xl hover:border-zinc-700/60 transition-colors">
+                    <div className="p-6 bg-[#0E1117]/60 border border-white/7 rounded-2xl hover:border-white/13 transition-colors">
                       <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
                         <div>
-                          <h3 className="font-bold text-white text-lg leading-tight">{exp.title}</h3>
-                          <p className="text-sm text-green-400/80 mt-0.5">{exp.company}</p>
+                          <h3 className="font-bold text-[#F0EEE6] text-lg leading-tight">{exp.title}</h3>
+                          <p className="text-sm text-[#E8C97A]/80 mt-0.5">{exp.company}</p>
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
-                          <span className="px-2.5 py-1 text-[10px] font-semibold text-zinc-400 bg-zinc-800 rounded-full">
+                          <span className="px-2.5 py-1 text-[10px] font-semibold text-[#7A8090] bg-[#141820] rounded-full">
                             {exp.type}
                           </span>
-                          <span className="text-xs text-zinc-600">{exp.period}</span>
+                          <span className="text-xs text-[#4A5060]">{exp.period}</span>
                         </div>
                       </div>
                       <ul className="space-y-1.5">
                         {exp.highlights.map((h, j) => (
-                          <li key={j} className="flex gap-2.5 items-start text-sm text-zinc-500">
-                            <span className="text-green-500/70 mt-0.5 flex-shrink-0 text-xs">▸</span>
+                          <li key={j} className="flex gap-2.5 items-start text-sm text-[#7A8090]">
+                            <span className="text-[#E8C97A]/60 mt-0.5 flex-shrink-0 text-xs">▸</span>
                             {h}
                           </li>
                         ))}
@@ -771,17 +771,17 @@ export default function Home() {
       <FAQSection />
 
       {/* ── Contact ────────────────────────────────────────────────────────── */}
-      <section id="contact" className="py-24 lg:py-32 border-t border-zinc-900">
+      <section id="contact" className="py-24 lg:py-32 border-t border-white/7">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
 
             {/* Left — info block */}
             <FadeIn>
               <SectionLabel>Get In Touch</SectionLabel>
-              <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
+              <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-6 leading-tight">
                 Ready to get your<br />time back?
               </h2>
-              <p className="text-zinc-500 leading-relaxed mb-10 max-w-[48ch]">
+              <p className="text-[#7A8090] leading-relaxed mb-10 max-w-[48ch]">
                 If you&apos;re spending hours on tasks that could run on their own, let&apos;s talk. I&apos;ll map out exactly where automation can free up your time — no fluff, no pressure, just a clear plan.
               </p>
 
@@ -807,22 +807,22 @@ export default function Home() {
                   },
                 ].map(({ icon: Icon, label, value, href }) => (
                   <div key={label} className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500 flex-shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#0E1117] border border-white/7 flex items-center justify-center text-[#7A8090] flex-shrink-0">
                       <Icon size={18} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-semibold text-zinc-600 uppercase tracking-widest mb-0.5">{label}</p>
+                      <p className="text-[10px] font-semibold text-[#4A5060] uppercase tracking-widest mb-0.5">{label}</p>
                       {href ? (
                         <a
                           href={href}
                           target={href.startsWith('http') ? '_blank' : undefined}
                           rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          className="text-sm text-zinc-300 hover:text-green-400 transition-colors"
+                          className="text-sm text-[#F0EEE6] hover:text-[#E8C97A] transition-colors"
                         >
                           {value}
                         </a>
                       ) : (
-                        <p className="text-sm text-zinc-300">{value}</p>
+                        <p className="text-sm text-[#F0EEE6]">{value}</p>
                       )}
                     </div>
                   </div>
@@ -840,21 +840,21 @@ export default function Home() {
       </section>
 
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
-      <footer className="border-t border-zinc-900 py-8">
+      <footer className="border-t border-white/7 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm font-black text-white tracking-tight">Automated by Med.</p>
+          <p className="text-sm font-black text-[#F0EEE6] tracking-tight">Automated by Med.</p>
           <div className="flex items-center gap-6">
             {NAV_LINKS.map(link => (
               <button
                 key={link}
                 onClick={() => scrollTo(link)}
-                className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+                className="text-xs text-[#4A5060] hover:text-[#7A8090] transition-colors"
               >
                 {link}
               </button>
             ))}
           </div>
-          <p className="text-xs text-zinc-700">© 2025 Ahmed Abdullah Dizon</p>
+          <p className="text-xs text-[#4A5060]">© 2025 Ahmed Abdullah Dizon</p>
         </div>
       </footer>
 
@@ -868,7 +868,7 @@ export default function Home() {
             transition={{ duration: 0.2 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             aria-label="Back to top"
-            className="fixed bottom-24 right-5 z-50 w-11 h-11 flex items-center justify-center rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 shadow-lg transition-colors"
+            className="fixed bottom-24 right-5 z-50 w-11 h-11 flex items-center justify-center rounded-xl bg-[#0E1117] border border-white/7 text-[#7A8090] hover:text-[#F0EEE6] hover:border-white/13 shadow-lg transition-colors"
           >
             <ArrowUp size={16} />
           </motion.button>

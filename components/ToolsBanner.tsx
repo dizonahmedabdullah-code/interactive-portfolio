@@ -75,7 +75,7 @@ function TiltToolTile({ tool, onSelect }: { tool: Tool; onSelect: (t: Tool) => v
     <div style={{ perspective: 600 }} onMouseMove={onMove} onMouseLeave={onLeave}>
       <motion.div
         onClick={() => onSelect(tool)}
-        className="flex flex-col items-center gap-3 px-4 py-5 rounded-xl border border-white/10 bg-zinc-900/60 flex-shrink-0 w-[160px] cursor-pointer hover:border-white/22 transition-colors"
+        className="flex flex-col items-center gap-3 px-4 py-5 rounded-xl border border-white/7 bg-[#0E1117]/80 flex-shrink-0 w-[160px] cursor-pointer hover:border-white/13 transition-colors"
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         whileTap={{ scale: 0.95 }}
       >
@@ -104,7 +104,7 @@ function TiltToolTile({ tool, onSelect }: { tool: Tool; onSelect: (t: Tool) => v
           )}
         </div>
 
-        <span className="text-[11px] text-zinc-400 font-medium text-center leading-tight line-clamp-2 w-full">
+        <span className="text-[11px] text-[#7A8090] font-medium text-center leading-tight line-clamp-2 w-full">
           {tool.name}
         </span>
       </motion.div>
@@ -127,8 +127,8 @@ export default function ToolsBanner() {
     <>
       <div className="relative overflow-hidden py-1">
         {/* Edge fade masks */}
-        <div className="absolute inset-y-0 left-0 w-20 z-10 bg-gradient-to-r from-[#050505] to-transparent pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-20 z-10 bg-gradient-to-l from-[#050505] to-transparent pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-20 z-10 bg-gradient-to-r from-[#080A0E] to-transparent pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-20 z-10 bg-gradient-to-l from-[#080A0E] to-transparent pointer-events-none" />
 
         {/* Marquee */}
         <div
@@ -158,7 +158,7 @@ export default function ToolsBanner() {
 
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
               <motion.div
-                className="relative bg-zinc-950 border border-zinc-700/60 rounded-2xl p-8 max-w-xs w-full shadow-[0_32px_80px_rgba(0,0,0,0.85)] pointer-events-auto"
+                className="relative bg-[#080A0E] border border-white/10 rounded-2xl p-8 max-w-xs w-full shadow-[0_32px_80px_rgba(0,0,0,0.85)] pointer-events-auto"
                 initial={{ opacity: 0, scale: 0.86, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 10 }}
@@ -167,7 +167,7 @@ export default function ToolsBanner() {
                 {/* Close */}
                 <button
                   onClick={close}
-                  className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-zinc-900 border border-zinc-700 text-zinc-500 hover:text-white hover:border-zinc-500 transition-all"
+                  className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-[#0E1117] border border-white/7 text-[#7A8090] hover:text-[#F0EEE6] hover:border-white/13 transition-all"
                 >
                   <X size={12} />
                 </button>
@@ -175,7 +175,7 @@ export default function ToolsBanner() {
                 {/* Logo */}
                 <div className="flex justify-center mb-5">
                   {isSelectedIcon ? (
-                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-zinc-900 border border-zinc-800">
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-[#0E1117] border border-white/7">
                       <svg viewBox="0 0 24 24" className="w-9 h-9" style={{ fill: selectedFill! }} aria-hidden>
                         <path d={(selected as IconTool).si.path} />
                       </svg>
@@ -190,8 +190,8 @@ export default function ToolsBanner() {
                   )}
                 </div>
 
-                <h3 className="text-lg font-black text-white text-center mb-2">{selected.name}</h3>
-                <p className="text-sm text-zinc-500 text-center leading-relaxed">{selected.desc}</p>
+                <h3 className="text-lg font-black text-[#F0EEE6] text-center mb-2">{selected.name}</h3>
+                <p className="text-sm text-[#7A8090] text-center leading-relaxed">{selected.desc}</p>
               </motion.div>
             </div>
           </>
