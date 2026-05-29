@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Avatar from '@/components/Avatar'
 import ProcessSteps from '@/components/ProcessSteps'
 import ToolsBanner from '@/components/ToolsBanner'
@@ -26,6 +26,9 @@ import {
   Moon,
   Globe,
   CalendarCheckIcon,
+  ArrowUp,
+  Plus,
+  Minus,
 } from '@phosphor-icons/react'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -147,6 +150,84 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   )
 }
 
+const TICKER_ITEMS = [
+  'Zapier', 'Make.com', 'n8n', 'GoHighLevel', 'Lead Generation',
+  'CRM Automation', 'Workflow Automation', 'AI Chatbots',
+  'Data Extraction', 'Content Repurposing', 'LinkedIn Outreach', 'Appointment Setting',
+]
+
+const FAQS = [
+  {
+    q: 'What tools and platforms do you work with?',
+    a: 'I work with Zapier, Make.com, n8n, GoHighLevel, HubSpot, Salesforce, Zoho, ChatGPT, Google Workspace, Airtable, Notion, Slack, Xero, QuickBooks, Canva, and CapCut among others.',
+  },
+  {
+    q: 'What industries have you worked in?',
+    a: 'Fitness, chiropractic, events, real estate, staffing, entertainment, and e-commerce across 9+ years of remote work.',
+  },
+  {
+    q: 'How do we get started?',
+    a: 'Book a free 30-minute strategy call via my Calendly. We will map out your biggest bottleneck and I will tell you exactly how to automate it.',
+  },
+  {
+    q: 'Are you available for long-term contracts?',
+    a: 'Yes. I am open to both project-based and ongoing retainer arrangements depending on the scope of work.',
+  },
+  {
+    q: 'What is your timezone and availability?',
+    a: 'I am based in the Philippines at UTC+8 and am available to overlap with US, European, and Australian business hours.',
+  },
+]
+
+function FAQSection() {
+  const [open, setOpen] = useState<number | null>(null)
+  return (
+    <section className="py-24 lg:py-32 border-t border-zinc-900">
+      <div className="max-w-7xl mx-auto px-6">
+        <FadeIn>
+          <SectionLabel>FAQ</SectionLabel>
+          <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white mb-12 leading-tight">
+            Frequently Asked<br />Questions
+          </h2>
+        </FadeIn>
+        <div className="max-w-3xl space-y-3">
+          {FAQS.map((faq, i) => (
+            <FadeIn key={i} delay={i * 0.05}>
+              <div className="border border-zinc-800/60 rounded-2xl bg-zinc-900/30 overflow-hidden">
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-zinc-800/20 transition-colors"
+                >
+                  <span className="font-bold text-zinc-200 text-sm leading-snug">{faq.q}</span>
+                  <span className="flex-shrink-0 text-green-500">
+                    {open === i ? <Minus size={16} /> : <Plus size={16} />}
+                  </span>
+                </button>
+                <AnimatePresence>
+                  {open === i && (
+                    <motion.div
+                      key="answer"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-6 pb-5 pt-1 text-sm text-zinc-500 leading-relaxed border-t border-zinc-800/50">
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Contact form ─────────────────────────────────────────────────────────────
 function ContactForm() {
   const [fields, setFields] = useState({ name: '', email: '', phone: '', message: '' })
@@ -260,6 +341,7 @@ export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [isDark, setIsDark] = useState(true)
   const [scrolled, setScrolled] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
   const glowRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -269,7 +351,10 @@ export default function Home() {
       setIsDark(false)
       document.documentElement.classList.remove('dark')
     }
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20)
+      setShowBackToTop(window.scrollY > 500)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -381,6 +466,21 @@ export default function Home() {
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section id="home" className="relative min-h-[100dvh] flex items-center overflow-hidden pt-20">
+        {/* ── Ticker strip ─────────────────────────────────────────────────── */}
+        <div className="absolute top-16 left-0 right-0 z-10 border-y border-zinc-800/40 bg-zinc-950/60 backdrop-blur-sm overflow-hidden py-2.5">
+          <div
+            className="flex w-max gap-0"
+            style={{ animation: 'marquee 28s linear infinite' }}
+          >
+            {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+              <span key={i} className="flex items-center text-[11px] font-bold tracking-[0.2em] uppercase text-zinc-600 whitespace-nowrap">
+                {item}
+                <span className="mx-4 text-green-500/40">·</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* Background blobs */}
         <div className="absolute top-32 left-8 w-[480px] h-[480px] bg-green-800/8 rounded-full blur-[140px] pointer-events-none" />
         <div
@@ -417,7 +517,7 @@ export default function Home() {
               </p>
 
               {/* CTAs */}
-              <div className="flex flex-wrap gap-4 mb-10">
+              <div className="flex flex-wrap gap-4 mb-8">
                 <button
                   onClick={() => scrollTo('contact')}
                   className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-gradient-to-r from-green-700 to-green-900 rounded-xl font-semibold text-white overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-[0_0_24px_rgba(22,163,74,0.35)]"
@@ -432,6 +532,21 @@ export default function Home() {
                 >
                   View My Work
                 </button>
+              </div>
+
+              {/* Stats row */}
+              <div className="border-t border-zinc-800/50 pt-6 mb-8 grid grid-cols-4 gap-x-4 gap-y-4">
+                {[
+                  { value: '9+', label: 'Years Remote' },
+                  { value: '5',  label: 'Automation Platforms' },
+                  { value: '8+', label: 'Industries Served' },
+                  { value: '7',  label: 'Case Studies' },
+                ].map(({ value, label }) => (
+                  <div key={label}>
+                    <p className="text-2xl font-black text-white leading-none mb-1">{value}</p>
+                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.16em] leading-tight">{label}</p>
+                  </div>
+                ))}
               </div>
 
               {/* Social */}
@@ -652,6 +767,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
+      <FAQSection />
+
       {/* ── Contact ────────────────────────────────────────────────────────── */}
       <section id="contact" className="py-24 lg:py-32 border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6">
@@ -739,6 +857,23 @@ export default function Home() {
           <p className="text-xs text-zinc-700">© 2025 Ahmed Abdullah Dizon</p>
         </div>
       </footer>
+
+      {/* ── Back to top ────────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label="Back to top"
+            className="fixed bottom-24 right-5 z-50 w-11 h-11 flex items-center justify-center rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 shadow-lg transition-colors"
+          >
+            <ArrowUp size={16} />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* ── Floating chat widget ───────────────────────────────────────────── */}
       <ChatWidget />
