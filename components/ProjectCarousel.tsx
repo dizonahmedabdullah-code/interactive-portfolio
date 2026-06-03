@@ -184,6 +184,31 @@ const PROJECTS = [
     tools: ['GoHighLevel', 'WhatsApp Business API', 'Facebook Lead Ads', 'LeadConnector', 'Conversation AI'],
   },
   {
+    id: 10,
+    platform: 'Meta Ads',
+    platformClass: 'bg-blue-500/15 text-blue-400 border border-blue-500/25',
+    image: '/meta-project-1.jpg',
+    title: 'Job Coaching Lead Form & New Meta Campaign Launch',
+    problem:
+      'The live Meta ad used a generic Webinar Form capturing only name, phone, and email — no occupation or visa data, leaving the automation with nothing to qualify or segment leads on entry. Meta prevents editing an Instant Form on a published live ad, so swapping in a richer form required launching a brand new campaign from scratch.',
+    whatItDoes: [
+      'Built a new Facebook Instant Form — Leo Le Education Job Coaching Lead Form — with 6 fields: name, phone, email, professional job (34 dropdown options), visa subclass (11 options), and time left on visa',
+      'Launched a new Job Coaching Lead Campaign alongside the existing Webinar Campaign using the same creative, audience, and budget',
+      'Connected the new form directly to the GHL qualification workflow so all incoming data feeds segmentation and tagging automatically on submission',
+      'Configured the thank you page to route leads straight to the student testimonial playlist immediately after form submit',
+      'Verified full GHL field mapping — all 6 form fields flow into the correct CRM custom fields without manual intervention',
+    ],
+    result: '',
+    results: [
+      'New form live and capturing occupation and visa data on every lead',
+      'Campaign entered the learning phase within hours — first real lead came in the same day',
+      'Zero disruption to the existing Webinar Campaign — both run simultaneously',
+      'Thank you page drives leads to student testimonials immediately after form submit',
+      'Full GHL mapping confirmed — form fields flow directly into correct CRM fields',
+    ],
+    tools: ['Meta Ads Manager', 'Facebook Instant Forms', 'GHL Form Mapping', 'LeadConnector'],
+  },
+  {
     id: 9,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
@@ -215,6 +240,7 @@ const GROUPS: { platform: string; accentClass: string }[] = [
   { platform: 'Make.com',   accentClass: 'text-violet-400 border-violet-500/30' },
   { platform: 'n8n',        accentClass: 'text-amber-400  border-amber-500/30'  },
   { platform: 'HighLevel',  accentClass: 'text-sky-400    border-sky-500/30'    },
+  { platform: 'Meta Ads',   accentClass: 'text-blue-400   border-blue-500/30'   },
 ]
 
 // ── Magnifying glass (modal image only) ───────────────────────────────────────
