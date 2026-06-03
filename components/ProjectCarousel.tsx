@@ -161,7 +161,7 @@ const PROJECTS = [
     id: 8,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/ghl-project-1.jpg',
+    image: 'https://picsum.photos/seed/ghl-workflow-engine/800/500',
     title: '5-Workflow Lead Qualification & Follow-Up Engine',
     problem:
       'Every new lead from Meta Ads required manual follow-up: finding the right testimonial video, determining visa urgency, and assigning to the right person. Hot leads — students on temporary visas with less than 2 years remaining — were being treated the same as cold leads. Revenue was being lost daily.',
@@ -170,12 +170,12 @@ const PROJECTS = [
       'WF1 — Captures and validates the lead before any processing begins',
       'WF2 — Tags the lead\'s occupation category via connector tag handoff',
       'WF3 — Tags visa subclass to surface urgency signals',
-      'WF4 — Identifies hot leads and assigns to Leo or Dennis within seconds of submission',
+      'WF4 — Identifies hot leads and assigns them to the right team member within seconds',
       'WF5 — Sends an occupation-specific testimonial video via WhatsApp and starts a 7-touchpoint, 60-day follow-up sequence',
     ],
     result: '',
     results: [
-      'Zero manual follow-up required from Leo or Dennis',
+      'Zero manual follow-up required from the sales team',
       'Hot leads identified and assigned within seconds of form submission',
       'Occupation-specific testimonial video sent automatically based on job type',
       '7-touchpoint follow-up over 60 days — Day 1, 3, 5, 7, 14, 30, 60',
@@ -187,12 +187,12 @@ const PROJECTS = [
     id: 10,
     platform: 'Meta Ads',
     platformClass: 'bg-blue-500/15 text-blue-400 border border-blue-500/25',
-    image: '/meta-project-1.jpg',
+    image: 'https://picsum.photos/seed/meta-lead-ads/800/500',
     title: 'Job Coaching Lead Form & New Meta Campaign Launch',
     problem:
       'The live Meta ad used a generic Webinar Form capturing only name, phone, and email — no occupation or visa data, leaving the automation with nothing to qualify or segment leads on entry. Meta prevents editing an Instant Form on a published live ad, so swapping in a richer form required launching a brand new campaign from scratch.',
     whatItDoes: [
-      'Built a new Facebook Instant Form — Leo Le Education Job Coaching Lead Form — with 6 fields: name, phone, email, professional job (34 dropdown options), visa subclass (11 options), and time left on visa',
+      'Built a new Facebook Instant Form — the Job Coaching Lead Form — with 6 fields: name, phone, email, professional job (34 dropdown options), visa subclass (11 options), and time left on visa',
       'Launched a new Job Coaching Lead Campaign alongside the existing Webinar Campaign using the same creative, audience, and budget',
       'Connected the new form directly to the GHL qualification workflow so all incoming data feeds segmentation and tagging automatically on submission',
       'Configured the thank you page to route leads straight to the student testimonial playlist immediately after form submit',
@@ -212,12 +212,12 @@ const PROJECTS = [
     id: 9,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/ghl-project-2.jpg',
+    image: 'https://picsum.photos/seed/ghl-crm-build/800/500',
     title: 'Full GHL CRM Build & 8,300+ Lead Re-engagement',
     problem:
       '8,300+ contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no student status tracking, and no way to see who needed follow-up. 979 old leads had job data from a previous campaign but had never been qualified, tagged, or followed up — all of them had gone cold.',
     whatItDoes: [
-      'Built the complete GHL CRM infrastructure from scratch with custom fields for occupation, visa subclass, and time left on visa under a dedicated Leo Le Segmentation section',
+      'Built the complete GHL CRM infrastructure from scratch with custom fields for occupation, visa subclass, and time left on visa under a dedicated segmentation section',
       'Created a 33-value occupation dropdown mapped to 8 testimonial video playlists for targeted follow-up',
       'Built the lead pipeline, opportunity stages, and Google Calendar + Meet integration for automated booking confirmations',
       'Mapped 979 existing leads\' old job data to the new occupation custom field using Python data mapping',
@@ -227,7 +227,7 @@ const PROJECTS = [
     results: [
       'Single source of truth — all 8,300+ leads centralized in GHL',
       '979 cold leads re-engaged with occupation-specific testimonial videos in one bulk operation',
-      'Salesperson onboarded into GHL — warm and cold leads assigned automatically',
+      'Sales team onboarded into GHL — warm and cold leads assigned automatically',
       'Full pipeline visibility — every lead tracked from entry to outcome',
       'Google Calendar + Meet connected for automated booking confirmations',
     ],
