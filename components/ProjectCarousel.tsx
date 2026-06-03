@@ -157,12 +157,64 @@ const PROJECTS = [
       'A fully automated content machine that generates, renders, and publishes short-form videos on a schedule. No scripting, no manual uploading, no repetitive work.',
     tools: ['n8n', 'Google Gemini', 'JWT', 'Video Generation API', 'HTTP Request', 'YouTube'],
   },
+  {
+    id: 8,
+    platform: 'HighLevel',
+    platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
+    image: '/ghl-project-1.jpg',
+    title: '5-Workflow Lead Qualification & Follow-Up Engine',
+    problem:
+      'Every new lead from Meta Ads required manual follow-up: finding the right testimonial video, determining visa urgency, and assigning to the right person. Hot leads — students on temporary visas with less than 2 years remaining — were being treated the same as cold leads. Revenue was being lost daily.',
+    whatItDoes: [
+      'Triggers automatically the moment a Facebook Lead Ads form is submitted — no manual action needed',
+      'WF1 — Captures and validates the lead before any processing begins',
+      'WF2 — Tags the lead\'s occupation category via connector tag handoff',
+      'WF3 — Tags visa subclass to surface urgency signals',
+      'WF4 — Identifies hot leads and assigns to Leo or Dennis within seconds of submission',
+      'WF5 — Sends an occupation-specific testimonial video via WhatsApp and starts a 7-touchpoint, 60-day follow-up sequence',
+    ],
+    result: '',
+    results: [
+      'Zero manual follow-up required from Leo or Dennis',
+      'Hot leads identified and assigned within seconds of form submission',
+      'Occupation-specific testimonial video sent automatically based on job type',
+      '7-touchpoint follow-up over 60 days — Day 1, 3, 5, 7, 14, 30, 60',
+      'AI Agent activated on WhatsApp — replies 24/7 to incoming messages',
+    ],
+    tools: ['GoHighLevel', 'WhatsApp Business API', 'Facebook Lead Ads', 'LeadConnector', 'Conversation AI'],
+  },
+  {
+    id: 9,
+    platform: 'HighLevel',
+    platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
+    image: '/ghl-project-2.jpg',
+    title: 'Full GHL CRM Build & 8,300+ Lead Re-engagement',
+    problem:
+      '8,300+ contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no student status tracking, and no way to see who needed follow-up. 979 old leads had job data from a previous campaign but had never been qualified, tagged, or followed up — all of them had gone cold.',
+    whatItDoes: [
+      'Built the complete GHL CRM infrastructure from scratch with custom fields for occupation, visa subclass, and time left on visa under a dedicated Leo Le Segmentation section',
+      'Created a 33-value occupation dropdown mapped to 8 testimonial video playlists for targeted follow-up',
+      'Built the lead pipeline, opportunity stages, and Google Calendar + Meet integration for automated booking confirmations',
+      'Mapped 979 existing leads\' old job data to the new occupation custom field using Python data mapping',
+      'Re-engaged all 979 cold leads by triggering the full engagement sequence via a single bulk import operation',
+    ],
+    result: '',
+    results: [
+      'Single source of truth — all 8,300+ leads centralized in GHL',
+      '979 cold leads re-engaged with occupation-specific testimonial videos in one bulk operation',
+      'Salesperson onboarded into GHL — warm and cold leads assigned automatically',
+      'Full pipeline visibility — every lead tracked from entry to outcome',
+      'Google Calendar + Meet connected for automated booking confirmations',
+    ],
+    tools: ['GoHighLevel', 'Custom Fields', 'Pipelines', 'Google Calendar', 'Bulk Import', 'Python'],
+  },
 ]
 
 const GROUPS: { platform: string; accentClass: string }[] = [
-  { platform: 'Zapier',   accentClass: 'text-orange-300 border-orange-600/30' },
-  { platform: 'Make.com', accentClass: 'text-violet-400 border-violet-500/30' },
-  { platform: 'n8n',      accentClass: 'text-amber-400  border-amber-500/30'  },
+  { platform: 'Zapier',     accentClass: 'text-orange-300 border-orange-600/30' },
+  { platform: 'Make.com',   accentClass: 'text-violet-400 border-violet-500/30' },
+  { platform: 'n8n',        accentClass: 'text-amber-400  border-amber-500/30'  },
+  { platform: 'HighLevel',  accentClass: 'text-sky-400    border-sky-500/30'    },
 ]
 
 // ── Magnifying glass (modal image only) ───────────────────────────────────────
@@ -208,7 +260,7 @@ function MagnifyImage({ src, alt }: { src: string; alt: string }) {
 }
 
 // ── 3-D tilt tile ─────────────────────────────────────────────────────────────
-type Project = (typeof PROJECTS)[0]
+type Project = (typeof PROJECTS)[number]
 
 interface TiltTileProps {
   proj: Project
@@ -390,7 +442,18 @@ export default function ProjectCarousel() {
                       style={{ background: 'rgba(232,201,122,0.06)', borderColor: 'rgba(232,201,122,0.15)' }}
                     >
                       <p className="text-[10px] font-bold text-[#E8C97A] uppercase tracking-[0.18em] mb-1.5">The Result</p>
-                      <p className="text-sm text-[#F0EEE6] leading-relaxed">{selected.result}</p>
+                      {'results' in selected && selected.results ? (
+                        <ul className="space-y-1.5">
+                          {selected.results.map((r, j) => (
+                            <li key={j} className="flex gap-2 items-start text-sm text-[#F0EEE6]">
+                              <span className="text-[#E8C97A] flex-shrink-0 mt-[3px] text-[10px]">▸</span>
+                              {r}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-sm text-[#F0EEE6] leading-relaxed">{selected.result}</p>
+                      )}
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {selected.tools.map(t => (
