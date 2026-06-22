@@ -214,7 +214,7 @@ const PROJECTS = [
     id: 9,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: 'https://picsum.photos/seed/ghl-crm-build/800/500',
+    image: '/GHL build.jpg',
     title: 'Full GHL CRM Build & 8,300+ Lead Re-engagement',
     problem:
       '8,300+ contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no student status tracking, and no way to see who needed follow-up. 979 old leads had job data from a previous campaign but had never been qualified, tagged, or followed up — all of them had gone cold.',
