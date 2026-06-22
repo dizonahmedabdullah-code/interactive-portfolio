@@ -161,27 +161,29 @@ const PROJECTS = [
     id: 8,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: 'https://picsum.photos/seed/ghl-workflow-engine/800/500',
+    image: '/Leo Le workflow in claude.jpg',
     title: '5-Workflow Lead Qualification & Follow-Up Engine',
     problem:
-      'Every new lead from Meta Ads required manual follow-up: finding the right testimonial video, determining visa urgency, and assigning to the right person. Hot leads — students on temporary visas with less than 2 years remaining — were being treated the same as cold leads. Revenue was being lost daily.',
+      'Every new lead — whether from a Meta Ad or an inbound social DM — required manual review: scoring urgency, finding the right testimonial video, and deciding who to assign. Hot leads (students on temporary visas with little time remaining) were being treated the same as cold ones. No-shows fell off the radar entirely. Revenue was slipping through without a system to catch it.',
     whatItDoes: [
-      'Triggers automatically the moment a Facebook Lead Ads form is submitted — no manual action needed',
-      'WF1 — Captures and validates the lead before any processing begins',
-      'WF2 — Tags the lead\'s occupation category via connector tag handoff',
-      'WF3 — Tags visa subclass to surface urgency signals',
-      'WF4 — Identifies hot leads and assigns them to the right team member within seconds',
-      'WF5 — Sends an occupation-specific testimonial video via WhatsApp and starts a 7-touchpoint, 60-day follow-up sequence',
+      'Dual-trigger entry: fires from both a Meta Ad instant form submission and an inbound Social DM — no manual intake on either channel',
+      'Validates the contact via a function node before any processing begins — prevents duplicates and incomplete leads from entering the pipeline',
+      'Runs 3 parallel scoring signals simultaneously: Occupation, Visa subclass, and Time remaining on visa — each scored independently as an if-node',
+      'Merges all 3 signals into a single composite lead score via a merge node',
+      'AI Agent immediately sends a targeted video to the lead and waits for their reply before the workflow continues',
+      'Routes by final score: all-hot leads go to the Priority Calendar; any warm or cold lead goes to the Standard Calendar',
+      'Runs the full sales pipeline: Consultation Call (screen, then meet) → Closing Call (final sales conversation) → Enrollment purchase trigger',
+      'No-show on either call? Automatically branches into a follow-up sequence that loops the lead back toward rebooking',
     ],
     result: '',
     results: [
-      'Zero manual follow-up required from the sales team',
-      'Hot leads identified and assigned within seconds of form submission',
-      'Occupation-specific testimonial video sent automatically based on job type',
-      '7-touchpoint follow-up over 60 days — Day 1, 3, 5, 7, 14, 30, 60',
-      'AI Agent activated on WhatsApp — replies 24/7 to incoming messages',
+      'Zero manual follow-up required — both ad leads and social DMs handled automatically',
+      'Hot leads routed to priority booking within seconds of entry',
+      'AI Agent sends a targeted video and waits for reply before advancing the lead',
+      'No-show recovery built in — leads loop back into the pipeline automatically',
+      '7-touchpoint follow-up over 60 days for warm and cold leads — Day 1, 3, 5, 7, 14, 30, 60',
     ],
-    tools: ['GoHighLevel', 'WhatsApp Business API', 'Facebook Lead Ads', 'LeadConnector', 'Conversation AI'],
+    tools: ['GoHighLevel', 'Facebook Instant Form', 'Social DM Trigger', 'Conversation AI', 'Lead Scoring', 'GHL Calendar'],
   },
   {
     id: 10,
@@ -337,7 +339,7 @@ function TiltTile({ proj, hidden, onSelect }: TiltTileProps) {
   const onLeave = useCallback(() => { rawX.set(0); rawY.set(0) }, [rawX, rawY])
 
   return (
-    <div style={{ perspective: 700 }} onMouseMove={onMove} onMouseLeave={onLeave}>
+    <div style={{ perspective: 700 }} className="group" onMouseMove={onMove} onMouseLeave={onLeave}>
       <motion.div
         layoutId={`proj-${proj.id}`}
         onClick={() => !hidden && onSelect(proj.id)}
@@ -347,7 +349,9 @@ function TiltTile({ proj, hidden, onSelect }: TiltTileProps) {
         transition={{ duration: 0.15 }}
         whileTap={{ scale: 0.985 }}
       >
-        <img src={proj.image} alt={proj.title} className="w-full h-auto block" draggable={false} />
+        <div className="overflow-hidden">
+          <img src={proj.image} alt={proj.title} className="w-full h-auto block transition-transform duration-500 group-hover:scale-110" draggable={false} />
+        </div>
         <div className="px-3 py-2.5 border-t border-white/7">
           <span className={`inline-block px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase rounded-full mb-1.5 ${proj.platformClass}`}>
             {proj.platform}
