@@ -141,6 +141,41 @@ html:not(.dark) .border-zinc-700\/60      { border-color: rgba(0,0,0,0.11) !impo
 html:not(.dark) .border-white\/5          { border-color: rgba(0,0,0,0.05) !important; }
 html:not(.dark) .border-white\/10         { border-color: rgba(0,0,0,0.08) !important; }
 
+/* ── Custom dark-palette light-mode overrides ──────────────────────────────── */
+
+/* Text */
+html:not(.dark) .text-\[\#F0EEE6\]        { color: #18181b !important; }
+html:not(.dark) .text-\[\#7A8090\]        { color: #4b5563 !important; }
+html:not(.dark) .text-\[\#4A5060\]        { color: #71717a !important; }
+html:not(.dark) .text-\[\#E8C97A\]        { color: #92700f !important; }
+html:not(.dark) .placeholder-\[\#4A5060\] { color: #9ca3af !important; }
+
+/* Gradient text — darken gold so it reads on light bg */
+html:not(.dark) .from-\[\#E8C97A\]  { --tw-gradient-from: #7a5c0a var(--tw-gradient-from-position) !important; }
+html:not(.dark) .to-\[\#C4A35A\]    { --tw-gradient-to: #5a3f06   var(--tw-gradient-to-position)   !important; }
+
+/* Surfaces */
+html:not(.dark) .bg-\[\#0E1117\]         { background-color: #f4f4f0 !important; }
+html:not(.dark) .bg-\[\#141820\]         { background-color: #eaeae6 !important; }
+html:not(.dark) .bg-\[\#0E1117\]\/40     { background-color: rgba(0,0,0,0.03) !important; }
+html:not(.dark) .bg-\[\#0E1117\]\/60     { background-color: rgba(0,0,0,0.04) !important; }
+html:not(.dark) .bg-\[\#0E1117\]\/80     { background-color: rgba(0,0,0,0.05) !important; }
+html:not(.dark) .bg-\[\#141820\]\/40     { background-color: rgba(0,0,0,0.03) !important; }
+
+/* Navbar / overlay backgrounds */
+html:not(.dark) .bg-\[\#080A0E\]\/80     { background-color: rgba(245,245,240,0.80) !important; }
+html:not(.dark) .bg-\[\#080A0E\]\/90     { background-color: rgba(245,245,240,0.90) !important; }
+html:not(.dark) .bg-\[\#080A0E\]\/95     { background-color: rgba(245,245,240,0.95) !important; }
+
+/* Buttons */
+html:not(.dark) .bg-\[\#E8C97A\]         { background-color: #c4a35a !important; }
+
+/* Borders */
+html:not(.dark) .border-white\/7          { border-color: rgba(0,0,0,0.08) !important; }
+html:not(.dark) .border-white\/13         { border-color: rgba(0,0,0,0.12) !important; }
+html:not(.dark) .border-\[\#E8C97A\]\/20  { border-color: rgba(122,92,10,0.25) !important; }
+html:not(.dark) .border-\[\#E8C97A\]\/40  { border-color: rgba(122,92,10,0.35) !important; }
+
 /* ── Hide scrollbar on chip rows ───────────────────────────────────────────── */
 .scrollbar-none {
   scrollbar-width: none;

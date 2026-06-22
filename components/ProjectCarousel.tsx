@@ -233,6 +233,33 @@ const PROJECTS = [
     ],
     tools: ['GoHighLevel', 'Custom Fields', 'Pipelines', 'Google Calendar', 'Bulk Import', 'Python'],
   },
+  {
+    id: 11,
+    platform: 'Reporting',
+    platformClass: 'bg-teal-500/15 text-teal-400 border border-teal-500/25',
+    image: 'https://picsum.photos/seed/ghl-live-dashboard/800/500',
+    title: 'Live GHL Sales Reporting Dashboard',
+    problem:
+      'Sales data existed inside GHL but there was no way to see it clearly. Revenue, conversion rates, pipeline stage distribution, and closer performance were buried in raw CRM records. Getting any kind of overview required manual data extraction — with no live view, no trend analysis, and no way to slice results by occupation, package, or visa type.',
+    whatItDoes: [
+      'Built a live reporting dashboard connected directly to GHL — all data refreshes in real time via the platform\'s reporting engine',
+      'Tracks revenue won, cash collected, conversion rate, average sales cycle length, and active pipeline count in a single view',
+      'Sliceable across 6 dimensions: Package, Occupation, Closer, Payment type, Visa type, and Lead Status',
+      'Shows revenue trend over time with daily, weekly, and monthly views — and a Revenue by Package breakdown (Diamond, Gold, Silver)',
+      'Visualises sales volume by occupation to identify the highest-converting lead segments',
+      'Tracks the full conversion funnel end-to-end: New Lead → Consultation Booked → Consultation Done → Closing Booked → Enrolled',
+      'Includes closer performance comparison and payment type vs cash collected tracking',
+    ],
+    result: '',
+    results: [
+      'Real-time revenue and pipeline visibility — no manual reporting or data export needed',
+      'Instant slicing across 6 dimensions to pinpoint what\'s converting and why',
+      'Full funnel tracked end-to-end — every stage from first contact to enrolled student',
+      'Package and occupation performance visible at a glance for strategic decisions',
+      'Sales team performance tracked live — accountability built directly into the workflow',
+    ],
+    tools: ['GoHighLevel', 'GHL Reporting Engine', 'Pipeline Analytics', 'Conversion Tracking'],
+  },
 ]
 
 const GROUPS: { platform: string; accentClass: string }[] = [
@@ -241,6 +268,7 @@ const GROUPS: { platform: string; accentClass: string }[] = [
   { platform: 'n8n',        accentClass: 'text-amber-400  border-amber-500/30'  },
   { platform: 'HighLevel',  accentClass: 'text-sky-400    border-sky-500/30'    },
   { platform: 'Meta Ads',   accentClass: 'text-blue-400   border-blue-500/30'   },
+  { platform: 'Reporting',  accentClass: 'text-teal-400   border-teal-500/30'   },
 ]
 
 // ── Magnifying glass (modal image only) ───────────────────────────────────────
