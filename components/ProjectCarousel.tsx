@@ -237,7 +237,7 @@ const PROJECTS = [
     id: 11,
     platform: 'Reporting',
     platformClass: 'bg-teal-500/15 text-teal-400 border border-teal-500/25',
-    image: 'https://picsum.photos/seed/ghl-live-dashboard/800/500',
+    image: '/GHL Reporting.jpg',
     title: 'Live GHL Sales Reporting Dashboard',
     problem:
       'Sales data existed inside GHL but there was no way to see it clearly. Revenue, conversion rates, pipeline stage distribution, and closer performance were buried in raw CRM records. Getting any kind of overview required manual data extraction — with no live view, no trend analysis, and no way to slice results by occupation, package, or visa type.',
