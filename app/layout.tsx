@@ -11,14 +11,22 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Ahmed Dizon — AI Automation Specialist',
+  title: 'MedVentures | AI Automation Systems for Growing Businesses',
   description:
-    'AI Automation Specialist & Virtual Assistant based in the Philippines. Expert in Zapier, Make, n8n, and GoHighLevel. Talk to my AI avatar.',
+    'MedVentures builds production-grade automation systems on n8n, Make, Zapier, GoHighLevel, and HubSpot. Founded by Ahmed Dizon.',
   openGraph: {
-    title: 'Ahmed Dizon — AI Automation Specialist',
+    title: 'MedVentures | AI Automation Systems for Growing Businesses',
     description:
-      'Ask my AI avatar anything about automation, workflows, and how I can eliminate manual work from your business.',
+      'MedVentures builds production-grade automation systems on n8n, Make, Zapier, GoHighLevel, and HubSpot. Founded by Ahmed Dizon.',
     type: 'website',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'MedVentures' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'MedVentures | AI Automation Systems for Growing Businesses',
+    description:
+      'MedVentures builds production-grade automation systems on n8n, Make, Zapier, GoHighLevel, and HubSpot. Founded by Ahmed Dizon.',
+    images: ['/og-image.jpg'],
   },
 }
 

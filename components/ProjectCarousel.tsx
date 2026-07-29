@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { LayoutGroup, motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { X } from '@phosphor-icons/react'
 
-const PROJECTS = [
+export const PROJECTS = [
   {
     id: 1,
     platform: 'Zapier',
@@ -161,7 +161,7 @@ const PROJECTS = [
     id: 8,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/Leo Le workflow in claude.jpg',
+    image: '/ghl-lead-qualification-workflow.jpg',
     title: '5-Workflow Lead Qualification & Follow-Up Engine',
     problem:
       'Every new lead — whether from a Meta Ad or an inbound social DM — required manual review: scoring urgency, finding the right testimonial video, and deciding who to assign. Hot leads (students on temporary visas with little time remaining) were being treated the same as cold ones. No-shows fell off the radar entirely. Revenue was slipping through without a system to catch it.',
@@ -189,7 +189,7 @@ const PROJECTS = [
     id: 10,
     platform: 'Meta Ads',
     platformClass: 'bg-blue-500/15 text-blue-400 border border-blue-500/25',
-    image: '/job coaching form.jpg',
+    image: '/meta-ads-lead-form.jpg',
     title: 'Job Coaching Lead Form & New Meta Campaign Launch',
     problem:
       'The live Meta ad used a generic Webinar Form capturing only name, phone, and email — no occupation or visa data, leaving the automation with nothing to qualify or segment leads on entry. Meta prevents editing an Instant Form on a published live ad, so swapping in a richer form required launching a brand new campaign from scratch.',
@@ -214,7 +214,7 @@ const PROJECTS = [
     id: 9,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/GHL build.jpg',
+    image: '/ghl-crm-build.jpg',
     title: 'Full GHL CRM Build & 8,300+ Lead Re-engagement',
     problem:
       '8,300+ contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no student status tracking, and no way to see who needed follow-up. 979 old leads had job data from a previous campaign but had never been qualified, tagged, or followed up — all of them had gone cold.',
@@ -239,7 +239,7 @@ const PROJECTS = [
     id: 11,
     platform: 'Reporting',
     platformClass: 'bg-teal-500/15 text-teal-400 border border-teal-500/25',
-    image: '/GHL Reporting.jpg',
+    image: '/ghl-reporting-dashboard.jpg',
     title: 'Live GHL Sales Reporting Dashboard',
     problem:
       'Sales data existed inside GHL but there was no way to see it clearly. Revenue, conversion rates, pipeline stage distribution, and closer performance were buried in raw CRM records. Getting any kind of overview required manual data extraction — with no live view, no trend analysis, and no way to slice results by occupation, package, or visa type.',
@@ -262,15 +262,126 @@ const PROJECTS = [
     ],
     tools: ['GoHighLevel', 'GHL Reporting Engine', 'Pipeline Analytics', 'Conversion Tracking'],
   },
+  {
+    id: 12,
+    platform: 'n8n',
+    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
+    image: 'https://picsum.photos/seed/n8n-five-phase-lead/800/500',
+    title: 'Five-Phase Lead Management System',
+    problem:
+      'Two outreach agents were contacting the same leads with no coordination, creating duplicate touch points. Student data moved between capture, qualification, purchase, and onboarding by copy-paste, introducing errors and delays at every handoff.',
+    whatItDoes: [
+      'Manages the full lead lifecycle across five sequential phases: capture, qualification, outreach coordination, purchase handoff, and reporting',
+      'Coordinates outreach across multiple agents from a central system, preventing duplicate contacts on the same lead',
+      'Routes qualified leads to the next phase automatically with no manual handoff or data re-entry',
+      'Delivers structured reporting into Notion and Google Sheets at the close of each phase',
+      'Built with a modular architecture so each phase can be tested, debugged, and updated independently',
+    ],
+    result: '',
+    results: [
+      'Zero duplicate outreach across all agents in the pipeline',
+      'Zero manual data transfer between any phase of the lifecycle',
+      'Every phase independently testable and debuggable without touching the others',
+    ],
+    tools: ['n8n', 'Typeform', 'HubSpot', 'Twilio', 'Gmail', 'Telegram Bot API', 'Google Sheets', 'Notion'],
+  },
+  {
+    id: 13,
+    platform: 'Zapier',
+    platformClass: 'bg-orange-600/15 text-orange-300 border border-orange-600/25',
+    image: 'https://picsum.photos/seed/zapier-three-agent/800/500',
+    title: 'Three-Agent Automation Suite for a Service Business',
+    problem:
+      'Lead documentation and social publishing were both fully manual and inconsistent. Client documents were created from scratch on every CRM status change, and social content missed publishing windows because it depended on someone being available to post.',
+    whatItDoes: [
+      'Agent 1 monitors the CRM for status changes, then generates a populated client document and prepares an addressed email draft automatically',
+      'Agent 2 runs on a daily schedule, pulls approved media from cloud storage, writes captions using AI, and publishes across social channels',
+      'Both agents run on separate triggers and schedules with no dependency on each other',
+    ],
+    result: '',
+    results: [
+      'Lead documentation generated automatically on every CRM status change',
+      'Social content published daily without manual intervention',
+      'Both pipelines run unattended with no human in the loop',
+    ],
+    tools: ['Zapier', 'Google Sheets', 'Google Docs', 'Google Drive', 'Gmail', 'AI by Zapier', 'Facebook'],
+  },
+  {
+    id: 14,
+    platform: 'Make.com',
+    platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
+    image: 'https://picsum.photos/seed/make-multi-platform/800/500',
+    title: 'Multi-Platform System Deployment',
+    problem:
+      'A three-platform system had been purchased but never deployed. The WordPress site was unconfigured, the automation layer was untouched, and the CRM had no pipeline, no fields, and no nurture structure. A purchased system sitting idle is a liability, not an asset.',
+    whatItDoes: [
+      'Deployed and configured WordPress plugins on managed hosting with the required integrations',
+      'Built a 10-module automation scenario with conditional routing logic connecting all three platforms',
+      'Built the complete CRM with 11 custom fields, a 7-stage pipeline, and three nurture tracks segmented by lead temperature',
+      'Connected the web layer, automation layer, and CRM into a single operating system',
+    ],
+    result: '',
+    results: [
+      'A purchased system turned into a running one in under two weeks',
+      'All three platforms live and connected with no manual routing between them',
+      'Three nurture tracks active and segmenting leads by temperature from day one',
+    ],
+    tools: ['Make.com', 'GoHighLevel', 'WordPress', 'WP Engine', 'SendGrid', 'Slack', 'Google Sheets'],
+  },
+  {
+    id: 15,
+    platform: 'HubSpot',
+    platformClass: 'bg-rose-500/15 text-rose-400 border border-rose-500/25',
+    image: 'https://picsum.photos/seed/hubspot-ai-followup/800/500',
+    title: 'AI Sales Follow-Up and Customer Journey Automation',
+    problem:
+      'Sales calls were being recorded but follow-up depended entirely on memory and manual notes. The post-sale customer journey existed as an intention, not a documented process, meaning different clients got a different experience depending on who was handling their account.',
+    whatItDoes: [
+      'Call recordings are transcribed automatically and passed through an AI summarization layer',
+      'Structured follow-up actions are written directly into the CRM from each call summary, with no manual entry required',
+      'The full post-sale customer journey is mapped into HubSpot as tracked, automated stages',
+      'The sales team receives a Slack notification with the call summary and next actions immediately after each call',
+    ],
+    result: '',
+    results: [
+      'No call ends without a logged follow-up action in the CRM',
+      'The post-sale journey is a repeatable system, not a per-rep assumption',
+      'Sales team spends zero time on post-call data entry',
+    ],
+    tools: ['HubSpot', 'Fireflies', 'Claude', 'Slack'],
+  },
+  {
+    id: 16,
+    platform: 'HighLevel',
+    platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
+    image: 'https://picsum.photos/seed/ghl-whitelabel-crm/800/500',
+    title: 'White-Label CRM Architecture and Outreach Engine',
+    problem:
+      'A multi-business operator was running a membership and events ecosystem with no structured pipeline and no way to track outbound attribution. Who contacted whom, when, through which channel, and what the outcome was, all of it lived in memory.',
+    whatItDoes: [
+      'Architected a sub-account structure across a white-labeled GHL portal to organize multiple business lines cleanly',
+      'Built a full outreach pipeline with defined stages from first contact through conversion',
+      'Implemented a tagging taxonomy for lead segmentation across business lines',
+      'Built a multi-touch outreach sequence with tracking across the CRM and a reporting layer for attribution',
+    ],
+    result: '',
+    results: [
+      'Every lead traceable from first touch to conversion',
+      'Multi-business operations organized under a single, structured portal',
+      'Full attribution on all outbound activity across channels',
+    ],
+    tools: ['GoHighLevel White-Label', 'LinkedIn', 'Google Sheets'],
+  },
 ]
 
-const GROUPS: { platform: string; accentClass: string }[] = [
+export const GROUPS: { platform: string; accentClass: string }[] = [
   { platform: 'Zapier',     accentClass: 'text-orange-300 border-orange-600/30' },
   { platform: 'Make.com',   accentClass: 'text-violet-400 border-violet-500/30' },
   { platform: 'n8n',        accentClass: 'text-amber-400  border-amber-500/30'  },
   { platform: 'HighLevel',  accentClass: 'text-sky-400    border-sky-500/30'    },
   { platform: 'Meta Ads',   accentClass: 'text-blue-400   border-blue-500/30'   },
   { platform: 'Reporting',  accentClass: 'text-teal-400   border-teal-500/30'   },
+  { platform: 'HubSpot',   accentClass: 'text-rose-400   border-rose-500/30'   },
 ]
 
 // ── Magnifying glass (modal image only) ───────────────────────────────────────

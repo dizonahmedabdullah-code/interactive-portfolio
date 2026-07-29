@@ -7,7 +7,7 @@ import ProcessSteps from '@/components/ProcessSteps'
 import ToolsBanner from '@/components/ToolsBanner'
 import MouseEffect from '@/components/MouseEffect'
 import ChatWidget from '@/components/ChatWidget'
-import ProjectCarousel from '@/components/ProjectCarousel'
+import ProjectCarousel, { PROJECTS } from '@/components/ProjectCarousel'
 import {
   ArrowRight,
   EnvelopeSimple,
@@ -21,7 +21,6 @@ import {
   List,
   X,
   MapPin,
-  Phone,
   Sun,
   Moon,
   Globe,
@@ -29,18 +28,21 @@ import {
   ArrowUp,
   Plus,
   Minus,
+  MagnifyingGlass,
+  Wrench,
+  ArrowsClockwise,
 } from '@phosphor-icons/react'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const NAV_LINKS = ['About', 'Skills', 'Projects', 'Experience', 'Contact']
+const NAV_LINKS = ['About', 'Skills', 'Services', 'Projects', 'Experience', 'Contact']
 
 const SKILLS = [
   {
     icon: Lightning,
     category: 'Automation & AI',
-    description: 'Building workflows that run themselves so teams can focus on what matters.',
-    tools: ['Zapier', 'Make', 'n8n', 'GoHighLevel', 'ChatGPT'],
+    description: 'Building systems that run themselves so teams can focus on what matters.',
+    tools: ['Zapier', 'Make', 'n8n', 'GoHighLevel', 'HubSpot', 'ChatGPT'],
     featured: true,
   },
   {
@@ -93,14 +95,13 @@ const EXPERIENCES = [
     ],
   },
   {
-    title: 'Executive Assistant to Head of Sales',
-    company: 'Events Company',
-    period: 'May 2023 – Jan 2026',
+    title: 'Data Entry Specialist and Video Editor',
+    company: 'Tutor Company',
+    period: 'Dec 2023 – Apr 2025',
     type: 'Remote',
     highlights: [
-      'Leveraged LinkedIn Sales Navigator to systematically identify and qualify high-value event prospects',
-      'Streamlined full attendee lifecycle — registration, payments, and post-event communication',
-      'Built weekly/monthly sales performance reports with trend comparisons for faster decisions',
+      'Fixed CRM data inconsistencies through systematic extraction and reorganization, and implemented spreadsheet formulas that removed hours of manual computation',
+      'Produced promotional content aligned to brand messaging that improved audience retention',
     ],
   },
   {
@@ -114,6 +115,47 @@ const EXPERIENCES = [
     ],
   },
   {
+    title: 'Executive Assistant to Head of Sales',
+    company: 'Events Company',
+    period: 'May 2023 – Jan 2026',
+    type: 'Remote',
+    highlights: [
+      'Leveraged LinkedIn Sales Navigator to systematically identify and qualify high-value event prospects',
+      'Streamlined full attendee lifecycle — registration, payments, and post-event communication',
+      'Built weekly/monthly sales performance reports with trend comparisons for faster decisions',
+    ],
+  },
+  {
+    title: 'Admin Assistant and Social Media Manager',
+    company: 'Real Estate Company',
+    period: 'Jan 2023 – Oct 2023',
+    type: 'Remote',
+    highlights: [
+      'Drafted and finalized leases, contracts, and agreement letters with full compliance accuracy',
+      'Designed property listings that increased visibility and reduced time on market',
+    ],
+  },
+  {
+    title: 'Admin Assistant and Lead Generation',
+    company: 'Entertainment Company',
+    period: 'Jun 2022 – Feb 2023',
+    type: 'Remote',
+    highlights: [
+      'Built a university partnership outreach campaign from scratch that grew the client base by 20%',
+      'Created audit-ready client records, invoices, and receipts across QuickBooks and Excel',
+    ],
+  },
+  {
+    title: 'Social Media Manager and Cold Outreach Specialist',
+    company: 'Staffing Agency',
+    period: 'Feb 2022 – Dec 2022',
+    type: 'Remote',
+    highlights: [
+      'Built multi-platform content calendars driving candidate and client engagement',
+      'Implemented structured CRM lead logs that kept the sales team focused on warm prospects',
+    ],
+  },
+  {
     title: 'Technical Support Team Leader',
     company: 'Mobile Company — US Account',
     period: 'Feb 2019 – Jan 2022',
@@ -122,6 +164,46 @@ const EXPERIENCES = [
       'Stepped into Team Leader role — coaching staff, monitoring KPIs, and handling complex escalations',
       'Facilitated daily huddles that kept the whole team aligned and consistently performing',
     ],
+  },
+  {
+    title: 'Technical Support Representative',
+    company: 'Internet Company — US Account',
+    period: 'Mar 2016 – Dec 2018',
+    type: 'On-site',
+    highlights: [
+      'Delivered US technical support across internet, TV, and phone with consistently high CSAT',
+      'Logged detailed case notes and escalated efficiently, reducing repeat contacts',
+    ],
+  },
+]
+
+const SERVICES = [
+  {
+    icon: MagnifyingGlass,
+    tier: 'Tier 01',
+    title: 'Automation Audit',
+    description:
+      'A structured review of your current stack. We map every manual process, identify the highest-cost bottlenecks, and deliver a prioritized automation roadmap. Fixed scope, fixed timeline.',
+    cta: 'Book a discovery call',
+    featured: false,
+  },
+  {
+    icon: Wrench,
+    tier: 'Tier 02',
+    title: 'Build and Handoff',
+    description:
+      'A scoped system build delivered in phases. Every phase ships with documentation, a walkthrough recording, and a warranty period. Built to be maintained by your own team.',
+    cta: 'Get a scope estimate',
+    featured: true,
+  },
+  {
+    icon: ArrowsClockwise,
+    tier: 'Tier 03',
+    title: 'Ongoing Systems Retainer',
+    description:
+      'Monthly monitoring, optimization, and enhancement of live systems. Defined monthly allowance with a clear boundary between included maintenance and separately quoted new work.',
+    cta: 'Discuss a retainer',
+    featured: false,
   },
 ]
 
@@ -151,15 +233,22 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 const TICKER_ITEMS = [
-  'Zapier', 'Make.com', 'n8n', 'GoHighLevel', 'Lead Generation',
-  'CRM Automation', 'Workflow Automation', 'AI Chatbots',
+  'Zapier', 'Make.com', 'n8n', 'GoHighLevel', 'HubSpot',
+  'Lead Generation', 'CRM Automation', 'Workflow Automation', 'AI Chatbots',
   'Data Extraction', 'Content Repurposing', 'LinkedIn Outreach', 'Appointment Setting',
+]
+
+const TRUST_BADGES = [
+  'Upwork Top Rated',
+  '100% Job Success Score',
+  'Clients in the US, AU, and Asia',
+  'Philippines based, UTC+8',
 ]
 
 const FAQS = [
   {
     q: 'What tools and platforms do you work with?',
-    a: 'I work with Zapier, Make.com, n8n, GoHighLevel, HubSpot, Salesforce, Zoho, ChatGPT, Google Workspace, Airtable, Notion, Slack, Xero, QuickBooks, Canva, and CapCut among others.',
+    a: 'We work with Zapier, Make.com, n8n, GoHighLevel, HubSpot, Salesforce, Zoho, ChatGPT, Google Workspace, Airtable, Notion, Slack, Xero, QuickBooks, Canva, and CapCut among others.',
   },
   {
     q: 'What industries have you worked in?',
@@ -167,15 +256,15 @@ const FAQS = [
   },
   {
     q: 'How do we get started?',
-    a: 'Book a free 30-minute strategy call via my Calendly. We will map out your biggest bottleneck and I will tell you exactly how to automate it.',
+    a: 'Book a free 30-minute strategy call via Calendly. We will map out your biggest bottleneck and outline exactly how to automate it.',
   },
   {
     q: 'Are you available for long-term contracts?',
-    a: 'Yes. I am open to both project-based and ongoing retainer arrangements depending on the scope of work.',
+    a: 'Yes. We are open to both project-based and ongoing retainer arrangements depending on the scope of work.',
   },
   {
     q: 'What is your timezone and availability?',
-    a: 'I am based in the Philippines at UTC+8 and am available to overlap with US, European, and Australian business hours.',
+    a: 'We are based in the Philippines at UTC+8 and available to overlap with US, European, and Australian business hours.',
   },
 ]
 
@@ -254,7 +343,7 @@ function ContactForm() {
             <CalendarCheckIcon size={26} className="text-[#E8C97A]" />
           </div>
           <p className="text-lg font-black text-white mb-1">Message sent</p>
-          <p className="text-sm text-zinc-500">I&apos;ll get back to you shortly.</p>
+          <p className="text-sm text-zinc-500">We&apos;ll get back to you shortly.</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -328,7 +417,7 @@ function ContactForm() {
           >
             <span className="absolute inset-0 bg-white/20 -translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-xl" />
             <CalendarCheckIcon size={18} className="relative flex-shrink-0" />
-            <span className="relative">Book My Free Strategy Call</span>
+            <span className="relative">Book a Free Strategy Call</span>
           </a>
         </form>
       )}
@@ -345,7 +434,6 @@ export default function Home() {
   const glowRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Restore saved theme preference
     const saved = localStorage.getItem('theme')
     if (saved === 'light') {
       setIsDark(false)
@@ -377,7 +465,6 @@ export default function Home() {
 
   return (
     <div className={`${isDark ? 'bg-[#080A0E] text-[#F0EEE6]' : 'bg-[#f5f5f0] text-zinc-900'} overflow-x-hidden transition-colors`}>
-      {/* Global mouse gradient overlay */}
       <div ref={glowRef} className="fixed inset-0 pointer-events-none" style={{ opacity: 0, transition: 'opacity 1.8s ease', zIndex: 0 }} />
       <MouseEffect glowRef={glowRef} isDark={isDark} />
 
@@ -394,10 +481,9 @@ export default function Home() {
             onClick={() => scrollTo('home')}
             className="text-xl font-black text-[#F0EEE6] tracking-tight hover:scale-105 transition-transform"
           >
-            Automated by Med.
+            MedVentures
           </button>
 
-          {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map(link => (
               <button
@@ -412,7 +498,6 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
@@ -420,14 +505,12 @@ export default function Home() {
             >
               {isDark ? <Sun size={14} /> : <Moon size={14} />}
             </button>
-            {/* Hire CTA */}
             <button
               onClick={() => scrollTo('contact')}
               className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-[#E8C97A] rounded-xl text-[#080A0E] hover:scale-[1.03] active:scale-[0.97] transition-transform"
             >
               Hire Me
             </button>
-            {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-white/7 text-[#7A8090]"
@@ -437,7 +520,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, y: -8 }}
@@ -466,7 +548,6 @@ export default function Home() {
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section id="home" className="relative min-h-[100dvh] flex items-center overflow-hidden pt-20">
-        {/* ── Ticker strip ─────────────────────────────────────────────────── */}
         <div className="absolute top-16 left-0 right-0 z-10 border-y border-white/7 bg-[#080A0E]/80 backdrop-blur-sm overflow-hidden py-2.5">
           <div
             className="flex w-max gap-0"
@@ -481,7 +562,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Background blobs */}
         <div className="absolute top-32 left-8 w-[480px] h-[480px] bg-[#E8C97A]/8 rounded-full blur-[140px] pointer-events-none" />
         <div
           className="absolute bottom-24 right-8 w-[400px] h-[400px] bg-[#E8C97A]/6 rounded-full blur-[140px] pointer-events-none animate-pulse"
@@ -489,35 +569,31 @@ export default function Home() {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 lg:py-24 grid lg:grid-cols-2 gap-16 items-center w-full">
-          {/* Left */}
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* Badge */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold tracking-[0.28em] uppercase text-[#E8C97A] bg-[#E8C97A]/10 border border-[#E8C97A]/20 rounded-full mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E8C97A] animate-pulse" />
-                AI AUTOMATION SPECIALIST
+                MEDVENTURES
               </div>
 
-              {/* Heading */}
               <h1 className="text-5xl lg:text-[5.5rem] font-black leading-[1.04] tracking-tight text-[#F0EEE6] mb-6">
                 I Build<br />
                 <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
-                  Automations
+                  Systems
                 </span>
-                <br />That Scale.
+                <br />That Run.
               </h1>
 
               <p className="text-lg text-zinc-400 leading-relaxed max-w-[500px] mb-10">
-                9+ years eliminating manual work from businesses. Expert in Zapier, Make, n8n, and GoHighLevel.
-                Philippines-based, globally available.
+                9+ years remote. Production systems across n8n, Make, Zapier, GoHighLevel, and HubSpot.
+                Clients in the US, Australia, and Asia.
               </p>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-4 mb-8">
+              <div className="flex flex-wrap gap-4 mb-6">
                 <button
                   onClick={() => scrollTo('contact')}
                   className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-[#E8C97A] rounded-xl font-semibold text-[#080A0E] overflow-hidden hover:scale-[1.03] active:scale-[0.97] transition-transform"
@@ -534,13 +610,25 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* Stats row */}
+              {/* Trust bar */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {TRUST_BADGES.map(badge => (
+                  <span
+                    key={badge}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-semibold text-[#7A8090] border border-white/7 rounded-full bg-[#0E1117]/60"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-[#E8C97A] flex-shrink-0" />
+                    {badge}
+                  </span>
+                ))}
+              </div>
+
               <div className="border-t border-white/7 pt-6 mb-8 grid grid-cols-4 gap-x-4 gap-y-4">
                 {[
-                  { value: '9+', label: 'Years Remote' },
-                  { value: '5',  label: 'Automation Platforms' },
-                  { value: '8+', label: 'Industries Served' },
-                  { value: '7',  label: 'Case Studies' },
+                  { value: '9+',                        label: 'Years Remote' },
+                  { value: '6',                         label: 'Automation Platforms' },
+                  { value: '8+',                        label: 'Industries Served' },
+                  { value: String(PROJECTS.length),     label: 'Case Studies' },
                 ].map(({ value, label }) => (
                   <div key={label}>
                     <p className="text-2xl font-black text-[#F0EEE6] leading-none mb-1">{value}</p>
@@ -549,7 +637,6 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Social */}
               <div className="flex items-center gap-3">
                 {[
                   { icon: EnvelopeSimple, href: 'mailto:dizonahmedabdullah@gmail.com', label: 'Email' },
@@ -571,7 +658,6 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Right: 4-step process */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
@@ -594,7 +680,7 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <SectionLabel>About Me</SectionLabel>
+            <SectionLabel>About MedVentures</SectionLabel>
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-6 leading-tight">
               A Problem Solver<br />
               <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
@@ -603,22 +689,21 @@ export default function Home() {
             </h2>
             <div className="space-y-4 text-[#7A8090] leading-relaxed mb-8">
               <p>
-                I look at broken processes and immediately start thinking about how to fix them. That instinct is
-                what led me into AI automation. With 9+ years of remote work across lead generation, executive
-                support, and social media, I kept finding the same problem: businesses drowning in manual,
-                repetitive work.
+                I look at broken processes and immediately think about how to eliminate them permanently.
+                That is the instinct behind MedVentures. With 9+ years building systems across lead generation,
+                CRM architecture, and workflow automation, I kept finding the same problem: businesses with good
+                people drowning in work that a system should be handling.
               </p>
               <p>
-                Now I build the systems that eliminate it — multi-step automations, CRM pipelines, AI-powered
-                workflows — across industries and time zones.
+                I founded MedVentures to build those systems at scale, across n8n, Make, Zapier, GoHighLevel,
+                and HubSpot, for clients in the US, Australia, and Asia.
               </p>
             </div>
 
-            {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mb-8">
               {[
                 { value: '9+', label: 'Years Remote' },
-                { value: '5', label: 'Automation Platforms' },
+                { value: '6',  label: 'Platforms' },
                 { value: '8+', label: 'Industries' },
               ].map(stat => (
                 <div key={stat.label} className="p-4 bg-[#0E1117] border border-white/7 rounded-xl text-center">
@@ -642,7 +727,7 @@ export default function Home() {
       <section id="skills" className="py-24 lg:py-32 border-t border-white/7">
         <div className="max-w-7xl mx-auto px-6">
           <FadeIn>
-            <SectionLabel>What I Do</SectionLabel>
+            <SectionLabel>What We Do</SectionLabel>
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-4 leading-tight">
               Skills &{' '}
               <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
@@ -650,7 +735,7 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-[#7A8090] max-w-[52ch] mb-14">
-              From automation architecture to content creation — every service I offer is built around one goal: removing friction from your business.
+              From automation architecture to content creation. Every service is built around one goal: removing friction from your business permanently.
             </p>
           </FadeIn>
 
@@ -694,6 +779,56 @@ export default function Home() {
         <ToolsBanner />
       </div>
 
+      {/* ── Services ───────────────────────────────────────────────────────── */}
+      <section id="services" className="py-24 lg:py-32 border-t border-white/7">
+        <div className="max-w-7xl mx-auto px-6">
+          <FadeIn>
+            <SectionLabel>How We Work</SectionLabel>
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-4 leading-tight">
+              Engagement{' '}
+              <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
+                Tiers
+              </span>
+            </h2>
+            <p className="text-[#7A8090] max-w-[52ch] mb-14">
+              Every engagement starts with understanding the problem. The tier determines scope, not quality.
+            </p>
+          </FadeIn>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {SERVICES.map((svc, i) => {
+              const Icon = svc.icon
+              return (
+                <FadeIn key={svc.title} delay={i * 0.07}>
+                  <div className={`h-full p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
+                    svc.featured
+                      ? 'bg-gradient-to-br from-[#E8C97A]/8 to-[#0E1117]/80 border-[#E8C97A]/20 hover:border-[#E8C97A]/30'
+                      : 'bg-[#0E1117]/60 border-white/7 hover:border-white/13'
+                  }`}>
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${
+                      svc.featured ? 'bg-[#E8C97A]/15 text-[#E8C97A]' : 'bg-[#141820] text-[#7A8090]'
+                    }`}>
+                      <Icon size={20} weight="bold" />
+                    </div>
+                    <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-2 ${
+                      svc.featured ? 'text-[#E8C97A]/70' : 'text-[#4A5060]'
+                    }`}>{svc.tier}</p>
+                    <h3 className="text-lg font-black text-[#F0EEE6] mb-3 leading-tight">{svc.title}</h3>
+                    <p className="text-sm text-[#7A8090] leading-relaxed mb-6">{svc.description}</p>
+                    <button
+                      onClick={() => scrollTo('contact')}
+                      className="text-xs font-bold text-[#E8C97A] hover:underline underline-offset-4 transition-all"
+                    >
+                      {svc.cta} &rarr;
+                    </button>
+                  </div>
+                </FadeIn>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* ── Projects ───────────────────────────────────────────────────────── */}
       <section id="projects" className="py-24 lg:py-32 border-t border-white/7">
         <div className="max-w-7xl mx-auto px-6">
@@ -706,7 +841,7 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-[#7A8090] max-w-[52ch] mb-14">
-              Real workflows built on Make.com and n8n. Each one replaced hours of manual work with a system that runs itself.
+              Production systems built across n8n, Make, Zapier, GoHighLevel, and HubSpot. Each one replaced manual work with a system that runs itself.
             </p>
           </FadeIn>
 
@@ -727,14 +862,12 @@ export default function Home() {
           </FadeIn>
 
           <div className="relative">
-            {/* Timeline line */}
             <div className="absolute left-0 top-2 bottom-2 w-px bg-white/7 hidden lg:block" />
 
             <div className="space-y-8">
               {EXPERIENCES.map((exp, i) => (
-                <FadeIn key={exp.title} delay={i * 0.07}>
+                <FadeIn key={exp.title + exp.period} delay={i * 0.07}>
                   <div className="lg:pl-10 relative">
-                    {/* Dot */}
                     <div className="absolute left-[-4.5px] top-2 w-2.5 h-2.5 rounded-full bg-[#E8C97A] border-2 border-[#080A0E] hidden lg:block" />
 
                     <div className="p-6 bg-[#0E1117]/60 border border-white/7 rounded-2xl hover:border-white/13 transition-colors">
@@ -775,14 +908,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-            {/* Left — info block */}
             <FadeIn>
               <SectionLabel>Get In Touch</SectionLabel>
               <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-6 leading-tight">
                 Ready to get your<br />time back?
               </h2>
               <p className="text-[#7A8090] leading-relaxed mb-10 max-w-[48ch]">
-                If you&apos;re spending hours on tasks that could run on their own, let&apos;s talk. I&apos;ll map out exactly where automation can free up your time — no fluff, no pressure, just a clear plan.
+                If your team is spending hours on tasks that could run on their own, let&apos;s talk. We will map out exactly where automation can free up your time. No fluff, no pressure, just a clear plan.
               </p>
 
               <div className="space-y-6">
@@ -796,8 +928,8 @@ export default function Home() {
                   {
                     icon: Globe,
                     label: 'Website',
-                    value: 'automated-by-med.vercel.app',
-                    href: 'https://automated-by-med.vercel.app',
+                    value: 'medventures.io',
+                    href: 'https://medventures.io',
                   },
                   {
                     icon: MapPin,
@@ -830,7 +962,6 @@ export default function Home() {
               </div>
             </FadeIn>
 
-            {/* Right — lead capture form */}
             <FadeIn delay={0.12}>
               <ContactForm />
             </FadeIn>
@@ -842,7 +973,10 @@ export default function Home() {
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
       <footer className="border-t border-white/7 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm font-black text-[#F0EEE6] tracking-tight">Automated by Med.</p>
+          <div className="text-center sm:text-left">
+            <p className="text-sm font-black text-[#F0EEE6] tracking-tight">MedVentures</p>
+            <p className="text-xs text-[#4A5060] mt-0.5">Founded by Ahmed Abdullah Dizon</p>
+          </div>
           <div className="flex items-center gap-6">
             {NAV_LINKS.map(link => (
               <button
@@ -854,7 +988,7 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <p className="text-xs text-[#4A5060]">© 2025 Ahmed Abdullah Dizon</p>
+          <p className="text-xs text-[#4A5060]">© 2026 MedVentures. All rights reserved.</p>
         </div>
       </footer>
 
@@ -875,7 +1009,6 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* ── Floating chat widget ───────────────────────────────────────────── */}
       <ChatWidget />
     </div>
   )

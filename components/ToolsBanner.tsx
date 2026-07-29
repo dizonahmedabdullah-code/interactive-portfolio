@@ -9,6 +9,7 @@ import {
   siNotion, siGmail, siMeta, siFacebook, siInstagram,
   siXero, siQuickbooks, siGooglesheets, siGoogledrive,
   siGoogledocs, siGooglegemini, siAirtable, siYoutube,
+  siTypeform, siTelegram, siWordpress, siCalendly,
 } from 'simple-icons'
 
 type IconTool    = { name: string; si: SimpleIcon; desc: string }
@@ -49,6 +50,13 @@ const TOOLS: Tool[] = [
   { name: 'CapCut',             initials: 'CC',  color: '#6B7280', desc: 'Video editing app for short-form content. Used for subtitles, transitions, and social media-ready exports.' },
   { name: 'YouTube',            si: siYoutube,      desc: 'Video hosting and publishing platform. Used in automations for uploading AI-generated or repurposed video content.' },
   { name: 'Metricool',          initials: 'ME',  color: '#9333EA', desc: 'Social media analytics and scheduling. Manages multi-platform publishing and tracks content performance.' },
+  { name: 'Claude AI',          initials: 'CL',  color: '#C17843', desc: "Anthropic's Claude AI model. Used for prompt engineering, intelligent content generation, and AI-integrated automation pipelines." },
+  { name: 'Fireflies',          initials: 'FF',  color: '#4F4ED1', desc: 'AI meeting note-taker that records, transcribes, and summarizes calls. Integrated into CRM workflows for automatic follow-up triggers.' },
+  { name: 'Twilio',             initials: 'TW',  color: '#F22F46', desc: 'Cloud communications platform for SMS, voice, and WhatsApp. Enables automated messaging inside CRM and workflow automation systems.' },
+  { name: 'Typeform',           si: siTypeform,     desc: 'Conversational form builder. Used for lead capture, qualification surveys, and intake forms that feed directly into automation workflows.' },
+  { name: 'Telegram',           si: siTelegram,     desc: 'Messaging app with robust bot and webhook support. Used for real-time automation alerts, team notifications, and client communication flows.' },
+  { name: 'WordPress',          si: siWordpress,    desc: 'Open-source CMS for website and blog management. Integrated with form tools and CRM systems for seamless lead capture.' },
+  { name: 'Calendly',           si: siCalendly,     desc: 'Online scheduling platform for booking discovery calls and client meetings. Integrated into automation workflows for instant confirmation and follow-up.' },
 ]
 
 // ── 3-D tilt tile ─────────────────────────────────────────────────────────────
