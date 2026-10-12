@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 
 type BuildGroup = { heading: string; note?: string; items: string[] }
 
+type Shot = { alt: string; caption: string }
+
 type CaseStudy = {
   id: string
   title: string
@@ -13,6 +15,7 @@ type CaseStudy = {
   stackLabel: string
   problem: string
   groups: BuildGroup[]
+  gallery?: { hero: Shot; shots: Shot[] }
   howIWork?: string[]
   results?: string[]
   closing?: string
@@ -65,6 +68,27 @@ const CASE_STUDIES: CaseStudy[] = [
         ],
       },
     ],
+    gallery: {
+      hero: {
+        alt: 'Live BI dashboard with revenue, pipeline and funnel charts. Screenshot to come.',
+        caption:
+          'Live BI dashboard on Next.js and Vercel, pulling CRM data through the GoHighLevel API. Figures hidden for confidentiality.',
+      },
+      shots: [
+        {
+          alt: 'Workflow showing a reminder, a wait, a re-check and then a warning. Screenshot to come.',
+          caption: 'Non-compliance escalation: reminder, wait, re-check, then warning.',
+        },
+        {
+          alt: 'Condition panel checking whether any required student file is empty. Screenshot to come.',
+          caption: 'Missing-document check across required student files.',
+        },
+        {
+          alt: 'List of published workflows for one cohort. Screenshot to come.',
+          caption: 'One cohort\u2019s automation set: KPI reminders, warnings, late joiners, session reminders.',
+        },
+      ],
+    },
     howIWork: [
       'Architecture agreed before building',
       'Nothing deleted: old steps are disabled instead, because CRM deletions cannot be undone',
@@ -140,6 +164,23 @@ const CASE_STUDIES: CaseStudy[] = [
 ]
 
 export const CASE_STUDY_COUNT = CASE_STUDIES.length
+
+// Neutral stand-in until a real, redacted screenshot exists.
+function ShotPlaceholder({ shot, className = '' }: { shot: Shot; className?: string }) {
+  // TODO: real screenshot
+  return (
+    <figure className="min-w-0">
+      <div
+        role="img"
+        aria-label={shot.alt}
+        className={`w-full flex flex-col items-center justify-center gap-1 rounded-xl border border-white/7 bg-[#0E1117] ${className}`}
+      >
+        <span className="text-[11px] text-[#4A5060]">Screenshot to come</span>
+      </div>
+      <figcaption className="mt-2 text-xs text-[#7A8090] leading-relaxed">{shot.caption}</figcaption>
+    </figure>
+  )
+}
 
 const label = 'text-[10px] font-bold text-[#4A5060] uppercase tracking-[0.18em]'
 
@@ -239,6 +280,17 @@ export default function CaseStudies() {
               ))}
             </div>
           </div>
+
+          {cs.gallery && (
+            <div className="mt-8 space-y-5">
+              <ShotPlaceholder shot={cs.gallery.hero} className="aspect-[16/9] sm:aspect-[21/8]" />
+              <div className="grid sm:grid-cols-3 gap-5">
+                {cs.gallery.shots.map(shot => (
+                  <ShotPlaceholder key={shot.caption} shot={shot} className="aspect-[16/10]" />
+                ))}
+              </div>
+            </div>
+          )}
 
           {cs.howIWork && (
             <div
