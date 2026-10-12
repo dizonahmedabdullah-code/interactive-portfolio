@@ -161,7 +161,7 @@ export const PROJECTS = [
     id: 8,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/ghl-lead-qualification-workflow.jpg',
+    image: null, // TODO: real screenshot
     title: '5-Workflow Lead Qualification & Follow-Up Engine',
     problem:
       'Every new lead — whether from a Meta Ad or an inbound social DM — required manual review: scoring urgency, finding the right testimonial video, and deciding who to assign. Hot leads (students on temporary visas with little time remaining) were being treated the same as cold ones. No-shows fell off the radar entirely. Revenue was slipping through without a system to catch it.',
