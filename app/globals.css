@@ -150,7 +150,7 @@ html:not(.dark) .text-\[\#4A5060\]        { color: #71717a !important; }
 html:not(.dark) .text-\[\#E8C97A\]        { color: #92700f !important; }
 html:not(.dark) .placeholder-\[\#4A5060\] { color: #9ca3af !important; }
 
-/* Gradient text — darken gold so it reads on light bg */
+/* Gradient text: darken gold so it reads on light bg */
 html:not(.dark) .from-\[\#E8C97A\]  { --tw-gradient-from: #7a5c0a var(--tw-gradient-from-position) !important; }
 html:not(.dark) .to-\[\#C4A35A\]    { --tw-gradient-to: #5a3f06   var(--tw-gradient-to-position)   !important; }
 

@@ -53,7 +53,7 @@ const Avatar = memo(function Avatar({ state = 'idle', size = 200 }: AvatarProps)
             : { duration: 3.8, repeat: Infinity, ease: 'easeInOut' }
         }
       >
-        {/* Circular crop — yellow corners clipped, rainbow ring in image shows */}
+        {/* Circular crop: yellow corners clipped, rainbow ring in image shows */}
         <div
           style={{
             width: size,

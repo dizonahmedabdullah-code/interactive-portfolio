@@ -6,26 +6,150 @@ import { X } from '@phosphor-icons/react'
 
 export const PROJECTS = [
   {
-    id: 1,
-    platform: 'Zapier',
-    platformClass: 'bg-orange-600/15 text-orange-300 border border-orange-600/25',
-    image: '/zapier-project-1.jpg',
-    title: 'AI Content Repurposing: Audio to Blog Posts and Social Media',
+    id: 8,
+    platform: 'HighLevel',
+    platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
+    image: null, // TODO: real screenshot
+    title: '5-Workflow Lead Qualification & Follow-Up Engine',
     problem:
-      'Creating content across multiple platforms from a single piece of media is time-consuming. Most creators and businesses record audio or video but then have to manually transcribe it, write blog posts, craft social captions, and post everything one by one. The process takes hours and rarely happens consistently.',
+      "Every new lead, whether from a Meta Ad or an inbound social DM, needed manual review: scoring urgency, picking the right follow-up video, and deciding who to assign. High-priority leads were treated the same as cold ones, and no-shows fell off the radar entirely. Revenue was slipping through without a system to catch it.",
     whatItDoes: [
-      'Triggers automatically when a new file is added to a Google Drive folder',
-      'Filters the file using a condition check before processing',
-      'Uses AI to generate a full transcript from the audio or video file',
-      'Passes the transcript to a second AI step that creates two full blog posts',
-      'Loops through each blog post individually using Looping by Zapier',
-      'Splits into two paths based on a keyword condition in the title or content',
-      'If the condition is met, publishes the post to Facebook Pages and shares it on LinkedIn',
-      'If the condition is not met, the content is held and not published',
+      'Dual-trigger entry: fires from both an ad instant form submission and an inbound social DM, with no manual intake on either channel',
+      'Validates the contact via a function node before any processing begins, which keeps duplicates and incomplete leads out of the pipeline',
+      'Runs 3 scoring signals in parallel, each scored independently as an if-node',
+      'Merges all 3 signals into a single composite lead score via a merge node',
+      'AI Agent immediately sends a targeted video to the lead and waits for their reply before the workflow continues',
+      'Routes by final score: all-hot leads go to the Priority Calendar; any warm or cold lead goes to the Standard Calendar',
+      'Runs the full sales pipeline: Consultation Call (screen, then meet) → Closing Call (final sales conversation) → Enrollment purchase trigger',
+      'No-show on either call? Automatically branches into a follow-up sequence that loops the lead back toward rebooking',
+    ],
+    result: '',
+    results: [
+      'Zero manual follow-up required: both ad leads and social DMs handled automatically',
+      'Hot leads routed to priority booking within seconds of entry',
+      'AI Agent sends a targeted video and waits for reply before advancing the lead',
+      'No-show recovery built in: leads loop back into the pipeline automatically',
+      '7-touchpoint follow-up over 60 days for warm and cold leads (Day 1, 3, 5, 7, 14, 30, 60)',
+    ],
+    tools: ['GoHighLevel', 'Facebook Instant Form', 'Social DM Trigger', 'Conversation AI', 'Lead Scoring', 'GHL Calendar'],
+  },
+  {
+    id: 9,
+    platform: 'HighLevel',
+    platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
+    image: null, // TODO: real screenshot
+    title: 'Full GHL CRM Build & Cold-Lead Re-engagement',
+    problem:
+      "Thousands of contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no client status tracking, and no way to see who needed follow-up. A large batch of old leads held data from a previous campaign but had never been qualified, tagged, or followed up, and all of them had gone cold.",
+    whatItDoes: [
+      'Built the complete GHL CRM infrastructure from scratch, with custom fields for lead segmentation under a dedicated section',
+      'Created a segmentation dropdown mapped to testimonial video playlists for targeted follow-up',
+      'Built the lead pipeline, opportunity stages, and Google Calendar + Meet integration for automated booking confirmations',
+      "Mapped existing leads' old data to the new custom fields using Python data mapping",
+      'Re-engaged all the cold leads by triggering the full engagement sequence via a single bulk import operation',
+    ],
+    result: '',
+    results: [
+      'Single source of truth: every lead centralized in GHL',
+      'Cold leads re-engaged with segment-specific testimonial videos in one bulk operation',
+      'Sales team onboarded into GHL, with warm and cold leads assigned automatically',
+      'Full pipeline visibility: every lead tracked from entry to outcome',
+      'Google Calendar + Meet connected for automated booking confirmations',
+    ],
+    tools: ['GoHighLevel', 'Custom Fields', 'Pipelines', 'Google Calendar', 'Bulk Import', 'Python'],
+  },
+  {
+    id: 11,
+    platform: 'Reporting',
+    platformClass: 'bg-teal-500/15 text-teal-400 border border-teal-500/25',
+    image: null, // TODO: real screenshot
+    title: 'Live GHL Sales Reporting Dashboard',
+    problem:
+      "Sales data existed inside GHL but there was no way to see it clearly. Revenue, conversion rates, pipeline stage distribution, and closer performance were buried in raw CRM records. Getting any overview required manual data extraction, with no live view, no trend analysis, and no way to slice results by segment or package.",
+    whatItDoes: [
+      "Built a live reporting dashboard connected directly to GHL, with data refreshing in real time via the platform's reporting engine",
+      'Tracks revenue won, cash collected, conversion rate, average sales cycle length, and active pipeline count in a single view',
+      'Sliceable across 6 dimensions: package, segment, closer, payment type, lead type, and lead status',
+      'Shows revenue trend over time with daily, weekly, and monthly views, plus a revenue-by-package breakdown',
+      'Visualises sales volume by segment to identify the highest-converting lead groups',
+      'Tracks the full conversion funnel end-to-end: New Lead → Consultation Booked → Consultation Done → Closing Booked → Enrolled',
+      'Includes closer performance comparison and payment type vs cash collected tracking',
+    ],
+    result: '',
+    results: [
+      'Real-time revenue and pipeline visibility, no manual reporting or data export needed',
+      "Instant slicing across 6 dimensions to pinpoint what's converting and why",
+      'Full funnel tracked end-to-end, from first contact to enrolled',
+      'Package and segment performance visible at a glance for strategic decisions',
+      'Sales team performance tracked live, with accountability built directly into the workflow',
+    ],
+    tools: ['GoHighLevel', 'GHL Reporting Engine', 'Pipeline Analytics', 'Conversion Tracking'],
+  },
+  {
+    id: 12,
+    platform: 'n8n',
+    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
+    image: null, // TODO: real screenshot
+    title: 'Five-Phase Lead Management System',
+    problem:
+      'Two outreach agents were contacting the same leads with no coordination, creating duplicate touch points. Student data moved between capture, qualification, purchase, and onboarding by copy-paste, introducing errors and delays at every handoff.',
+    whatItDoes: [
+      'Manages the full lead lifecycle across five sequential phases: capture, qualification, outreach coordination, purchase handoff, and reporting',
+      'Coordinates outreach across multiple agents from a central system, preventing duplicate contacts on the same lead',
+      'Routes qualified leads to the next phase automatically with no manual handoff or data re-entry',
+      'Delivers structured reporting into Notion and Google Sheets at the close of each phase',
+      'Built with a modular architecture so each phase can be tested, debugged, and updated independently',
+    ],
+    result: '',
+    results: [
+      'Zero duplicate outreach across all agents in the pipeline',
+      'Zero manual data transfer between any phase of the lifecycle',
+      'Every phase independently testable and debuggable without touching the others',
+    ],
+    tools: ['n8n', 'Typeform', 'HubSpot', 'Twilio', 'Gmail', 'Telegram Bot API', 'Google Sheets', 'Notion'],
+  },
+  {
+    id: 5,
+    platform: 'n8n',
+    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
+    image: '/n8n-project-1.jpg',
+    title: 'AI Webhook Request Handler with Gemini',
+    problem:
+      'Businesses receive repetitive questions through web forms or external apps that require intelligent, context-aware responses. Answering manually every time is slow, inconsistent, and impossible to scale.',
+    whatItDoes: [
+      'Receives incoming requests via Webhook from any connected app or form',
+      'Routes requests through an If condition to filter valid from invalid inputs',
+      'Retrieves the relevant document or knowledge base entry for valid requests',
+      'Passes the document and request to a Google Gemini AI Agent with Simple Memory',
+      'AI Agent generates a context-aware, intelligent response',
+      'Sends the response back via HTTP Request to the originating system',
     ],
     result:
-      'One file upload triggers a complete content repurposing pipeline. Two blog posts created, reviewed by condition logic, and published to social media automatically with zero manual writing, formatting, or posting involved.',
-    tools: ['Zapier', 'Google Drive', 'AI by Zapier', 'Looping by Zapier', 'Paths by Zapier', 'Facebook Pages', 'LinkedIn'],
+      'An always-on AI assistant that handles incoming requests intelligently, retrieves the right information, and responds automatically, without any human involvement.',
+    tools: ['n8n', 'Webhook', 'Google Gemini', 'AI Agent', 'HTTP Request'],
+  },
+  {
+    id: 6,
+    platform: 'n8n',
+    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
+    image: '/n8n-project-2.jpg',
+    title: 'AI Job Application Pipeline via Slack',
+    problem:
+      'Job hunting is repetitive and time-consuming. Searching for listings, tailoring a resume for every application, and drafting emails manually takes hours that most professionals simply do not have.',
+    whatItDoes: [
+      'Triggered by a Slack message with a job search query',
+      'Validates the query before processing begins',
+      'Scrapes live job listings from the web via HTTP request',
+      'Loops through each job result individually',
+      "Retrieves the user's existing resume from Google Drive",
+      'Uses OpenRouter AI to rewrite and optimize the resume for each specific role',
+      'Copies and updates the tailored resume in Google Docs',
+      'Auto-creates a Gmail draft ready for sending',
+      'Sends a completion summary back to the user in Slack',
+    ],
+    result:
+      'A complete job application pipeline triggered by a single Slack message. The system finds jobs, tailors the resume, and prepares the email draft, automatically, with no manual work required.',
+    tools: ['n8n', 'Slack', 'HTTP Request', 'Google Drive', 'Google Docs', 'OpenRouter AI', 'Gmail'],
   },
   {
     id: 2,
@@ -44,32 +168,8 @@ export const PROJECTS = [
       'Sends an automated email notification confirming the task is done',
     ],
     result:
-      'Zero manual file sorting. Every attachment arrives organized, properly named, backed up to Drive, and logged — with no human involved in the process.',
+      'Zero manual file sorting. Every attachment arrives organized, properly named, backed up to Drive, and logged, with no human involved in the process.',
     tools: ['Make (Integromat)', 'Gmail', 'Google Drive', 'Google Sheets', 'AI Module'],
-  },
-  {
-    id: 3,
-    platform: 'Make.com',
-    platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
-    image: '/make-project-3.jpg',
-    title: 'Automated Client Onboarding Across 5 Platforms',
-    problem:
-      'Onboarding a new client manually means logging their details, creating a folder, sending a welcome email, notifying the team, and setting up a project card — all done one by one across multiple tools. It is repetitive, easy to miss a step, and takes time away from actual client work.',
-    whatItDoes: [
-      'Watches Google Forms for new client submissions',
-      'Sleeps briefly to allow data to fully process before continuing',
-      'Searches the Client Sheet to check if the client already exists in the tracker',
-      'Routes through a Router based on whether the client is new or already in the system',
-      'If new: creates a dedicated Google Drive folder for the client',
-      'Adds the client as a new row in the database sheet',
-      'Routes through a second Router to trigger all follow-on actions',
-      'Sends a welcome email to the client via Gmail',
-      'Posts a notification to the team in Slack',
-      'Creates a Trello card to kick off the client project workflow',
-    ],
-    result:
-      'One form submission triggers the entire onboarding process across five platforms with zero manual work. No missed steps, no duplicate entries, no back and forth between tools.',
-    tools: ['Make (Integromat)', 'Google Forms', 'Google Sheets', 'Google Drive', 'Gmail', 'Slack', 'Trello'],
   },
   {
     id: 4,
@@ -93,295 +193,35 @@ export const PROJECTS = [
     tools: ['Make (Integromat)', 'Asana', 'Xero', 'Google Sheets'],
   },
   {
-    id: 5,
-    platform: 'n8n',
-    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
-    image: '/n8n-project-1.jpg',
-    title: 'AI Webhook Request Handler with Gemini',
-    problem:
-      'Businesses receive repetitive questions through web forms or external apps that require intelligent, context-aware responses. Answering manually every time is slow, inconsistent, and impossible to scale.',
-    whatItDoes: [
-      'Receives incoming requests via Webhook from any connected app or form',
-      'Routes requests through an If condition to filter valid from invalid inputs',
-      'Retrieves the relevant document or knowledge base entry for valid requests',
-      'Passes the document and request to a Google Gemini AI Agent with Simple Memory',
-      'AI Agent generates a context-aware, intelligent response',
-      'Sends the response back via HTTP Request to the originating system',
-    ],
-    result:
-      'An always-on AI assistant that handles incoming requests intelligently, retrieves the right information, and responds automatically — without any human involvement.',
-    tools: ['n8n', 'Webhook', 'Google Gemini', 'AI Agent', 'HTTP Request'],
-  },
-  {
-    id: 6,
-    platform: 'n8n',
-    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
-    image: '/n8n-project-2.jpg',
-    title: 'AI Job Application Pipeline via Slack',
-    problem:
-      'Job hunting is repetitive and time-consuming. Searching for listings, tailoring a resume for every application, and drafting emails manually takes hours that most professionals simply do not have.',
-    whatItDoes: [
-      'Triggered by a Slack message with a job search query',
-      'Validates the query before processing begins',
-      'Scrapes live job listings from the web via HTTP request',
-      'Loops through each job result individually',
-      "Retrieves the user's existing resume from Google Drive",
-      'Uses OpenRouter AI to rewrite and optimize the resume for each specific role',
-      'Copies and updates the tailored resume in Google Docs',
-      'Auto-creates a Gmail draft ready for sending',
-      'Sends a completion summary back to the user in Slack',
-    ],
-    result:
-      'A complete job application pipeline triggered by a single Slack message. The system finds jobs, tailors the resume, and prepares the email draft — automatically, with no manual work required.',
-    tools: ['n8n', 'Slack', 'HTTP Request', 'Google Drive', 'Google Docs', 'OpenRouter AI', 'Gmail'],
-  },
-  {
-    id: 7,
-    platform: 'n8n',
-    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
-    image: '/n8n-project-3.jpg',
-    title: 'Automated Short-Form Video Creator & Publisher',
-    problem:
-      'Creating and publishing short-form video content consistently is one of the biggest challenges for creators and brands. Writing scripts, generating videos, and uploading them manually is a daily time drain that prevents real scale.',
-    whatItDoes: [
-      'Runs automatically on a set schedule — no manual trigger needed',
-      'Uses Google Gemini AI to generate a creative video prompt',
-      'Authenticates with the video generation API using secure JWT token exchange',
-      'Sends the prompt to generate a short-form video via API',
-      'Polls the API until the video is fully rendered',
-      'Validates the output and filters errors or unusable results',
-      'Converts the Base64 video string into a proper video file',
-      'Uploads the finished video directly to YouTube',
-    ],
-    result:
-      'A fully automated content machine that generates, renders, and publishes short-form videos on a schedule. No scripting, no manual uploading, no repetitive work.',
-    tools: ['n8n', 'Google Gemini', 'JWT', 'Video Generation API', 'HTTP Request', 'YouTube'],
-  },
-  {
-    id: 8,
-    platform: 'HighLevel',
-    platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/ghl-lead-qualification-workflow.jpg',
-    title: '5-Workflow Lead Qualification & Follow-Up Engine',
-    problem:
-      'Every new lead — whether from a Meta Ad or an inbound social DM — required manual review: scoring urgency, finding the right testimonial video, and deciding who to assign. Hot leads (students on temporary visas with little time remaining) were being treated the same as cold ones. No-shows fell off the radar entirely. Revenue was slipping through without a system to catch it.',
-    whatItDoes: [
-      'Dual-trigger entry: fires from both a Meta Ad instant form submission and an inbound Social DM — no manual intake on either channel',
-      'Validates the contact via a function node before any processing begins — prevents duplicates and incomplete leads from entering the pipeline',
-      'Runs 3 parallel scoring signals simultaneously: Occupation, Visa subclass, and Time remaining on visa — each scored independently as an if-node',
-      'Merges all 3 signals into a single composite lead score via a merge node',
-      'AI Agent immediately sends a targeted video to the lead and waits for their reply before the workflow continues',
-      'Routes by final score: all-hot leads go to the Priority Calendar; any warm or cold lead goes to the Standard Calendar',
-      'Runs the full sales pipeline: Consultation Call (screen, then meet) → Closing Call (final sales conversation) → Enrollment purchase trigger',
-      'No-show on either call? Automatically branches into a follow-up sequence that loops the lead back toward rebooking',
-    ],
-    result: '',
-    results: [
-      'Zero manual follow-up required — both ad leads and social DMs handled automatically',
-      'Hot leads routed to priority booking within seconds of entry',
-      'AI Agent sends a targeted video and waits for reply before advancing the lead',
-      'No-show recovery built in — leads loop back into the pipeline automatically',
-      '7-touchpoint follow-up over 60 days for warm and cold leads — Day 1, 3, 5, 7, 14, 30, 60',
-    ],
-    tools: ['GoHighLevel', 'Facebook Instant Form', 'Social DM Trigger', 'Conversation AI', 'Lead Scoring', 'GHL Calendar'],
-  },
-  {
-    id: 10,
-    platform: 'Meta Ads',
-    platformClass: 'bg-blue-500/15 text-blue-400 border border-blue-500/25',
-    image: '/meta-ads-lead-form.jpg',
-    title: 'Job Coaching Lead Form & New Meta Campaign Launch',
-    problem:
-      'The live Meta ad used a generic Webinar Form capturing only name, phone, and email — no occupation or visa data, leaving the automation with nothing to qualify or segment leads on entry. Meta prevents editing an Instant Form on a published live ad, so swapping in a richer form required launching a brand new campaign from scratch.',
-    whatItDoes: [
-      'Built a new Facebook Instant Form — the Job Coaching Lead Form — with 6 fields: name, phone, email, professional job (34 dropdown options), visa subclass (11 options), and time left on visa',
-      'Launched a new Job Coaching Lead Campaign alongside the existing Webinar Campaign using the same creative, audience, and budget',
-      'Connected the new form directly to the GHL qualification workflow so all incoming data feeds segmentation and tagging automatically on submission',
-      'Configured the thank you page to route leads straight to the student testimonial playlist immediately after form submit',
-      'Verified full GHL field mapping — all 6 form fields flow into the correct CRM custom fields without manual intervention',
-    ],
-    result: '',
-    results: [
-      'New form live and capturing occupation and visa data on every lead',
-      'Campaign entered the learning phase within hours — first real lead came in the same day',
-      'Zero disruption to the existing Webinar Campaign — both run simultaneously',
-      'Thank you page drives leads to student testimonials immediately after form submit',
-      'Full GHL mapping confirmed — form fields flow directly into correct CRM fields',
-    ],
-    tools: ['Meta Ads Manager', 'Facebook Instant Forms', 'GHL Form Mapping', 'LeadConnector'],
-  },
-  {
-    id: 9,
-    platform: 'HighLevel',
-    platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/ghl-crm-build.jpg',
-    title: 'Full GHL CRM Build & 8,300+ Lead Re-engagement',
-    problem:
-      '8,300+ contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no student status tracking, and no way to see who needed follow-up. 979 old leads had job data from a previous campaign but had never been qualified, tagged, or followed up — all of them had gone cold.',
-    whatItDoes: [
-      'Built the complete GHL CRM infrastructure from scratch with custom fields for occupation, visa subclass, and time left on visa under a dedicated segmentation section',
-      'Created a 33-value occupation dropdown mapped to 8 testimonial video playlists for targeted follow-up',
-      'Built the lead pipeline, opportunity stages, and Google Calendar + Meet integration for automated booking confirmations',
-      'Mapped 979 existing leads\' old job data to the new occupation custom field using Python data mapping',
-      'Re-engaged all 979 cold leads by triggering the full engagement sequence via a single bulk import operation',
-    ],
-    result: '',
-    results: [
-      'Single source of truth — all 8,300+ leads centralized in GHL',
-      '979 cold leads re-engaged with occupation-specific testimonial videos in one bulk operation',
-      'Sales team onboarded into GHL — warm and cold leads assigned automatically',
-      'Full pipeline visibility — every lead tracked from entry to outcome',
-      'Google Calendar + Meet connected for automated booking confirmations',
-    ],
-    tools: ['GoHighLevel', 'Custom Fields', 'Pipelines', 'Google Calendar', 'Bulk Import', 'Python'],
-  },
-  {
-    id: 11,
-    platform: 'Reporting',
-    platformClass: 'bg-teal-500/15 text-teal-400 border border-teal-500/25',
-    image: '/ghl-reporting-dashboard.jpg',
-    title: 'Live GHL Sales Reporting Dashboard',
-    problem:
-      'Sales data existed inside GHL but there was no way to see it clearly. Revenue, conversion rates, pipeline stage distribution, and closer performance were buried in raw CRM records. Getting any kind of overview required manual data extraction — with no live view, no trend analysis, and no way to slice results by occupation, package, or visa type.',
-    whatItDoes: [
-      'Built a live reporting dashboard connected directly to GHL — all data refreshes in real time via the platform\'s reporting engine',
-      'Tracks revenue won, cash collected, conversion rate, average sales cycle length, and active pipeline count in a single view',
-      'Sliceable across 6 dimensions: Package, Occupation, Closer, Payment type, Visa type, and Lead Status',
-      'Shows revenue trend over time with daily, weekly, and monthly views — and a Revenue by Package breakdown (Diamond, Gold, Silver)',
-      'Visualises sales volume by occupation to identify the highest-converting lead segments',
-      'Tracks the full conversion funnel end-to-end: New Lead → Consultation Booked → Consultation Done → Closing Booked → Enrolled',
-      'Includes closer performance comparison and payment type vs cash collected tracking',
-    ],
-    result: '',
-    results: [
-      'Real-time revenue and pipeline visibility — no manual reporting or data export needed',
-      'Instant slicing across 6 dimensions to pinpoint what\'s converting and why',
-      'Full funnel tracked end-to-end — every stage from first contact to enrolled student',
-      'Package and occupation performance visible at a glance for strategic decisions',
-      'Sales team performance tracked live — accountability built directly into the workflow',
-    ],
-    tools: ['GoHighLevel', 'GHL Reporting Engine', 'Pipeline Analytics', 'Conversion Tracking'],
-  },
-  {
-    id: 12,
-    platform: 'n8n',
-    platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
-    image: 'https://picsum.photos/seed/n8n-five-phase-lead/800/500',
-    title: 'Five-Phase Lead Management System',
-    problem:
-      'Two outreach agents were contacting the same leads with no coordination, creating duplicate touch points. Student data moved between capture, qualification, purchase, and onboarding by copy-paste, introducing errors and delays at every handoff.',
-    whatItDoes: [
-      'Manages the full lead lifecycle across five sequential phases: capture, qualification, outreach coordination, purchase handoff, and reporting',
-      'Coordinates outreach across multiple agents from a central system, preventing duplicate contacts on the same lead',
-      'Routes qualified leads to the next phase automatically with no manual handoff or data re-entry',
-      'Delivers structured reporting into Notion and Google Sheets at the close of each phase',
-      'Built with a modular architecture so each phase can be tested, debugged, and updated independently',
-    ],
-    result: '',
-    results: [
-      'Zero duplicate outreach across all agents in the pipeline',
-      'Zero manual data transfer between any phase of the lifecycle',
-      'Every phase independently testable and debuggable without touching the others',
-    ],
-    tools: ['n8n', 'Typeform', 'HubSpot', 'Twilio', 'Gmail', 'Telegram Bot API', 'Google Sheets', 'Notion'],
-  },
-  {
-    id: 13,
+    id: 1,
     platform: 'Zapier',
     platformClass: 'bg-orange-600/15 text-orange-300 border border-orange-600/25',
-    image: 'https://picsum.photos/seed/zapier-three-agent/800/500',
-    title: 'Three-Agent Automation Suite for a Service Business',
+    image: '/zapier-project-1.jpg',
+    title: 'AI Content Repurposing: Audio to Blog Posts and Social Media',
     problem:
-      'Lead documentation and social publishing were both fully manual and inconsistent. Client documents were created from scratch on every CRM status change, and social content missed publishing windows because it depended on someone being available to post.',
+      'Creating content across multiple platforms from a single piece of media is time-consuming. Most creators and businesses record audio or video but then have to manually transcribe it, write blog posts, craft social captions, and post everything one by one. The process takes hours and rarely happens consistently.',
     whatItDoes: [
-      'Agent 1 monitors the CRM for status changes, then generates a populated client document and prepares an addressed email draft automatically',
-      'Agent 2 runs on a daily schedule, pulls approved media from cloud storage, writes captions using AI, and publishes across social channels',
-      'Both agents run on separate triggers and schedules with no dependency on each other',
+      'Triggers automatically when a new file is added to a Google Drive folder',
+      'Filters the file using a condition check before processing',
+      'Uses AI to generate a full transcript from the audio or video file',
+      'Passes the transcript to a second AI step that creates two full blog posts',
+      'Loops through each blog post individually using Looping by Zapier',
+      'Splits into two paths based on a keyword condition in the title or content',
+      'If the condition is met, publishes the post to Facebook Pages and shares it on LinkedIn',
+      'If the condition is not met, the content is held and not published',
     ],
-    result: '',
-    results: [
-      'Lead documentation generated automatically on every CRM status change',
-      'Social content published daily without manual intervention',
-      'Both pipelines run unattended with no human in the loop',
-    ],
-    tools: ['Zapier', 'Google Sheets', 'Google Docs', 'Google Drive', 'Gmail', 'AI by Zapier', 'Facebook'],
-  },
-  {
-    id: 14,
-    platform: 'Make.com',
-    platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
-    image: 'https://picsum.photos/seed/make-multi-platform/800/500',
-    title: 'Multi-Platform System Deployment',
-    problem:
-      'A three-platform system had been purchased but never deployed. The WordPress site was unconfigured, the automation layer was untouched, and the CRM had no pipeline, no fields, and no nurture structure. A purchased system sitting idle is a liability, not an asset.',
-    whatItDoes: [
-      'Deployed and configured WordPress plugins on managed hosting with the required integrations',
-      'Built a 10-module automation scenario with conditional routing logic connecting all three platforms',
-      'Built the complete CRM with 11 custom fields, a 7-stage pipeline, and three nurture tracks segmented by lead temperature',
-      'Connected the web layer, automation layer, and CRM into a single operating system',
-    ],
-    result: '',
-    results: [
-      'A purchased system turned into a running one in under two weeks',
-      'All three platforms live and connected with no manual routing between them',
-      'Three nurture tracks active and segmenting leads by temperature from day one',
-    ],
-    tools: ['Make.com', 'GoHighLevel', 'WordPress', 'WP Engine', 'SendGrid', 'Slack', 'Google Sheets'],
-  },
-  {
-    id: 15,
-    platform: 'HubSpot',
-    platformClass: 'bg-rose-500/15 text-rose-400 border border-rose-500/25',
-    image: 'https://picsum.photos/seed/hubspot-ai-followup/800/500',
-    title: 'AI Sales Follow-Up and Customer Journey Automation',
-    problem:
-      'Sales calls were being recorded but follow-up depended entirely on memory and manual notes. The post-sale customer journey existed as an intention, not a documented process, meaning different clients got a different experience depending on who was handling their account.',
-    whatItDoes: [
-      'Call recordings are transcribed automatically and passed through an AI summarization layer',
-      'Structured follow-up actions are written directly into the CRM from each call summary, with no manual entry required',
-      'The full post-sale customer journey is mapped into HubSpot as tracked, automated stages',
-      'The sales team receives a Slack notification with the call summary and next actions immediately after each call',
-    ],
-    result: '',
-    results: [
-      'No call ends without a logged follow-up action in the CRM',
-      'The post-sale journey is a repeatable system, not a per-rep assumption',
-      'Sales team spends zero time on post-call data entry',
-    ],
-    tools: ['HubSpot', 'Fireflies', 'Claude', 'Slack'],
-  },
-  {
-    id: 16,
-    platform: 'HighLevel',
-    platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: 'https://picsum.photos/seed/ghl-whitelabel-crm/800/500',
-    title: 'White-Label CRM Architecture and Outreach Engine',
-    problem:
-      'A multi-business operator was running a membership and events ecosystem with no structured pipeline and no way to track outbound attribution. Who contacted whom, when, through which channel, and what the outcome was, all of it lived in memory.',
-    whatItDoes: [
-      'Architected a sub-account structure across a white-labeled GHL portal to organize multiple business lines cleanly',
-      'Built a full outreach pipeline with defined stages from first contact through conversion',
-      'Implemented a tagging taxonomy for lead segmentation across business lines',
-      'Built a multi-touch outreach sequence with tracking across the CRM and a reporting layer for attribution',
-    ],
-    result: '',
-    results: [
-      'Every lead traceable from first touch to conversion',
-      'Multi-business operations organized under a single, structured portal',
-      'Full attribution on all outbound activity across channels',
-    ],
-    tools: ['GoHighLevel White-Label', 'LinkedIn', 'Google Sheets'],
+    result:
+      'One file upload triggers a complete content repurposing pipeline. Two blog posts created, reviewed by condition logic, and published to social media automatically with zero manual writing, formatting, or posting involved.',
+    tools: ['Zapier', 'Google Drive', 'AI by Zapier', 'Looping by Zapier', 'Paths by Zapier', 'Facebook Pages', 'LinkedIn'],
   },
 ]
 
 export const GROUPS: { platform: string; accentClass: string }[] = [
-  { platform: 'Zapier',     accentClass: 'text-orange-300 border-orange-600/30' },
-  { platform: 'Make.com',   accentClass: 'text-violet-400 border-violet-500/30' },
-  { platform: 'n8n',        accentClass: 'text-amber-400  border-amber-500/30'  },
   { platform: 'HighLevel',  accentClass: 'text-sky-400    border-sky-500/30'    },
-  { platform: 'Meta Ads',   accentClass: 'text-blue-400   border-blue-500/30'   },
   { platform: 'Reporting',  accentClass: 'text-teal-400   border-teal-500/30'   },
-  { platform: 'HubSpot',   accentClass: 'text-rose-400   border-rose-500/30'   },
+  { platform: 'n8n',        accentClass: 'text-amber-400  border-amber-500/30'  },
+  { platform: 'Make.com',   accentClass: 'text-violet-400 border-violet-500/30' },
+  { platform: 'Zapier',     accentClass: 'text-orange-300 border-orange-600/30' },
 ]
 
 // ── Magnifying glass (modal image only) ───────────────────────────────────────
@@ -426,6 +266,21 @@ function MagnifyImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
+// ── Neutral stand-in until a real screenshot exists ───────────────────────────
+function ScreenshotPlaceholder({ platform, className = '' }: { platform: string; className?: string }) {
+  // TODO: real screenshot
+  return (
+    <div
+      className={`w-full aspect-[16/10] flex flex-col items-center justify-center gap-1 bg-[#0E1117] border-b border-white/7 ${className}`}
+      role="img"
+      aria-label={`${platform} build, screenshot to come`}
+    >
+      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#4A5060]">{platform}</span>
+      <span className="text-[11px] text-[#4A5060]">Screenshot to come</span>
+    </div>
+  )
+}
+
 // ── 3-D tilt tile ─────────────────────────────────────────────────────────────
 type Project = (typeof PROJECTS)[number]
 
@@ -461,7 +316,11 @@ function TiltTile({ proj, hidden, onSelect }: TiltTileProps) {
         whileTap={{ scale: 0.985 }}
       >
         <div className="overflow-hidden">
-          <img src={proj.image} alt={proj.title} className="w-full h-auto block transition-transform duration-500 group-hover:scale-110" draggable={false} />
+          {proj.image ? (
+            <img src={proj.image} alt={proj.title} className="w-full h-auto block transition-transform duration-500 group-hover:scale-110" draggable={false} />
+          ) : (
+            <ScreenshotPlaceholder platform={proj.platform} />
+          )}
         </div>
         <div className="px-3 py-2.5 border-t border-white/7">
           <span className={`inline-block px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase rounded-full mb-1.5 ${proj.platformClass}`}>
@@ -567,8 +426,12 @@ export default function ProjectCarousel() {
                 <X size={14} />
               </motion.button>
 
-              {/* Full-width screenshot — hover to magnify */}
-              <MagnifyImage src={selected.image} alt={selected.title} />
+              {/* Full-width screenshot, hover to magnify */}
+              {selected.image ? (
+                <MagnifyImage src={selected.image} alt={selected.title} />
+              ) : (
+                <ScreenshotPlaceholder platform={selected.platform} className="rounded-t-2xl" />
+              )}
 
               {/* Detail content */}
               <motion.div
