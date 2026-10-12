@@ -9,7 +9,7 @@ export const PROJECTS = [
     id: 8,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/ghl-lead-qualification-workflow.jpg',
+    image: null, // TODO: real screenshot
     title: '5-Workflow Lead Qualification & Follow-Up Engine',
     problem:
       "Every new lead, whether from a Meta Ad or an inbound social DM, needed manual review: scoring urgency, picking the right follow-up video, and deciding who to assign. High-priority leads were treated the same as cold ones, and no-shows fell off the radar entirely. Revenue was slipping through without a system to catch it.",
@@ -37,7 +37,7 @@ export const PROJECTS = [
     id: 9,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/ghl-crm-build.jpg',
+    image: null, // TODO: real screenshot
     title: 'Full GHL CRM Build & Cold-Lead Re-engagement',
     problem:
       "Thousands of contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no client status tracking, and no way to see who needed follow-up. A large batch of old leads held data from a previous campaign but had never been qualified, tagged, or followed up, and all of them had gone cold.",
@@ -62,7 +62,7 @@ export const PROJECTS = [
     id: 11,
     platform: 'Reporting',
     platformClass: 'bg-teal-500/15 text-teal-400 border border-teal-500/25',
-    image: '/ghl-reporting-dashboard.jpg',
+    image: null, // TODO: real screenshot
     title: 'Live GHL Sales Reporting Dashboard',
     problem:
       "Sales data existed inside GHL but there was no way to see it clearly. Revenue, conversion rates, pipeline stage distribution, and closer performance were buried in raw CRM records. Getting any overview required manual data extraction, with no live view, no trend analysis, and no way to slice results by segment or package.",
