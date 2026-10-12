@@ -33,3 +33,6 @@ Thumbs.db
 /professional photo.png
 /*.avif
 /Ahmed_Dizon_Resume*.pdf
+
+# raw, unredacted screenshots (never commit)
+/_incoming/
