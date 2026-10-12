@@ -1,10 +1,23 @@
 'use client'
 
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { X } from '@phosphor-icons/react'
 
 type BuildGroup = { heading: string; note?: string; items: string[] }
 
-type Shot = { alt: string; caption: string }
+type ShotImage = {
+  src: string
+  width: number
+  height: number
+  fit: 'cover' | 'contain'
+  position?: string
+  enlarge: boolean
+}
+
+type Shot = { alt: string; caption: string; image?: ShotImage }
 
 type CaseStudy = {
   id: string
@@ -80,12 +93,28 @@ const CASE_STUDIES: CaseStudy[] = [
           caption: 'Non-compliance escalation: reminder, wait, re-check, then warning.',
         },
         {
-          alt: 'Condition panel checking whether any required student file is empty. Screenshot to come.',
+          alt: 'Condition panel that checks whether any of four required files is empty, with the fields named Document 1, Document 2, Workbook and Tracking sheet.',
           caption: 'Missing-document check across required student files.',
+          image: {
+            src: '/case-studies/coaching/missing-doc-check.webp',
+            width: 414,
+            height: 1092,
+            fit: 'cover',
+            position: '50% 58%',
+            enlarge: true,
+          },
         },
         {
-          alt: 'List of published workflows for one cohort. Screenshot to come.',
+          alt: 'List of five published workflows for one cohort, including a daily KPI reminder, homework warnings, late joiners, a lecture reminder and a tutorial reminder.',
           caption: 'One cohort\u2019s automation set: KPI reminders, warnings, late joiners, session reminders.',
+          // Native size is only 475px wide, so it stays a small thumbnail with no enlarge view.
+          image: {
+            src: '/case-studies/coaching/cohort-workflows.webp',
+            width: 475,
+            height: 474,
+            fit: 'contain',
+            enlarge: false,
+          },
         },
       ],
     },
@@ -182,6 +211,100 @@ function ShotPlaceholder({ shot, className = '' }: { shot: Shot; className?: str
   )
 }
 
+// A redacted screenshot as a thumbnail. Opens an enlarged view only when `enlarge` is set.
+function ShotFigure({ shot, className, onEnlarge }: { shot: Shot; className: string; onEnlarge: (shot: Shot) => void }) {
+  const img = shot.image
+  if (!img) return <ShotPlaceholder shot={shot} className={className} />
+  const frame = `relative block w-full overflow-hidden rounded-xl border border-white/7 bg-[#0E1117] ${className}`
+  const picture = (
+    <Image
+      src={img.src}
+      alt={shot.alt}
+      width={img.width}
+      height={img.height}
+      sizes="(min-width: 640px) 33vw, 100vw"
+      className={`absolute inset-0 h-full w-full ${img.fit === 'cover' ? 'object-cover' : 'object-contain'}`}
+      style={{ objectPosition: img.position }}
+    />
+  )
+  return (
+    <figure className="min-w-0">
+      {img.enlarge ? (
+        <button
+          type="button"
+          onClick={() => onEnlarge(shot)}
+          aria-label={`Enlarge: ${shot.caption}`}
+          className={`${frame} group cursor-zoom-in transition-transform duration-200 active:scale-[0.99]`}
+        >
+          {picture}
+          <span className="absolute bottom-2 right-2 rounded-md bg-[#080A0E]/80 px-2 py-1 text-[10px] font-medium text-[#F0EEE6]">
+            Enlarge
+          </span>
+        </button>
+      ) : (
+        <div className={frame}>{picture}</div>
+      )}
+      <figcaption className="mt-2 text-xs text-[#7A8090] leading-relaxed">{shot.caption}</figcaption>
+    </figure>
+  )
+}
+
+// Full-view overlay: Esc, the close button or a click outside closes it; focus stays inside while open.
+function Lightbox({ shot, onClose }: { shot: Shot; onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const img = shot.image
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'Tab') {
+        e.preventDefault()
+        closeRef.current?.focus()
+      }
+    }
+    const previousOverflow = document.body.style.overflow
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    closeRef.current?.focus()
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [onClose])
+
+  if (!img) return null
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={shot.caption}
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div className="relative max-h-full max-w-full" onClick={e => e.stopPropagation()}>
+        <button
+          ref={closeRef}
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-[#0E1117] text-[#F0EEE6] transition-transform active:scale-[0.95]"
+        >
+          <X size={14} />
+        </button>
+        <Image
+          src={img.src}
+          alt={shot.alt}
+          width={img.width}
+          height={img.height}
+          sizes="90vw"
+          className="h-auto max-h-[84dvh] w-auto max-w-full rounded-xl border border-white/10"
+        />
+        <p className="mt-3 max-w-[60ch] text-xs text-[#C9CDD6] leading-relaxed">{shot.caption}</p>
+      </div>
+    </div>
+  )
+}
+
 const label = 'text-[10px] font-bold text-[#4A5060] uppercase tracking-[0.18em]'
 
 function Bullets({ items, tone = 'muted' }: { items: string[]; tone?: 'muted' | 'bright' }) {
@@ -203,6 +326,18 @@ function Bullets({ items, tone = 'muted' }: { items: string[]; tone?: 'muted' | 
 }
 
 export default function CaseStudies() {
+  const [enlarged, setEnlarged] = useState<Shot | null>(null)
+  const lastFocus = useRef<HTMLElement | null>(null)
+
+  const openShot = useCallback((shot: Shot) => {
+    lastFocus.current = document.activeElement as HTMLElement | null
+    setEnlarged(shot)
+  }, [])
+  const closeShot = useCallback(() => {
+    setEnlarged(null)
+    lastFocus.current?.focus()
+  }, [])
+
   return (
     <div className="space-y-8">
       {CASE_STUDIES.map(cs => (
@@ -286,9 +421,12 @@ export default function CaseStudies() {
               <ShotPlaceholder shot={cs.gallery.hero} className="aspect-[16/9] sm:aspect-[21/8]" />
               <div className="grid sm:grid-cols-3 gap-5">
                 {cs.gallery.shots.map(shot => (
-                  <ShotPlaceholder key={shot.caption} shot={shot} className="aspect-[16/10]" />
+                  <ShotFigure key={shot.caption} shot={shot} className="aspect-[16/10]" onEnlarge={openShot} />
                 ))}
               </div>
+              {cs.gallery.shots.some(shot => shot.image) && (
+                <p className="text-xs text-[#4A5060]">Screenshots redacted to protect client and student data.</p>
+              )}
             </div>
           )}
 
@@ -308,6 +446,8 @@ export default function CaseStudies() {
           )}
         </motion.article>
       ))}
+      {/* Portal to <body> so the overlay sits above the sticky nav, not inside the animated card. */}
+      {enlarged && createPortal(<Lightbox shot={enlarged} onClose={closeShot} />, document.body)}
     </div>
   )
 }
