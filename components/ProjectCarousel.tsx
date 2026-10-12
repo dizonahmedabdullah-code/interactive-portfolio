@@ -44,7 +44,7 @@ export const PROJECTS = [
       'Sends an automated email notification confirming the task is done',
     ],
     result:
-      'Zero manual file sorting. Every attachment arrives organized, properly named, backed up to Drive, and logged — with no human involved in the process.',
+      'Zero manual file sorting. Every attachment arrives organized, properly named, backed up to Drive, and logged, with no human involved in the process.',
     tools: ['Make (Integromat)', 'Gmail', 'Google Drive', 'Google Sheets', 'AI Module'],
   },
   {
@@ -54,7 +54,7 @@ export const PROJECTS = [
     image: '/make-project-3.jpg',
     title: 'Automated Client Onboarding Across 5 Platforms',
     problem:
-      'Onboarding a new client manually means logging their details, creating a folder, sending a welcome email, notifying the team, and setting up a project card — all done one by one across multiple tools. It is repetitive, easy to miss a step, and takes time away from actual client work.',
+      'Onboarding a new client manually means logging their details, creating a folder, sending a welcome email, notifying the team, and setting up a project card, all done one by one across multiple tools. It is repetitive, easy to miss a step, and takes time away from actual client work.',
     whatItDoes: [
       'Watches Google Forms for new client submissions',
       'Sleeps briefly to allow data to fully process before continuing',
@@ -109,7 +109,7 @@ export const PROJECTS = [
       'Sends the response back via HTTP Request to the originating system',
     ],
     result:
-      'An always-on AI assistant that handles incoming requests intelligently, retrieves the right information, and responds automatically — without any human involvement.',
+      'An always-on AI assistant that handles incoming requests intelligently, retrieves the right information, and responds automatically, without any human involvement.',
     tools: ['n8n', 'Webhook', 'Google Gemini', 'AI Agent', 'HTTP Request'],
   },
   {
@@ -132,7 +132,7 @@ export const PROJECTS = [
       'Sends a completion summary back to the user in Slack',
     ],
     result:
-      'A complete job application pipeline triggered by a single Slack message. The system finds jobs, tailors the resume, and prepares the email draft — automatically, with no manual work required.',
+      'A complete job application pipeline triggered by a single Slack message. The system finds jobs, tailors the resume, and prepares the email draft, automatically, with no manual work required.',
     tools: ['n8n', 'Slack', 'HTTP Request', 'Google Drive', 'Google Docs', 'OpenRouter AI', 'Gmail'],
   },
   {
@@ -144,7 +144,7 @@ export const PROJECTS = [
     problem:
       'Creating and publishing short-form video content consistently is one of the biggest challenges for creators and brands. Writing scripts, generating videos, and uploading them manually is a daily time drain that prevents real scale.',
     whatItDoes: [
-      'Runs automatically on a set schedule — no manual trigger needed',
+      'Runs automatically on a set schedule, no manual trigger needed',
       'Uses Google Gemini AI to generate a creative video prompt',
       'Authenticates with the video generation API using secure JWT token exchange',
       'Sends the prompt to generate a short-form video via API',
@@ -164,11 +164,11 @@ export const PROJECTS = [
     image: '/ghl-lead-qualification-workflow.jpg',
     title: '5-Workflow Lead Qualification & Follow-Up Engine',
     problem:
-      'Every new lead — whether from a Meta Ad or an inbound social DM — required manual review: scoring urgency, finding the right testimonial video, and deciding who to assign. Hot leads (students on temporary visas with little time remaining) were being treated the same as cold ones. No-shows fell off the radar entirely. Revenue was slipping through without a system to catch it.',
+      'Every new lead, whether from a Meta Ad or an inbound social DM, required manual review: scoring urgency, finding the right testimonial video, and deciding who to assign. Hot leads (students on temporary visas with little time remaining) were being treated the same as cold ones. No-shows fell off the radar entirely. Revenue was slipping through without a system to catch it.',
     whatItDoes: [
-      'Dual-trigger entry: fires from both a Meta Ad instant form submission and an inbound Social DM — no manual intake on either channel',
-      'Validates the contact via a function node before any processing begins — prevents duplicates and incomplete leads from entering the pipeline',
-      'Runs 3 parallel scoring signals simultaneously: Occupation, Visa subclass, and Time remaining on visa — each scored independently as an if-node',
+      'Dual-trigger entry: fires from both a Meta Ad instant form submission and an inbound Social DM, no manual intake on either channel',
+      'Validates the contact via a function node before any processing begins, prevents duplicates and incomplete leads from entering the pipeline',
+      'Runs 3 parallel scoring signals simultaneously: Occupation, Visa subclass, and Time remaining on visa, each scored independently as an if-node',
       'Merges all 3 signals into a single composite lead score via a merge node',
       'AI Agent immediately sends a targeted video to the lead and waits for their reply before the workflow continues',
       'Routes by final score: all-hot leads go to the Priority Calendar; any warm or cold lead goes to the Standard Calendar',
@@ -177,11 +177,11 @@ export const PROJECTS = [
     ],
     result: '',
     results: [
-      'Zero manual follow-up required — both ad leads and social DMs handled automatically',
+      'Zero manual follow-up required, both ad leads and social DMs handled automatically',
       'Hot leads routed to priority booking within seconds of entry',
       'AI Agent sends a targeted video and waits for reply before advancing the lead',
-      'No-show recovery built in — leads loop back into the pipeline automatically',
-      '7-touchpoint follow-up over 60 days for warm and cold leads — Day 1, 3, 5, 7, 14, 30, 60',
+      'No-show recovery built in, leads loop back into the pipeline automatically',
+      '7-touchpoint follow-up over 60 days for warm and cold leads, Day 1, 3, 5, 7, 14, 30, 60',
     ],
     tools: ['GoHighLevel', 'Facebook Instant Form', 'Social DM Trigger', 'Conversation AI', 'Lead Scoring', 'GHL Calendar'],
   },
@@ -192,21 +192,21 @@ export const PROJECTS = [
     image: '/meta-ads-lead-form.jpg',
     title: 'Job Coaching Lead Form & New Meta Campaign Launch',
     problem:
-      'The live Meta ad used a generic Webinar Form capturing only name, phone, and email — no occupation or visa data, leaving the automation with nothing to qualify or segment leads on entry. Meta prevents editing an Instant Form on a published live ad, so swapping in a richer form required launching a brand new campaign from scratch.',
+      'The live Meta ad used a generic Webinar Form capturing only name, phone, and email, no occupation or visa data, leaving the automation with nothing to qualify or segment leads on entry. Meta prevents editing an Instant Form on a published live ad, so swapping in a richer form required launching a brand new campaign from scratch.',
     whatItDoes: [
-      'Built a new Facebook Instant Form — the Job Coaching Lead Form — with 6 fields: name, phone, email, professional job (34 dropdown options), visa subclass (11 options), and time left on visa',
+      'Built a new Facebook Instant Form, the Job Coaching Lead Form, with 6 fields: name, phone, email, professional job (34 dropdown options), visa subclass (11 options), and time left on visa',
       'Launched a new Job Coaching Lead Campaign alongside the existing Webinar Campaign using the same creative, audience, and budget',
       'Connected the new form directly to the GHL qualification workflow so all incoming data feeds segmentation and tagging automatically on submission',
       'Configured the thank you page to route leads straight to the student testimonial playlist immediately after form submit',
-      'Verified full GHL field mapping — all 6 form fields flow into the correct CRM custom fields without manual intervention',
+      'Verified full GHL field mapping, all 6 form fields flow into the correct CRM custom fields without manual intervention',
     ],
     result: '',
     results: [
       'New form live and capturing occupation and visa data on every lead',
-      'Campaign entered the learning phase within hours — first real lead came in the same day',
-      'Zero disruption to the existing Webinar Campaign — both run simultaneously',
+      'Campaign entered the learning phase within hours, first real lead came in the same day',
+      'Zero disruption to the existing Webinar Campaign, both run simultaneously',
       'Thank you page drives leads to student testimonials immediately after form submit',
-      'Full GHL mapping confirmed — form fields flow directly into correct CRM fields',
+      'Full GHL mapping confirmed, form fields flow directly into correct CRM fields',
     ],
     tools: ['Meta Ads Manager', 'Facebook Instant Forms', 'GHL Form Mapping', 'LeadConnector'],
   },
@@ -217,7 +217,7 @@ export const PROJECTS = [
     image: '/ghl-crm-build.jpg',
     title: 'Full GHL CRM Build & 8,300+ Lead Re-engagement',
     problem:
-      '8,300+ contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no student status tracking, and no way to see who needed follow-up. 979 old leads had job data from a previous campaign but had never been qualified, tagged, or followed up — all of them had gone cold.',
+      '8,300+ contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no student status tracking, and no way to see who needed follow-up. 979 old leads had job data from a previous campaign but had never been qualified, tagged, or followed up, all of them had gone cold.',
     whatItDoes: [
       'Built the complete GHL CRM infrastructure from scratch with custom fields for occupation, visa subclass, and time left on visa under a dedicated segmentation section',
       'Created a 33-value occupation dropdown mapped to 8 testimonial video playlists for targeted follow-up',
@@ -227,10 +227,10 @@ export const PROJECTS = [
     ],
     result: '',
     results: [
-      'Single source of truth — all 8,300+ leads centralized in GHL',
+      'Single source of truth, all 8,300+ leads centralized in GHL',
       '979 cold leads re-engaged with occupation-specific testimonial videos in one bulk operation',
-      'Sales team onboarded into GHL — warm and cold leads assigned automatically',
-      'Full pipeline visibility — every lead tracked from entry to outcome',
+      'Sales team onboarded into GHL, warm and cold leads assigned automatically',
+      'Full pipeline visibility, every lead tracked from entry to outcome',
       'Google Calendar + Meet connected for automated booking confirmations',
     ],
     tools: ['GoHighLevel', 'Custom Fields', 'Pipelines', 'Google Calendar', 'Bulk Import', 'Python'],
@@ -242,23 +242,23 @@ export const PROJECTS = [
     image: '/ghl-reporting-dashboard.jpg',
     title: 'Live GHL Sales Reporting Dashboard',
     problem:
-      'Sales data existed inside GHL but there was no way to see it clearly. Revenue, conversion rates, pipeline stage distribution, and closer performance were buried in raw CRM records. Getting any kind of overview required manual data extraction — with no live view, no trend analysis, and no way to slice results by occupation, package, or visa type.',
+      'Sales data existed inside GHL but there was no way to see it clearly. Revenue, conversion rates, pipeline stage distribution, and closer performance were buried in raw CRM records. Getting any kind of overview required manual data extraction, with no live view, no trend analysis, and no way to slice results by occupation, package, or visa type.',
     whatItDoes: [
-      'Built a live reporting dashboard connected directly to GHL — all data refreshes in real time via the platform\'s reporting engine',
+      'Built a live reporting dashboard connected directly to GHL, all data refreshes in real time via the platform\'s reporting engine',
       'Tracks revenue won, cash collected, conversion rate, average sales cycle length, and active pipeline count in a single view',
       'Sliceable across 6 dimensions: Package, Occupation, Closer, Payment type, Visa type, and Lead Status',
-      'Shows revenue trend over time with daily, weekly, and monthly views — and a Revenue by Package breakdown (Diamond, Gold, Silver)',
+      'Shows revenue trend over time with daily, weekly, and monthly views, and a Revenue by Package breakdown (Diamond, Gold, Silver)',
       'Visualises sales volume by occupation to identify the highest-converting lead segments',
       'Tracks the full conversion funnel end-to-end: New Lead → Consultation Booked → Consultation Done → Closing Booked → Enrolled',
       'Includes closer performance comparison and payment type vs cash collected tracking',
     ],
     result: '',
     results: [
-      'Real-time revenue and pipeline visibility — no manual reporting or data export needed',
+      'Real-time revenue and pipeline visibility, no manual reporting or data export needed',
       'Instant slicing across 6 dimensions to pinpoint what\'s converting and why',
-      'Full funnel tracked end-to-end — every stage from first contact to enrolled student',
+      'Full funnel tracked end-to-end, every stage from first contact to enrolled student',
       'Package and occupation performance visible at a glance for strategic decisions',
-      'Sales team performance tracked live — accountability built directly into the workflow',
+      'Sales team performance tracked live, accountability built directly into the workflow',
     ],
     tools: ['GoHighLevel', 'GHL Reporting Engine', 'Pipeline Analytics', 'Conversion Tracking'],
   },
@@ -266,7 +266,7 @@ export const PROJECTS = [
     id: 12,
     platform: 'n8n',
     platformClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/25',
-    image: 'https://picsum.photos/seed/n8n-five-phase-lead/800/500',
+    image: null, // TODO: real screenshot
     title: 'Five-Phase Lead Management System',
     problem:
       'Two outreach agents were contacting the same leads with no coordination, creating duplicate touch points. Student data moved between capture, qualification, purchase, and onboarding by copy-paste, introducing errors and delays at every handoff.',
@@ -289,7 +289,7 @@ export const PROJECTS = [
     id: 13,
     platform: 'Zapier',
     platformClass: 'bg-orange-600/15 text-orange-300 border border-orange-600/25',
-    image: 'https://picsum.photos/seed/zapier-three-agent/800/500',
+    image: null, // TODO: real screenshot
     title: 'Three-Agent Automation Suite for a Service Business',
     problem:
       'Lead documentation and social publishing were both fully manual and inconsistent. Client documents were created from scratch on every CRM status change, and social content missed publishing windows because it depended on someone being available to post.',
@@ -310,7 +310,7 @@ export const PROJECTS = [
     id: 14,
     platform: 'Make.com',
     platformClass: 'bg-violet-500/15 text-violet-400 border border-violet-500/25',
-    image: 'https://picsum.photos/seed/make-multi-platform/800/500',
+    image: null, // TODO: real screenshot
     title: 'Multi-Platform System Deployment',
     problem:
       'A three-platform system had been purchased but never deployed. The WordPress site was unconfigured, the automation layer was untouched, and the CRM had no pipeline, no fields, and no nurture structure. A purchased system sitting idle is a liability, not an asset.',
@@ -332,7 +332,7 @@ export const PROJECTS = [
     id: 15,
     platform: 'HubSpot',
     platformClass: 'bg-rose-500/15 text-rose-400 border border-rose-500/25',
-    image: 'https://picsum.photos/seed/hubspot-ai-followup/800/500',
+    image: null, // TODO: real screenshot
     title: 'AI Sales Follow-Up and Customer Journey Automation',
     problem:
       'Sales calls were being recorded but follow-up depended entirely on memory and manual notes. The post-sale customer journey existed as an intention, not a documented process, meaning different clients got a different experience depending on who was handling their account.',
@@ -354,7 +354,7 @@ export const PROJECTS = [
     id: 16,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: 'https://picsum.photos/seed/ghl-whitelabel-crm/800/500',
+    image: null, // TODO: real screenshot
     title: 'White-Label CRM Architecture and Outreach Engine',
     problem:
       'A multi-business operator was running a membership and events ecosystem with no structured pipeline and no way to track outbound attribution. Who contacted whom, when, through which channel, and what the outcome was, all of it lived in memory.',
@@ -426,6 +426,21 @@ function MagnifyImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
+// ── Neutral stand-in until a real screenshot exists ───────────────────────────
+function ScreenshotPlaceholder({ platform, className = '' }: { platform: string; className?: string }) {
+  // TODO: real screenshot
+  return (
+    <div
+      className={`w-full aspect-[16/10] flex flex-col items-center justify-center gap-1 bg-[#0E1117] border-b border-white/7 ${className}`}
+      role="img"
+      aria-label={`${platform} build, screenshot to come`}
+    >
+      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#4A5060]">{platform}</span>
+      <span className="text-[11px] text-[#4A5060]">Screenshot to come</span>
+    </div>
+  )
+}
+
 // ── 3-D tilt tile ─────────────────────────────────────────────────────────────
 type Project = (typeof PROJECTS)[number]
 
@@ -461,7 +476,11 @@ function TiltTile({ proj, hidden, onSelect }: TiltTileProps) {
         whileTap={{ scale: 0.985 }}
       >
         <div className="overflow-hidden">
-          <img src={proj.image} alt={proj.title} className="w-full h-auto block transition-transform duration-500 group-hover:scale-110" draggable={false} />
+          {proj.image ? (
+            <img src={proj.image} alt={proj.title} className="w-full h-auto block transition-transform duration-500 group-hover:scale-110" draggable={false} />
+          ) : (
+            <ScreenshotPlaceholder platform={proj.platform} />
+          )}
         </div>
         <div className="px-3 py-2.5 border-t border-white/7">
           <span className={`inline-block px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase rounded-full mb-1.5 ${proj.platformClass}`}>
@@ -567,8 +586,12 @@ export default function ProjectCarousel() {
                 <X size={14} />
               </motion.button>
 
-              {/* Full-width screenshot — hover to magnify */}
-              <MagnifyImage src={selected.image} alt={selected.title} />
+              {/* Full-width screenshot, hover to magnify */}
+              {selected.image ? (
+                <MagnifyImage src={selected.image} alt={selected.title} />
+              ) : (
+                <ScreenshotPlaceholder platform={selected.platform} className="rounded-t-2xl" />
+              )}
 
               {/* Detail content */}
               <motion.div

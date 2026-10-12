@@ -11,21 +11,22 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'MedVentures | AI Automation Systems for Growing Businesses',
+  metadataBase: new URL('https://automated-by-med.vercel.app'),
+  title: 'AI Automation Specialist | Founder, MedVentures',
   description:
-    'MedVentures builds production-grade automation systems on n8n, Make, Zapier, GoHighLevel, and HubSpot. Founded by Ahmed Dizon.',
+    'Ahmed Dizon builds systems that remove manual work, using n8n, Make, Zapier, GoHighLevel and Claude. Upwork Top Rated, 100% Job Success Score, 2,100+ hours.',
   openGraph: {
-    title: 'MedVentures | AI Automation Systems for Growing Businesses',
+    title: 'AI Automation Specialist | Founder, MedVentures',
     description:
-      'MedVentures builds production-grade automation systems on n8n, Make, Zapier, GoHighLevel, and HubSpot. Founded by Ahmed Dizon.',
+      'Ahmed Dizon builds systems that remove manual work, using n8n, Make, Zapier, GoHighLevel and Claude. Upwork Top Rated, 100% Job Success Score, 2,100+ hours.',
     type: 'website',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'MedVentures' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'MedVentures: AI Automation Specialist' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MedVentures | AI Automation Systems for Growing Businesses',
+    title: 'AI Automation Specialist | Founder, MedVentures',
     description:
-      'MedVentures builds production-grade automation systems on n8n, Make, Zapier, GoHighLevel, and HubSpot. Founded by Ahmed Dizon.',
+      'Ahmed Dizon builds systems that remove manual work, using n8n, Make, Zapier, GoHighLevel and Claude. Upwork Top Rated, 100% Job Success Score, 2,100+ hours.',
     images: ['/og-image.jpg'],
   },
 }

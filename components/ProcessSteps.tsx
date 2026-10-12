@@ -12,7 +12,7 @@ const STEPS = [
   {
     num: '02',
     title: 'Map the Workflow',
-    desc: 'Design the full logic before building — triggers, conditions, branches, and outputs drawn out end-to-end.',
+    desc: 'Design the full logic before building: triggers, conditions, branches, and outputs drawn out end-to-end.',
   },
   {
     num: '03',
@@ -22,7 +22,7 @@ const STEPS = [
   {
     num: '04',
     title: 'Deploy & Monitor',
-    desc: 'Launch with live tests, set error alerts, then hand it off — it runs without babysitting.',
+    desc: 'Launch with live tests, set error alerts, then hand it off. It runs without babysitting.',
   },
 ]
 

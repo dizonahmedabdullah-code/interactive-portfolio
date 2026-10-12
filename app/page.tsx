@@ -7,17 +7,18 @@ import ProcessSteps from '@/components/ProcessSteps'
 import ToolsBanner from '@/components/ToolsBanner'
 import MouseEffect from '@/components/MouseEffect'
 import ChatWidget from '@/components/ChatWidget'
-import ProjectCarousel, { PROJECTS } from '@/components/ProjectCarousel'
+import ProjectCarousel from '@/components/ProjectCarousel'
+import CaseStudies, { CASE_STUDY_COUNT } from '@/components/CaseStudies'
 import {
   ArrowRight,
   EnvelopeSimple,
   LinkedinLogo,
   Lightning,
   Funnel,
-  UsersThree,
-  ShareNetwork,
-  Table,
-  PencilSimple,
+  Robot,
+  ChartLineUp,
+  Broom,
+  Handshake,
   List,
   X,
   MapPin,
@@ -35,49 +36,49 @@ import {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const NAV_LINKS = ['About', 'Skills', 'Services', 'Projects', 'Experience', 'Contact']
+const NAV_LINKS = ['About', 'Services', 'Engagement', 'Projects', 'Experience', 'Contact']
 
-const SKILLS = [
+const WHAT_I_BUILD = [
   {
     icon: Lightning,
-    category: 'Automation & AI',
-    description: 'Building systems that run themselves so teams can focus on what matters.',
-    tools: ['Zapier', 'Make', 'n8n', 'GoHighLevel', 'HubSpot', 'ChatGPT'],
+    category: 'Workflow automation',
+    description: 'Multi-step flows that replace manual handoffs and repetitive tasks, built to run without babysitting.',
+    tools: ['n8n', 'Make', 'Zapier'],
     featured: true,
   },
   {
-    icon: UsersThree,
-    category: 'Lead Generation',
-    description: 'Full pipeline from cold contact to qualified, ready-to-book lead.',
-    tools: ['LinkedIn Sales Navigator', 'Email Outreach', 'DM Campaigns', 'Appointment Setting'],
-    featured: false,
-  },
-  {
     icon: Funnel,
-    category: 'CRM & Sales',
-    description: 'Pipeline management, follow-up sequences, and automated CRM hygiene.',
-    tools: ['HubSpot', 'Salesforce', 'Zoho', 'GoHighLevel'],
+    category: 'CRM automation and GoHighLevel builds',
+    description: 'Pipelines, follow-up sequences, lead routing and booking flows that keep the CRM clean on its own.',
+    tools: ['GoHighLevel', 'HubSpot', 'Zoho'],
     featured: false,
   },
   {
-    icon: ShareNetwork,
-    category: 'Social Media',
-    description: 'Content calendars, scheduling, community management, and growth.',
-    tools: ['Facebook', 'Instagram', 'LinkedIn', 'Meta Business Suite', 'Metricool'],
+    icon: Robot,
+    category: 'AI workflow and agent setup',
+    description: 'AI steps and agents wired into your tools, with a human in the loop wherever a mistake would cost you.',
+    tools: ['Claude', 'Gemini', 'OpenRouter', 'Human-in-the-loop'],
     featured: false,
   },
   {
-    icon: Table,
-    category: 'Data & Admin',
-    description: 'Reporting, spreadsheets, documentation, and back-office ops.',
-    tools: ['Google Sheets', 'Excel', 'QuickBooks', 'Google Workspace'],
+    icon: ChartLineUp,
+    category: 'Live dashboards and reporting',
+    description: 'Dashboards on live CRM data, so leadership sees the pipeline without asking for an export.',
+    tools: ['Next.js', 'Vercel', 'CRM APIs'],
     featured: false,
   },
   {
-    icon: PencilSimple,
-    category: 'Creative',
-    description: 'Brand assets, promotional videos, and social content production.',
-    tools: ['Canva', 'CapCut', 'Video Editing'],
+    icon: Broom,
+    category: 'Data cleanup and reconciliation',
+    description: 'Messy records matched, deduplicated and checked against the source, with an action for every gap.',
+    tools: ['Google Sheets', 'CRM imports', 'Python'],
+    featured: false,
+  },
+  {
+    icon: Handshake,
+    category: 'Partner sourcing and BD operations',
+    description: 'Lead research, outreach and a follow-up ladder with AI-powered drafting, so no good lead goes quiet.',
+    tools: ['Claude', 'Gmail', 'Google Sheets'],
     featured: false,
   },
 ]
@@ -89,8 +90,7 @@ const EXPERIENCES = [
     period: 'Mar 2024 – Feb 2026',
     type: 'Remote',
     highlights: [
-      'Rebuilt lead response process via Instagram DM and Facebook Messenger with structured follow-up sequences that boosted conversion rates',
-      'Designed follow-up campaign for warm leads, consistently growing secured bookings month-over-month',
+      'Rebuilt the lead response process across Instagram DM and Facebook Messenger with structured follow-up sequences that raised conversion rates',
       'Built onboarding SOPs that cut ramp-up time and standardized quality across the team',
     ],
   },
@@ -100,8 +100,8 @@ const EXPERIENCES = [
     period: 'Dec 2023 – Apr 2025',
     type: 'Remote',
     highlights: [
-      'Fixed CRM data inconsistencies through systematic extraction and reorganization, and implemented spreadsheet formulas that removed hours of manual computation',
-      'Produced promotional content aligned to brand messaging that improved audience retention',
+      'Fixed CRM data inconsistencies through systematic extraction and reorganization',
+      'Implemented spreadsheet formulas that removed hours of manual computation',
     ],
   },
   {
@@ -110,8 +110,7 @@ const EXPERIENCES = [
     period: 'Aug 2023 – Feb 2025',
     type: 'Remote',
     highlights: [
-      'Managed MRI forms, referrals, and patient records with zero-error accuracy across two locations',
-      'Produced and edited video content that expanded patient outreach and social media presence',
+      'Managed MRI forms, referrals and patient records across two locations with zero-error accuracy',
     ],
   },
   {
@@ -120,9 +119,8 @@ const EXPERIENCES = [
     period: 'May 2023 – Jan 2026',
     type: 'Remote',
     highlights: [
-      'Leveraged LinkedIn Sales Navigator to systematically identify and qualify high-value event prospects',
-      'Streamlined full attendee lifecycle — registration, payments, and post-event communication',
-      'Built weekly/monthly sales performance reports with trend comparisons for faster decisions',
+      'Streamlined the full attendee lifecycle: registration, payments and post-event communication',
+      'Built weekly and monthly sales performance reports with trend comparisons for faster decisions',
     ],
   },
   {
@@ -131,8 +129,8 @@ const EXPERIENCES = [
     period: 'Jan 2023 – Oct 2023',
     type: 'Remote',
     highlights: [
-      'Drafted and finalized leases, contracts, and agreement letters with full compliance accuracy',
-      'Designed property listings that increased visibility and reduced time on market',
+      'Drafted and finalized leases, contracts and agreement letters with full compliance accuracy',
+      'Redesigned property listings that increased visibility and reduced time on market',
     ],
   },
   {
@@ -142,7 +140,7 @@ const EXPERIENCES = [
     type: 'Remote',
     highlights: [
       'Built a university partnership outreach campaign from scratch that grew the client base by 20%',
-      'Created audit-ready client records, invoices, and receipts across QuickBooks and Excel',
+      'Created audit-ready client records, invoices and receipts across QuickBooks and Excel',
     ],
   },
   {
@@ -151,27 +149,26 @@ const EXPERIENCES = [
     period: 'Feb 2022 – Dec 2022',
     type: 'Remote',
     highlights: [
-      'Built multi-platform content calendars driving candidate and client engagement',
       'Implemented structured CRM lead logs that kept the sales team focused on warm prospects',
     ],
   },
   {
     title: 'Technical Support Team Leader',
-    company: 'Mobile Company — US Account',
+    company: 'Mobile Company, US Account',
     period: 'Feb 2019 – Jan 2022',
     type: 'On-site',
     highlights: [
-      'Stepped into Team Leader role — coaching staff, monitoring KPIs, and handling complex escalations',
-      'Facilitated daily huddles that kept the whole team aligned and consistently performing',
+      'Coached staff, monitored KPIs and handled complex escalations as Team Leader',
+      'Ran daily huddles that kept the whole team aligned and consistently performing',
     ],
   },
   {
     title: 'Technical Support Representative',
-    company: 'Internet Company — US Account',
+    company: 'Internet Company, US Account',
     period: 'Mar 2016 – Dec 2018',
     type: 'On-site',
     highlights: [
-      'Delivered US technical support across internet, TV, and phone with consistently high CSAT',
+      'Delivered US technical support across internet, TV and phone with consistently high CSAT',
       'Logged detailed case notes and escalated efficiently, reducing repeat contacts',
     ],
   },
@@ -233,22 +230,22 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 const TICKER_ITEMS = [
-  'Zapier', 'Make.com', 'n8n', 'GoHighLevel', 'HubSpot',
-  'Lead Generation', 'CRM Automation', 'Workflow Automation', 'AI Chatbots',
-  'Data Extraction', 'Content Repurposing', 'LinkedIn Outreach', 'Appointment Setting',
+  'Zapier', 'Make.com', 'n8n', 'GoHighLevel', 'HubSpot', 'Claude',
+  'CRM Automation', 'Workflow Automation', 'AI Agents', 'Live Dashboards',
+  'Data Reconciliation', 'Human-in-the-loop', 'Follow-up Systems',
 ]
 
 const TRUST_BADGES = [
   'Upwork Top Rated',
   '100% Job Success Score',
-  'Clients in the US, AU, and Asia',
-  'Philippines based, UTC+8',
+  '2,100+ hours',
+  '9+ years remote',
 ]
 
 const FAQS = [
   {
     q: 'What tools and platforms do you work with?',
-    a: 'We work with Zapier, Make.com, n8n, GoHighLevel, HubSpot, Salesforce, Zoho, ChatGPT, Google Workspace, Airtable, Notion, Slack, Xero, QuickBooks, Canva, and CapCut among others.',
+    a: 'We work with Zapier, Make.com, n8n, GoHighLevel, HubSpot, Salesforce, Zoho, ChatGPT, Google Workspace, Airtable, Notion, Slack, Xero, QuickBooks, Claude, and Gemini among others.',
   },
   {
     q: 'What industries have you worked in?',
@@ -580,17 +577,17 @@ export default function Home() {
                 MEDVENTURES
               </div>
 
-              <h1 className="text-5xl lg:text-[5.5rem] font-black leading-[1.04] tracking-tight text-[#F0EEE6] mb-6">
-                I Build<br />
-                <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
-                  Systems
+              <h1 className="text-4xl sm:text-5xl lg:text-[4rem] font-black leading-[1.06] tracking-tight text-[#F0EEE6] mb-6">
+                AI Automation<br />Specialist
+                <span className="sr-only"> | </span>
+                <span className="block mt-3 text-2xl sm:text-3xl lg:text-[2rem] font-bold tracking-tight text-[#E8C97A]">
+                  Founder, MedVentures
                 </span>
-                <br />That Run.
               </h1>
 
               <p className="text-lg text-zinc-400 leading-relaxed max-w-[500px] mb-10">
-                9+ years remote. Production systems across n8n, Make, Zapier, GoHighLevel, and HubSpot.
-                Clients in the US, Australia, and Asia.
+                I build systems that remove manual work, using n8n, Make, Zapier, GoHighLevel and Claude.
+                Clients in the US, Australia and Asia.
               </p>
 
               <div className="flex flex-wrap gap-4 mb-6">
@@ -628,7 +625,7 @@ export default function Home() {
                   { value: '9+',                        label: 'Years Remote' },
                   { value: '6',                         label: 'Automation Platforms' },
                   { value: '8+',                        label: 'Industries Served' },
-                  { value: String(PROJECTS.length),     label: 'Case Studies' },
+                  { value: String(CASE_STUDY_COUNT),  label: 'Case Studies' },
                 ].map(({ value, label }) => (
                   <div key={label}>
                     <p className="text-2xl font-black text-[#F0EEE6] leading-none mb-1">{value}</p>
@@ -690,13 +687,13 @@ export default function Home() {
             <div className="space-y-4 text-[#7A8090] leading-relaxed mb-8">
               <p>
                 I look at broken processes and immediately think about how to eliminate them permanently.
-                That is the instinct behind MedVentures. With 9+ years building systems across lead generation,
-                CRM architecture, and workflow automation, I kept finding the same problem: businesses with good
+                That is the instinct behind MedVentures. With 9+ years of remote work across operations support,
+                CRM architecture and workflow automation, I kept finding the same problem: businesses with good
                 people drowning in work that a system should be handling.
               </p>
               <p>
-                I founded MedVentures to build those systems at scale, across n8n, Make, Zapier, GoHighLevel,
-                and HubSpot, for clients in the US, Australia, and Asia.
+                I founded MedVentures to build those systems, across n8n, Make, Zapier, GoHighLevel and Claude,
+                for clients in the US, Australia and Asia.
               </p>
             </div>
 
@@ -724,23 +721,23 @@ export default function Home() {
       </section>
 
       {/* ── Skills ─────────────────────────────────────────────────────────── */}
-      <section id="skills" className="py-24 lg:py-32 border-t border-white/7">
+      <section id="services" className="py-24 lg:py-32 border-t border-white/7">
         <div className="max-w-7xl mx-auto px-6">
           <FadeIn>
-            <SectionLabel>What We Do</SectionLabel>
+            <SectionLabel>Services</SectionLabel>
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-4 leading-tight">
-              Skills &{' '}
+              What I{' '}
               <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
-                Expertise
+                Build
               </span>
             </h2>
             <p className="text-[#7A8090] max-w-[52ch] mb-14">
-              From automation architecture to content creation. Every service is built around one goal: removing friction from your business permanently.
+              Systems that remove manual work, scoped clearly, tested before they go live, and handed over with documentation.
             </p>
           </FadeIn>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SKILLS.map((skill, i) => {
+            {WHAT_I_BUILD.map((skill, i) => {
               const Icon = skill.icon
               return (
                 <FadeIn key={skill.category} delay={i * 0.06}>
@@ -780,7 +777,7 @@ export default function Home() {
       </div>
 
       {/* ── Services ───────────────────────────────────────────────────────── */}
-      <section id="services" className="py-24 lg:py-32 border-t border-white/7">
+      <section id="engagement" className="py-24 lg:py-32 border-t border-white/7">
         <div className="max-w-7xl mx-auto px-6">
           <FadeIn>
             <SectionLabel>How We Work</SectionLabel>
@@ -835,17 +832,26 @@ export default function Home() {
           <FadeIn>
             <SectionLabel>Case Studies</SectionLabel>
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-[#F0EEE6] mb-4 leading-tight">
-              Automation{' '}
+              Systems built for{' '}
               <span className="bg-gradient-to-r from-[#E8C97A] to-[#C4A35A] bg-clip-text text-transparent">
-                Projects
+                real teams
               </span>
             </h2>
             <p className="text-[#7A8090] max-w-[52ch] mb-14">
-              Production systems built across n8n, Make, Zapier, GoHighLevel, and HubSpot. Each one replaced manual work with a system that runs itself.
+              Three engagements, shown without client names. Each one replaced manual work with a system that runs on its own.
             </p>
           </FadeIn>
 
-          <FadeIn>
+          <CaseStudies />
+
+          <FadeIn className="mt-24">
+            <SectionLabel>Selected builds</SectionLabel>
+            <h3 className="text-3xl lg:text-4xl font-black tracking-tight text-[#F0EEE6] mb-4 leading-tight">
+              Workflow builds
+            </h3>
+            <p className="text-[#7A8090] max-w-[52ch] mb-10">
+              Smaller builds across n8n, Make, Zapier, GoHighLevel and HubSpot. Open any card for the problem, the steps and the result.
+            </p>
             <ProjectCarousel />
           </FadeIn>
         </div>

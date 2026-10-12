@@ -26,3 +26,10 @@ Thumbs.db
 .vercel
 
 .vercel
+
+# personal source files kept locally, not tracked
+/make project *.jpg
+/n8n project *.jpg
+/professional photo.png
+/*.avif
+/Ahmed_Dizon_Resume*.pdf

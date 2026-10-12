@@ -26,16 +26,16 @@ const TOOLS: Tool[] = [
   { name: 'OpenRouter',         initials: 'OR',  color: '#6C5CE7', desc: 'API gateway aggregating 100+ AI models. Switch between models without changing integration code.' },
   { name: 'HubSpot',            si: siHubspot,      desc: 'CRM and marketing platform with contact management, email campaigns, deal pipelines, and sales automation.' },
   { name: 'Salesforce',         initials: 'SF',  color: '#00A1E0', desc: 'Enterprise CRM for sales, service, and marketing. Industry standard for large-scale customer relationship management.' },
-  { name: 'Zoho',               initials: 'ZO',  color: '#E42527', desc: 'Suite of business apps including CRM, HR, finance, and project management — all integrated in one ecosystem.' },
-  { name: 'LinkedIn',           initials: 'in',  color: '#0A66C2', desc: 'Professional networking platform for outreach, lead generation, B2B sales, and brand visibility.' },
+  { name: 'Zoho',               initials: 'ZO',  color: '#E42527', desc: 'Suite of business apps including CRM, HR, finance, and project management, all integrated in one ecosystem.' },
+  { name: 'LinkedIn',           initials: 'in',  color: '#0A66C2', desc: 'Professional networking platform for B2B outreach, partner sourcing, and sales research.' },
   { name: 'Asana',              si: siAsana,        desc: 'Project and task management for teams. Tracks work with timelines, boards, dependencies, and built-in automations.' },
   { name: 'Trello',             si: siTrello,       desc: 'Kanban-style project management with boards, lists, and cards. Simple visual task tracking for individuals and teams.' },
   { name: 'Slack',              initials: 'SL',  color: '#4A154B', desc: 'Team messaging and collaboration platform. Integrates with hundreds of tools for real-time notifications and workflow alerts.' },
   { name: 'Notion',             si: siNotion,       desc: 'All-in-one workspace for notes, databases, wikis, and project management. Highly flexible and customizable.' },
-  { name: 'Google Workspace',   initials: 'GW',  color: '#4285F4', desc: "Google's productivity suite — Docs, Sheets, Drive, Gmail, and Meet — for business collaboration and automation." },
+  { name: 'Google Workspace',   initials: 'GW',  color: '#4285F4', desc: "Google's productivity suite, Docs, Sheets, Drive, Gmail, and Meet, for business collaboration and automation." },
   { name: 'Microsoft Office',   initials: 'MS',  color: '#D83B01', desc: "Microsoft's core productivity suite. Word, Excel, PowerPoint, and Outlook for documents, data, and communications." },
   { name: 'Gmail',              si: siGmail,        desc: "Google's email service. Used in automations for sending notifications, parsing messages, and managing communications." },
-  { name: 'Meta',               si: siMeta,         desc: 'Meta Platforms — parent of Facebook, Instagram, and WhatsApp. Used for social media advertising and outreach automation.' },
+  { name: 'Meta',               si: siMeta,         desc: 'Meta Platforms, parent of Facebook, Instagram, and WhatsApp. Used for social media advertising and outreach automation.' },
   { name: 'Facebook',           si: siFacebook,     desc: 'Social media with 3B+ users. Used for page management, ad campaigns, and automated post publishing.' },
   { name: 'Instagram',          si: siInstagram,    desc: 'Visual social media platform. Used for content scheduling, engagement tracking, and brand presence automation.' },
   { name: 'Jane',               initials: 'JN',  color: '#00A9E0', desc: 'Healthcare practice management software for scheduling, billing, and patient communications in wellness clinics.' },
@@ -46,8 +46,7 @@ const TOOLS: Tool[] = [
   { name: 'Google Drive',       si: siGoogledrive,  desc: 'Cloud file storage and sharing. Used as a repository for automation inputs, outputs, and document handoffs.' },
   { name: 'Google Docs',        si: siGoogledocs,   desc: 'Collaborative word processor. Used for generating, storing, and updating documents via automations.' },
   { name: 'Airtable',           si: siAirtable,     desc: 'Database-spreadsheet hybrid for structured data. Excellent for automations that need flexible, relational data storage.' },
-  { name: 'Canva',              initials: 'CV',  color: '#00C4CC', desc: 'Visual design platform for graphics, presentations, and social media content — no design experience needed.' },
-  { name: 'CapCut',             initials: 'CC',  color: '#6B7280', desc: 'Video editing app for short-form content. Used for subtitles, transitions, and social media-ready exports.' },
+  { name: 'Canva',              initials: 'CV',  color: '#00C4CC', desc: 'Visual design platform for graphics, presentations, and social media content, no design experience needed.' },
   { name: 'YouTube',            si: siYoutube,      desc: 'Video hosting and publishing platform. Used in automations for uploading AI-generated or repurposed video content.' },
   { name: 'Metricool',          initials: 'ME',  color: '#9333EA', desc: 'Social media analytics and scheduling. Manages multi-platform publishing and tracks content performance.' },
   { name: 'Claude AI',          initials: 'CL',  color: '#C17843', desc: "Anthropic's Claude AI model. Used for prompt engineering, intelligent content generation, and AI-integrated automation pipelines." },
@@ -87,7 +86,7 @@ function TiltToolTile({ tool, onSelect }: { tool: Tool; onSelect: (t: Tool) => v
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         whileTap={{ scale: 0.95 }}
       >
-        {/* Logo — translateZ so it floats above the tile surface */}
+        {/* Logo, translateZ so it floats above the tile surface */}
         <div
           style={{
             transform: 'translateZ(20px)',
