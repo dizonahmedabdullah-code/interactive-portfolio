@@ -214,7 +214,7 @@ export const PROJECTS = [
     id: 9,
     platform: 'HighLevel',
     platformClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    image: '/ghl-crm-build.jpg',
+    image: null, // TODO: real screenshot
     title: 'Full GHL CRM Build & 8,300+ Lead Re-engagement',
     problem:
       '8,300+ contacts were scattered across Smartsheet, spreadsheets, email, WhatsApp, and Google Drive with no centralized system. No pipeline visibility, no student status tracking, and no way to see who needed follow-up. 979 old leads had job data from a previous campaign but had never been qualified, tagged, or followed up — all of them had gone cold.',
@@ -239,7 +239,7 @@ export const PROJECTS = [
     id: 11,
     platform: 'Reporting',
     platformClass: 'bg-teal-500/15 text-teal-400 border border-teal-500/25',
-    image: '/ghl-reporting-dashboard.jpg',
+    image: null, // TODO: real screenshot
     title: 'Live GHL Sales Reporting Dashboard',
     problem:
       'Sales data existed inside GHL but there was no way to see it clearly. Revenue, conversion rates, pipeline stage distribution, and closer performance were buried in raw CRM records. Getting any kind of overview required manual data extraction — with no live view, no trend analysis, and no way to slice results by occupation, package, or visa type.',
@@ -426,6 +426,21 @@ function MagnifyImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
+// ── Neutral stand-in until a real screenshot exists ───────────────────────────
+function ScreenshotPlaceholder({ platform, className = '' }: { platform: string; className?: string }) {
+  // TODO: real screenshot
+  return (
+    <div
+      className={`w-full aspect-[16/10] flex flex-col items-center justify-center gap-1 bg-[#0E1117] border-b border-white/7 ${className}`}
+      role="img"
+      aria-label={`${platform} build, screenshot to come`}
+    >
+      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#4A5060]">{platform}</span>
+      <span className="text-[11px] text-[#4A5060]">Screenshot to come</span>
+    </div>
+  )
+}
+
 // ── 3-D tilt tile ─────────────────────────────────────────────────────────────
 type Project = (typeof PROJECTS)[number]
 
@@ -461,7 +476,11 @@ function TiltTile({ proj, hidden, onSelect }: TiltTileProps) {
         whileTap={{ scale: 0.985 }}
       >
         <div className="overflow-hidden">
-          <img src={proj.image} alt={proj.title} className="w-full h-auto block transition-transform duration-500 group-hover:scale-110" draggable={false} />
+          {proj.image ? (
+            <img src={proj.image} alt={proj.title} className="w-full h-auto block transition-transform duration-500 group-hover:scale-110" draggable={false} />
+          ) : (
+            <ScreenshotPlaceholder platform={proj.platform} />
+          )}
         </div>
         <div className="px-3 py-2.5 border-t border-white/7">
           <span className={`inline-block px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase rounded-full mb-1.5 ${proj.platformClass}`}>
@@ -568,7 +587,11 @@ export default function ProjectCarousel() {
               </motion.button>
 
               {/* Full-width screenshot — hover to magnify */}
-              <MagnifyImage src={selected.image} alt={selected.title} />
+              {selected.image ? (
+                <MagnifyImage src={selected.image} alt={selected.title} />
+              ) : (
+                <ScreenshotPlaceholder platform={selected.platform} className="rounded-t-2xl" />
+              )}
 
               {/* Detail content */}
               <motion.div
