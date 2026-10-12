@@ -850,7 +850,7 @@ export default function Home() {
               Workflow builds
             </h3>
             <p className="text-[#7A8090] max-w-[52ch] mb-10">
-              Smaller builds across n8n, Make, Zapier, GoHighLevel and HubSpot. Open any card for the problem, the steps and the result.
+              Smaller builds across GoHighLevel, n8n, Make and Zapier. Open any card for the problem, the steps and the result.
             </p>
             <ProjectCarousel />
           </FadeIn>

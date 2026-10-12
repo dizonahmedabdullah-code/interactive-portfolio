@@ -58,40 +58,28 @@ What I did: per-market lead research (300+ leads in one market cut to 58 policy-
 A client running paid ads had no automated lead handling in place. Every new lead required manual follow-up and qualification calls. I built a five-workflow GoHighLevel system that automatically qualifies, segments, and nurtures leads based on their responses. The system routes hot leads to booking immediately and keeps warm leads in a structured follow-up sequence.
 
 ### Full GHL CRM Build
-A service business had no centralized CRM. Leads, clients, and communications were scattered across email threads and spreadsheets. I built a complete GoHighLevel CRM from scratch: pipeline architecture, automated workflows, SMS and email triggers, contact segmentation, and a reporting dashboard. The team went from no visibility to a fully trackable sales operation.
-
-### Meta Ads Lead Form Automation
-A coaching business was running Meta Ads but manually handling every lead form submission. I connected the form submission trigger to an automated intake and follow-up sequence, removing all manual processing from the lead response workflow.
+A service business had no centralized CRM. Leads, clients, and communications were scattered across email threads and spreadsheets. I built a complete GoHighLevel CRM from scratch: pipeline architecture, automated workflows, SMS and email triggers, contact segmentation, and a bulk re-engagement of old cold leads. The team went from no visibility to a fully trackable sales operation.
 
 ### Live GHL Reporting Dashboard
-A client needed real-time visibility into their sales performance. I built a live reporting dashboard inside GoHighLevel that pulls pipeline data, tracks conversion rates, and generates automated weekly summaries for the leadership team.
-
-### Zapier AI Content Repurposing
-A content team was manually reformatting long-form articles for multiple platforms. I built a Zapier flow that takes a source article, passes it through an AI model for platform-specific reformatting, and publishes to each channel automatically.
-
-### Make.com Email Attachment Organizer
-Documents were piling up in inboxes with no structure. I built a Make.com scenario that monitors incoming emails, extracts attachments, categorizes them by type and sender, and files them into organized Google Drive folders.
-
-### Make.com Client Onboarding System
-New clients were receiving inconsistent onboarding because everything was done manually. I built a Make.com workflow that triggers on contract signature, creates the client's project space, sends onboarding materials, and schedules the kickoff call.
-
-### n8n AI Webhook Handler
-An API needed intelligent routing: incoming payloads required classification before being forwarded to the correct downstream system. I built an n8n flow that receives webhooks, classifies the payload with an AI model, and routes accordingly.
+A client needed real-time visibility into their sales performance. I built a live reporting dashboard inside GoHighLevel that pulls pipeline data, tracks conversion rates, and can be sliced by segment, package, closer, and payment type.
 
 ### n8n Five-Phase Lead Management System
-A service business needed end-to-end lead management from first contact to closed deal. I built a five-phase n8n system covering capture, qualification, nurture, conversion, and post-close follow-up. Each phase has its own logic, branching, and automated actions.
+A service business needed end-to-end lead management from first contact to closed deal, and two outreach agents were contacting the same leads. I built a five-phase n8n system covering capture, qualification, outreach coordination, purchase handoff, and reporting. Each phase has its own logic and can be tested on its own.
 
-### Zapier Three-Agent Automation Suite
-A service business had three distinct operational areas running on manual work. I built three coordinated Zapier agents handling each area independently, with shared data passing between them for a unified operational picture.
+### n8n AI Webhook Request Handler with Gemini
+Businesses were answering repetitive questions by hand. I built an n8n flow that receives webhook requests, filters valid ones, retrieves the right document, and has a Gemini AI agent with memory send back a context-aware reply.
 
-### Make.com Multi-Platform System Deployment
-A client needed the same core system deployed across multiple platforms with different data formats. I built a Make.com architecture that handles the translation and deployment layer, keeping one source of truth while serving each platform correctly.
+### n8n AI Job Application Pipeline via Slack
+A single Slack message triggers a job search, scrapes live listings, rewrites a resume for each role with OpenRouter, and prepares a Gmail draft, then reports back in Slack.
 
-### HubSpot AI Sales Follow-Up
-A sales team was losing deals in the follow-up gap. I built a HubSpot automation that detects deal inactivity, generates a personalized follow-up using AI, and sends it at the right time without any rep involvement.
+### Make.com Email Attachment Organizer
+Documents were piling up in inboxes with no structure. I built a Make.com scenario that monitors incoming emails, extracts attachments, uses AI to name each file, uploads it to Google Drive, logs it in Google Sheets, and sends a confirmation.
 
-### GoHighLevel White-Label CRM Architecture
-A business needed a fully white-labeled CRM and outreach system built to their specifications. I designed and deployed the complete architecture: sub-account structure, branded workflows, outreach sequences, and reporting. All under NDA.
+### Make.com Asana to Xero Finance Sync
+Finance and project teams worked in separate tools. I built a Make.com scenario that fires when an Asana task is completed, pulls Xero transactions via API, logs them in Google Sheets, and attaches a CSV to the original task.
+
+### Zapier AI Content Repurposing
+A content team was manually reformatting audio and long-form content for multiple platforms. I built a Zapier flow that transcribes a new Drive file, generates blog posts with AI, applies condition checks, and publishes to Facebook Pages and LinkedIn.
 
 ## ENGAGEMENT TIERS
 
