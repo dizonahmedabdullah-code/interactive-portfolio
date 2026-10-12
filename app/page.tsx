@@ -261,7 +261,7 @@ const FAQS = [
   },
   {
     q: 'What is your timezone and availability?',
-    a: 'We are based in the Philippines at UTC+8 and available to overlap with US, European, and Australian business hours.',
+    a: 'We are based in the Philippines at UTC+8 and available to overlap with US, European, and Asia-Pacific business hours.',
   },
 ]
 
@@ -587,7 +587,7 @@ export default function Home() {
 
               <p className="text-lg text-zinc-400 leading-relaxed max-w-[500px] mb-10">
                 I build systems that remove manual work, using n8n, Make, Zapier, GoHighLevel and Claude.
-                Clients in the US, Australia and Asia.
+                Clients in the US and Asia.
               </p>
 
               <div className="flex flex-wrap gap-4 mb-6">
@@ -693,7 +693,7 @@ export default function Home() {
               </p>
               <p>
                 I founded MedVentures to build those systems, across n8n, Make, Zapier, GoHighLevel and Claude,
-                for clients in the US, Australia and Asia.
+                for clients in the US and Asia.
               </p>
             </div>
 

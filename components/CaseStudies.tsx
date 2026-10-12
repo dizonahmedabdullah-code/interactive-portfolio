@@ -22,7 +22,7 @@ const CASE_STUDIES: CaseStudy[] = [
   {
     id: '01',
     title: 'Automation and BI build for an education and coaching business',
-    client: 'An education and coaching business in Australia (under NDA)',
+    client: 'An education and coaching business (under NDA)',
     role: 'Automation and BI contractor',
     stackLabel: 'Stack',
     stack: [

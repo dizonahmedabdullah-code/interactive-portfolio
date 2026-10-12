@@ -6,7 +6,7 @@ I'm Ahmed Abdullah Dizon, an AI Automation Specialist and the founder of MedVent
 
 At my core, I'm a problem solver. I look at broken processes and immediately think about how to eliminate them permanently. With 9+ years of remote work across operations support, CRM architecture, and workflow automation, I kept finding the same problem: businesses with good people drowning in work that a system should be handling. I founded MedVentures to build those systems.
 
-I'm based in the Philippines at UTC+8, and I work with clients in the US, Australia, and Asia. Upwork Top Rated with a 100% Job Success Score and 2,100+ hours.
+I'm based in the Philippines at UTC+8, and I work with clients in the US and Asia. Upwork Top Rated with a 100% Job Success Score and 2,100+ hours.
 
 ## AUTOMATION STACK
 
@@ -33,7 +33,7 @@ Additional tools: Twilio, Typeform, Telegram, WordPress, Calendly, Fireflies, Cl
 ## CASE STUDIES (all clients anonymous)
 
 ### Automation and BI build for an education and coaching business
-Client: an education and coaching business in Australia, under NDA. My role: automation and BI contractor. Stack: GoHighLevel (CRM, workflows, API v2), Zapier, n8n, Google Workspace, Slack, Next.js on Vercel.
+Client: an education and coaching business, under NDA. My role: automation and BI contractor. Stack: GoHighLevel (CRM, workflows, API v2), Zapier, n8n, Google Workspace, Slack, Next.js on Vercel.
 Problem: lead-to-enrolment and student compliance (homework, document submissions, daily job-search KPIs) were tracked by hand. Staff chased documents manually and leadership had no live pipeline view.
 Track A, student-success automation (about 65% of hours): document submission tied to each student's CRM record, missing-document detection with scheduled reminders, warning escalation for non-compliant students, a weekly compliance report to coaches, cohort onboarding, calendar and session automation, KPI and activity tracking, and AI first-draft feedback sent to a coach review queue. A coach approves before anything reaches a student.
 Track B, live BI dashboard (about 35% of hours): a Next.js dashboard on Vercel with live CRM data via GoHighLevel API v2. It launched on CRM data first, with accounting and website integrations scoped as a later phase.
