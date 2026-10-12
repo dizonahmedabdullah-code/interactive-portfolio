@@ -189,7 +189,7 @@ export const PROJECTS = [
     id: 10,
     platform: 'Meta Ads',
     platformClass: 'bg-blue-500/15 text-blue-400 border border-blue-500/25',
-    image: '/meta-ads-lead-form.jpg',
+    image: null, // TODO: real screenshot
     title: 'Job Coaching Lead Form & New Meta Campaign Launch',
     problem:
       'The live Meta ad used a generic Webinar Form capturing only name, phone, and email — no occupation or visa data, leaving the automation with nothing to qualify or segment leads on entry. Meta prevents editing an Instant Form on a published live ad, so swapping in a richer form required launching a brand new campaign from scratch.',
