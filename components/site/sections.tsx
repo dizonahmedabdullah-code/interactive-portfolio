@@ -12,6 +12,7 @@ import {
   MAILTO,
   SERVICES,
   STATS,
+  WORK_SAMPLES_URL,
 } from '@/lib/content'
 import ActiveSteps from './ActiveSteps'
 import BuildsCarousel from './BuildsCarousel'
@@ -270,6 +271,11 @@ export function Closing() {
             <ChevronLink href={LINKEDIN} external>
               LinkedIn
             </ChevronLink>
+            {WORK_SAMPLES_URL && (
+              <ChevronLink href={WORK_SAMPLES_URL} external>
+                Work samples
+              </ChevronLink>
+            )}
           </div>
         </div>
       </Container>

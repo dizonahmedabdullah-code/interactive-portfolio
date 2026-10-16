@@ -5,6 +5,8 @@ export const EMAIL = 'dizonahmedabdullah@gmail.com'
 export const MAILTO = `mailto:${EMAIL}`
 export const LINKEDIN = 'https://www.linkedin.com/in/ahmed-abdullah-dizon-06459137b'
 export const SITE_URL = 'https://automated-by-med.vercel.app'
+// TODO: paste the Google Drive work samples folder URL. The "Work samples" link stays hidden until this is set.
+export const WORK_SAMPLES_URL: string = ''
 
 export const META = {
   title: `${BRAND} | AI Automation for Growing Teams`,
