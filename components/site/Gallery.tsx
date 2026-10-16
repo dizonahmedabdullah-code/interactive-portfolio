@@ -71,15 +71,22 @@ function Frame({ shot, onOpen, tall }: { shot: Shot; onOpen: (shot: Shot) => voi
 
 export default function Gallery({ shots, note }: { shots: Shot[]; note: string }) {
   const dialogRef = useRef<HTMLDialogElement>(null)
+  // The last opened shot stays rendered after closing, so the lightbox can fade out with it.
   const [active, setActive] = useState<Shot | null>(null)
+  const [openCount, setOpenCount] = useState(0)
 
   useEffect(() => {
     const dialog = dialogRef.current
-    if (active && dialog && !dialog.open) {
+    if (openCount > 0 && dialog && !dialog.open) {
       dialog.showModal()
       lockPageScroll(true)
     }
-  }, [active])
+  }, [openCount])
+
+  const openShot = (shot: Shot) => {
+    setActive(shot)
+    setOpenCount(n => n + 1)
+  }
 
   const [first, ...rest] = shots
 
@@ -87,12 +94,12 @@ export default function Gallery({ shots, note }: { shots: Shot[]; note: string }
     <div>
       <div className="grid gap-5 md:grid-cols-2">
         <figure data-reveal className="flex min-w-0 flex-col md:row-span-2">
-          <Frame shot={first} onOpen={setActive} tall />
+          <Frame shot={first} onOpen={openShot} tall />
           <figcaption className="mt-3 text-[14px] leading-snug text-ink-2">{first.caption}</figcaption>
         </figure>
         {rest.map((shot, i) => (
           <figure key={shot.caption} data-reveal style={{ ['--i' as string]: i + 1 }} className="min-w-0">
-            <Frame shot={shot} onOpen={setActive} tall={false} />
+            <Frame shot={shot} onOpen={openShot} tall={false} />
             <figcaption className="mt-3 text-[14px] leading-snug text-ink-2">{shot.caption}</figcaption>
           </figure>
         ))}
@@ -103,12 +110,9 @@ export default function Gallery({ shots, note }: { shots: Shot[]; note: string }
       <dialog
         ref={dialogRef}
         aria-label={active?.caption}
-        onClose={() => {
-          lockPageScroll(false)
-          setActive(null)
-        }}
+        onClose={() => lockPageScroll(false)}
         onClick={e => e.target === e.currentTarget && e.currentTarget.close()}
-        className="m-auto max-h-[94dvh] max-w-[94vw] overflow-visible bg-transparent p-0 text-[#f5f5f7]"
+        className="sheet m-auto max-h-[94dvh] max-w-[94vw] overflow-visible bg-transparent p-0 text-[#f5f5f7]"
       >
         {active?.image && (
           <div className="relative">

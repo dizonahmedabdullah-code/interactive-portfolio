@@ -11,34 +11,53 @@ const edgePad = 'max(var(--gutter), calc((100% - 1200px) / 2 + 24px))'
 export default function BuildsCarousel({ builds }: { builds: Build[] }) {
   const listRef = useRef<HTMLUListElement>(null)
   const dialogRef = useRef<HTMLDialogElement>(null)
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  // The last opened build stays rendered after closing, so the dialog can fade out with its content.
+  const [shownIndex, setShownIndex] = useState<number | null>(null)
+  const [openCount, setOpenCount] = useState(0)
   const [edges, setEdges] = useState({ start: true, end: false })
 
+  // At most once per frame, and only re-renders when an arrow button's state flips.
   const measure = useCallback(() => {
     const el = listRef.current
     if (!el) return
-    setEdges({ start: el.scrollLeft <= 4, end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 4 })
+    const start = el.scrollLeft <= 4
+    const end = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4
+    setEdges(prev => (prev.start === start && prev.end === end ? prev : { start, end }))
   }, [])
 
   useEffect(() => {
     const el = listRef.current
     if (!el) return
+    let raf = 0
+    const onScroll = () => {
+      if (!raf)
+        raf = requestAnimationFrame(() => {
+          raf = 0
+          measure()
+        })
+    }
     measure()
-    el.addEventListener('scroll', measure, { passive: true })
-    window.addEventListener('resize', measure)
+    el.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
     return () => {
-      el.removeEventListener('scroll', measure)
-      window.removeEventListener('resize', measure)
+      el.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      cancelAnimationFrame(raf)
     }
   }, [measure])
 
   useEffect(() => {
     const dialog = dialogRef.current
-    if (openIndex !== null && dialog && !dialog.open) {
+    if (openCount > 0 && dialog && !dialog.open) {
       dialog.showModal()
       lockPageScroll(true)
     }
-  }, [openIndex])
+  }, [openCount])
+
+  const openBuild = (i: number) => {
+    setShownIndex(i)
+    setOpenCount(n => n + 1)
+  }
 
   const page = (dir: 1 | -1) => {
     const el = listRef.current
@@ -48,14 +67,14 @@ export default function BuildsCarousel({ builds }: { builds: Build[] }) {
     el.scrollBy({ left: dir * (card.getBoundingClientRect().width + 20), behavior: reduce ? 'auto' : 'smooth' })
   }
 
-  const open = openIndex === null ? null : builds[openIndex]
+  const open = shownIndex === null ? null : builds[shownIndex]
 
   return (
     <div>
       <ul
         ref={listRef}
         aria-label="Workflow builds"
-        className="scroller mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
+        className="scroller mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 md:snap-proximity"
         style={{ paddingInline: edgePad, scrollPaddingInline: edgePad }}
       >
         {builds.map((build, i) => (
@@ -73,7 +92,7 @@ export default function BuildsCarousel({ builds }: { builds: Build[] }) {
                   width={build.image.width}
                   height={build.image.height}
                   sizes="(min-width: 640px) 372px, 82vw"
-                  className="h-full w-full object-cover transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
+                  className="h-full w-full object-cover transition-transform duration-[900ms] ease-out-expo group-hover:scale-[1.03]"
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">
@@ -82,7 +101,7 @@ export default function BuildsCarousel({ builds }: { builds: Build[] }) {
                 <p className="mt-2 text-[15px] leading-normal text-ink-2">{build.line}</p>
                 <button
                   type="button"
-                  onClick={() => setOpenIndex(i)}
+                  onClick={() => openBuild(i)}
                   aria-label={`Learn more about ${build.title}`}
                   className="mt-auto inline-flex items-center gap-1 self-start pt-5 text-[15px] text-link after:absolute after:inset-0 after:content-[''] hover:underline"
                 >
@@ -114,12 +133,9 @@ export default function BuildsCarousel({ builds }: { builds: Build[] }) {
       <dialog
         ref={dialogRef}
         aria-labelledby="build-dialog-title"
-        onClose={() => {
-          lockPageScroll(false)
-          setOpenIndex(null)
-        }}
+        onClose={() => lockPageScroll(false)}
         onClick={e => e.target === e.currentTarget && e.currentTarget.close()}
-        className="surface-light m-auto max-h-[92dvh] w-[min(94vw,880px)] max-w-none overflow-y-auto rounded-stage p-0"
+        className="sheet surface-light m-auto max-h-[92dvh] w-[min(94vw,880px)] max-w-none overflow-y-auto rounded-stage p-0"
       >
         {open && (
           <div>

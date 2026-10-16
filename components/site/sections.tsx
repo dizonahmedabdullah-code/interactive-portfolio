@@ -45,17 +45,17 @@ export function Hero() {
             </span>
           ))}
         </h1>
-        <p className="hero-after mt-6 max-w-[36ch] text-lead text-ink-2" style={cssVars({ '--d': '420ms' })}>
+        <p className="hero-after mt-6 max-w-[36ch] text-lead text-ink-2" style={cssVars({ '--d': '360ms' })}>
           {HERO.subline}
         </p>
-        <div className="hero-after mt-8 flex flex-wrap items-center gap-x-8 gap-y-3" style={cssVars({ '--d': '540ms' })}>
+        <div className="hero-after mt-8 flex flex-wrap items-center gap-x-8 gap-y-3" style={cssVars({ '--d': '460ms' })}>
           <PillLink href="#work">See the work</PillLink>
           <ChevronLink href={MAILTO}>Book a call</ChevronLink>
         </div>
       </Container>
 
       <Container className="mt-14 md:mt-20">
-        <div className="hero-after surface-dark overflow-hidden rounded-stage p-3 sm:p-6 md:p-12 lg:p-16" style={cssVars({ '--d': '660ms' })}>
+        <div className="hero-after surface-dark overflow-hidden rounded-stage p-3 sm:p-6 md:p-12 lg:p-16" style={cssVars({ '--d': '560ms' })}>
           <ScrollScale>
             <DashboardPlaceholder />
           </ScrollScale>
@@ -114,7 +114,7 @@ export function CaseStudyOne() {
               <li key={step.label} data-step className="group lg:flex lg:min-h-[62vh] lg:items-center">
                 <div
                   data-reveal
-                  className="border-l-2 border-hair pl-6 transition-colors duration-500 ease-apple group-data-[active]:border-link"
+                  className="border-l-2 border-hair pl-6 transition-colors duration-700 ease-out-expo group-data-[active]:border-link"
                 >
                   <p className="text-eyebrow tabular-nums text-ink-2">0{i + 1}</p>
                   <h3 className="mt-1 text-title text-ink">{step.label}</h3>

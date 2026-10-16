@@ -38,7 +38,9 @@
 }
 
 :root {
-  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* Entrances: fast start, long soft settle. UI feedback: Apple's own curve. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease: cubic-bezier(0.28, 0.11, 0.32, 1);
   --nav-h: 48px;
   --gutter: 16px;
   color-scheme: light;
@@ -91,15 +93,10 @@ body {
   backdrop-filter: blur(20px) saturate(180%);
 }
 
-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
 /* ── Motion ───────────────────────────────────────────────────────────────────
-   Hidden states only apply when scripts run and motion is allowed, so nothing is
-   ever stuck invisible. RevealObserver adds .is-in as elements scroll into view. */
+   Only transform and opacity animate, so the compositor does the work. Hidden
+   states only apply when scripts run and motion is allowed, so nothing is ever
+   stuck invisible. RevealObserver adds .is-in as elements scroll into view. */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -109,11 +106,12 @@ dialog::backdrop {
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   [data-reveal] {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 32px, 0);
+    /* Opacity lands first so text is readable early; the rise keeps settling. */
     transition:
-      opacity 700ms var(--ease),
-      transform 700ms var(--ease);
-    transition-delay: calc(var(--i, 0) * 90ms);
+      opacity 900ms var(--ease-out),
+      transform 1300ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 80ms);
   }
 
   [data-reveal].is-in {
@@ -125,7 +123,7 @@ dialog::backdrop {
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(0.35em);
+    transform: translate3d(0, 0.45em, 0);
   }
   to {
     opacity: 1;
@@ -136,7 +134,7 @@ dialog::backdrop {
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 28px, 0);
   }
   to {
     opacity: 1;
@@ -144,17 +142,85 @@ dialog::backdrop {
   }
 }
 
+@keyframes scroll-scale {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.04);
+  }
+}
+
 /* Hero headline: one word at a time, once, on load. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-word {
     display: inline-block;
-    animation: rise-in 800ms var(--ease) both;
-    animation-delay: calc(80ms + var(--w, 0) * 90ms);
+    animation: rise-in 1200ms var(--ease-out) both;
+    animation-delay: calc(60ms + var(--w, 0) * 80ms);
   }
 
   .hero-after {
-    animation: fade-up 700ms var(--ease) both;
+    animation: fade-up 1200ms var(--ease-out) both;
     animation-delay: var(--d, 400ms);
+  }
+}
+
+/* Hero visual grows 1.0 to 1.04 over the first screen of scrolling. Scroll-linked
+   CSS runs off the main thread; ScrollScale.tsx covers browsers without it. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-scale {
+      animation: scroll-scale linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 100vh;
+    }
+  }
+}
+
+/* ── Dialogs: fade and lift in, fade out. Browsers without @starting-style just
+   open and close instantly. */
+.sheet {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0) scale(0.97);
+  transition:
+    opacity 280ms var(--ease),
+    transform 280ms var(--ease),
+    overlay 280ms allow-discrete,
+    display 280ms allow-discrete;
+}
+
+.sheet[open] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 450ms var(--ease-out),
+    transform 650ms var(--ease-out),
+    overlay 650ms allow-discrete,
+    display 650ms allow-discrete;
+}
+
+@starting-style {
+  .sheet[open] {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(0.97);
+  }
+}
+
+.sheet::backdrop {
+  background-color: rgba(0, 0, 0, 0);
+  transition:
+    background-color 300ms var(--ease),
+    overlay 300ms allow-discrete,
+    display 300ms allow-discrete;
+}
+
+.sheet[open]::backdrop {
+  background-color: rgba(0, 0, 0, 0.76);
+}
+
+@starting-style {
+  .sheet[open]::backdrop {
+    background-color: rgba(0, 0, 0, 0);
   }
 }
 

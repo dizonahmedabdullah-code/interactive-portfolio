@@ -37,7 +37,8 @@ const config: Config = {
         stage: '28px',
       },
       transitionTimingFunction: {
-        apple: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+        apple: 'cubic-bezier(0.28, 0.11, 0.32, 1)',
+        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
   },
