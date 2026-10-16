@@ -6,7 +6,7 @@ I'm Ahmed Abdullah Dizon, an AI Automation Specialist and the founder of MedVent
 
 At my core, I'm a problem solver. I look at broken processes and immediately think about how to eliminate them permanently. With 9+ years of remote work across operations support, CRM architecture, and workflow automation, I kept finding the same problem: businesses with good people drowning in work that a system should be handling. I founded MedVentures to build those systems.
 
-I'm based in the Philippines at UTC+8, and I work with clients in the US and Asia. Upwork Top Rated with a 100% Job Success Score and 2,100+ hours.
+I'm based in the Philippines at UTC+8, and I work with clients in the US and Asia. 100% Job Success Score and 2,100+ hours on Upwork.
 
 ## AUTOMATION STACK
 
@@ -91,15 +91,15 @@ A content team was manually reformatting audio and long-form content for multipl
 
 ## PROFESSIONAL EXPERIENCE
 
-- Lead Generation and Appointment Setting Specialist, Fitness Company (Mar 2024 – Feb 2026, Remote)
-- Data Entry Specialist and Video Editor, Tutor Company (Dec 2023 – Apr 2025, Remote)
-- Admin Assistant, SMM and Video Editor, Chiropractic Company (Aug 2023 – Feb 2025, Remote)
-- Executive Assistant to Head of Sales, Events Company (May 2023 – Jan 2026, Remote)
-- Admin Assistant and Social Media Manager, Real Estate Company (Jan 2023 – Oct 2023, Remote)
-- Admin Assistant and Lead Generation, Entertainment Company (Jun 2022 – Feb 2023, Remote)
-- Social Media Manager and Cold Outreach Specialist, Staffing Agency (Feb 2022 – Dec 2022, Remote)
-- Technical Support Team Leader, Mobile Company, US Account (Feb 2019 – Jan 2022, On-site)
-- Technical Support Representative, Internet Company, US Account (Mar 2016 – Dec 2018, On-site)
+- Lead Generation and Appointment Setting Specialist, Fitness Company (Mar 2024 to Feb 2026, Remote)
+- Data Entry Specialist and Video Editor, Tutor Company (Dec 2023 to Apr 2025, Remote)
+- Admin Assistant, SMM and Video Editor, Chiropractic Company (Aug 2023 to Feb 2025, Remote)
+- Executive Assistant to Head of Sales, Events Company (May 2023 to Jan 2026, Remote)
+- Admin Assistant and Social Media Manager, Real Estate Company (Jan 2023 to Oct 2023, Remote)
+- Admin Assistant and Lead Generation, Entertainment Company (Jun 2022 to Feb 2023, Remote)
+- Social Media Manager and Cold Outreach Specialist, Staffing Agency (Feb 2022 to Dec 2022, Remote)
+- Technical Support Team Leader, Mobile Company, US Account (Feb 2019 to Jan 2022, On-site)
+- Technical Support Representative, Internet Company, US Account (Mar 2016 to Dec 2018, On-site)
 
 ## CONTACT AND AVAILABILITY
 

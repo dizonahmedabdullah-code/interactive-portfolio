@@ -2,184 +2,179 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Theme tokens ──────────────────────────────────────────────────────────── */
-html {
-  --page-bg: #F5F3EE;
-  --page-vignette: #F5F3EE;
-  background: var(--page-bg);
-  color: #1A1A1A;
+/* ── Tokens ────────────────────────────────────────────────────────────────────
+   Light sections are the default. #0071e3 is only 4.3:1 on #f5f5f7, so links and
+   eyebrows on grey surfaces use #0066cc. Buttons stay #0071e3 everywhere (white
+   text on it is 4.7:1; on #2997ff it would only be 3:1). */
+:root,
+.surface-light {
+  --surface: #ffffff;
+  --card: #f5f5f7;
+  --ink: #1d1d1f;
+  --ink-2: #6e6e73;
+  --link: #0071e3;
+  --hair: #d2d2d7;
+  --focus: #0071e3;
 }
 
-html.dark {
-  --page-bg: #080A0E;
-  --page-vignette: #080A0E;
-  background: var(--page-bg);
-  color: #F0EEE6;
+.surface-alt {
+  --surface: #f5f5f7;
+  --card: #ffffff;
+  --ink: #1d1d1f;
+  --ink-2: #6e6e73;
+  --link: #0066cc;
+  --hair: #d2d2d7;
+  --focus: #0071e3;
+}
+
+.surface-dark {
+  --surface: #000000;
+  --card: #1d1d1f;
+  --ink: #f5f5f7;
+  --ink-2: #a1a1a6;
+  --link: #2997ff;
+  --hair: #424245;
+  --focus: #2997ff;
+}
+
+:root {
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --nav-h: 48px;
+  --gutter: 16px;
+  color-scheme: light;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+
+.surface-light,
+.surface-alt,
+.surface-dark {
+  background-color: var(--surface);
+  color: var(--ink);
+}
+
+html {
+  background: #ffffff;
+  scroll-padding-top: calc(var(--nav-h) + 8px);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  height: 100%;
-  overflow-x: hidden;
+  background: #ffffff;
+  color: #1d1d1f;
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: -0.022em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
-/* Smooth theme transitions */
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease,
-    box-shadow 0.25s ease !important;
-}
-
-/* ── Avatar blink ──────────────────────────────────────────────────────────── */
-@keyframes avatarBlink {
-  0%,
-  88%,
-  100% {
-    transform: scaleY(1);
-  }
-  93% {
-    transform: scaleY(0.06);
-  }
-}
-
-.avatar-eye {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  animation: avatarBlink 5s ease-in-out infinite;
-}
-
-.avatar-eye-right {
-  animation-delay: 0.07s;
-}
-
-/* ── Chat scrollbar ────────────────────────────────────────────────────────── */
-.chat-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: #2A2A32 transparent;
-}
-
-html:not(.dark) .chat-scroll {
-  scrollbar-color: #d4d4d8 transparent;
-}
-
-.chat-scroll::-webkit-scrollbar {
-  width: 3px;
-}
-
-.chat-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.chat-scroll::-webkit-scrollbar-thumb {
-  background: #2A2A32;
-  border-radius: 2px;
-}
-
-html:not(.dark) .chat-scroll::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
-}
-
-/* ── Selection ─────────────────────────────────────────────────────────────── */
 ::selection {
-  background: rgba(232, 201, 122, 0.18);
-  color: inherit;
+  background: rgba(0, 113, 227, 0.18);
 }
 
-/* ── Grid texture ──────────────────────────────────────────────────────────── */
-.grid-texture {
-  background-image: linear-gradient(
-      rgba(232, 201, 122, 0.025) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, rgba(232, 201, 122, 0.025) 1px, transparent 1px);
-  background-size: 44px 44px;
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-/* ── Textarea auto-resize ──────────────────────────────────────────────────── */
-textarea {
-  field-sizing: content;
+/* Translucent nav bar. */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
 }
 
-/* ── Mobile safe-area input bar ────────────────────────────────────────────── */
-.input-bar-safe {
-  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* ── Tools banner marquee ──────────────────────────────────────────────────── */
-@keyframes marquee {
-  from { transform: translateX(0) }
-  to   { transform: translateX(-50%) }
+/* ── Motion ───────────────────────────────────────────────────────────────────
+   Hidden states only apply when scripts run and motion is allowed, so nothing is
+   ever stuck invisible. RevealObserver adds .is-in as elements scroll into view. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
-/* ── Light mode overrides ──────────────────────────────────────────────────── */
-html:not(.dark) .text-white    { color: #18181b !important; }
-html:not(.dark) .text-zinc-100 { color: #18181b !important; }
-html:not(.dark) .text-zinc-200 { color: #27272a !important; }
-html:not(.dark) .text-zinc-300 { color: #3f3f46 !important; }
-html:not(.dark) .text-zinc-400 { color: #52525b !important; }
-html:not(.dark) .text-zinc-500 { color: #71717a !important; }
-html:not(.dark) .text-zinc-600 { color: #71717a !important; }
-html:not(.dark) .bg-zinc-950              { background-color: #ebebе6 !important; }
-html:not(.dark) .bg-zinc-900              { background-color: #e8e8e3 !important; }
-html:not(.dark) .bg-zinc-900\/40          { background-color: rgba(0,0,0,0.04) !important; }
-html:not(.dark) .bg-zinc-900\/50          { background-color: rgba(0,0,0,0.05) !important; }
-html:not(.dark) .bg-zinc-900\/60          { background-color: rgba(0,0,0,0.05) !important; }
-html:not(.dark) .bg-zinc-900\/80          { background-color: rgba(0,0,0,0.06) !important; }
-html:not(.dark) .bg-zinc-800\/80          { background-color: rgba(0,0,0,0.07) !important; }
-html:not(.dark) .bg-zinc-800              { background-color: rgba(0,0,0,0.09) !important; }
-html:not(.dark) .bg-\[\#080A0E\]         { background-color: #f0f0eb !important; }
-html:not(.dark) .border-zinc-900          { border-color: rgba(0,0,0,0.07) !important; }
-html:not(.dark) .border-zinc-800          { border-color: rgba(0,0,0,0.1)  !important; }
-html:not(.dark) .border-zinc-800\/60      { border-color: rgba(0,0,0,0.09) !important; }
-html:not(.dark) .border-zinc-800\/50      { border-color: rgba(0,0,0,0.08) !important; }
-html:not(.dark) .border-zinc-800\/70      { border-color: rgba(0,0,0,0.1)  !important; }
-html:not(.dark) .border-zinc-700          { border-color: rgba(0,0,0,0.12) !important; }
-html:not(.dark) .border-zinc-700\/60      { border-color: rgba(0,0,0,0.11) !important; }
-html:not(.dark) .border-white\/5          { border-color: rgba(0,0,0,0.05) !important; }
-html:not(.dark) .border-white\/10         { border-color: rgba(0,0,0,0.08) !important; }
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 700ms var(--ease),
+      transform 700ms var(--ease);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
 
-/* ── Custom dark-palette light-mode overrides ──────────────────────────────── */
+  [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
 
-/* Text */
-html:not(.dark) .text-\[\#F0EEE6\]        { color: #18181b !important; }
-html:not(.dark) .text-\[\#7A8090\]        { color: #4b5563 !important; }
-html:not(.dark) .text-\[\#4A5060\]        { color: #71717a !important; }
-html:not(.dark) .text-\[\#E8C97A\]        { color: #92700f !important; }
-html:not(.dark) .placeholder-\[\#4A5060\] { color: #9ca3af !important; }
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 
-/* Gradient text: darken gold so it reads on light bg */
-html:not(.dark) .from-\[\#E8C97A\]  { --tw-gradient-from: #7a5c0a var(--tw-gradient-from-position) !important; }
-html:not(.dark) .to-\[\#C4A35A\]    { --tw-gradient-to: #5a3f06   var(--tw-gradient-to-position)   !important; }
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 
-/* Surfaces */
-html:not(.dark) .bg-\[\#0E1117\]         { background-color: #f4f4f0 !important; }
-html:not(.dark) .bg-\[\#141820\]         { background-color: #eaeae6 !important; }
-html:not(.dark) .bg-\[\#0E1117\]\/40     { background-color: rgba(0,0,0,0.03) !important; }
-html:not(.dark) .bg-\[\#0E1117\]\/60     { background-color: rgba(0,0,0,0.04) !important; }
-html:not(.dark) .bg-\[\#0E1117\]\/80     { background-color: rgba(0,0,0,0.05) !important; }
-html:not(.dark) .bg-\[\#141820\]\/40     { background-color: rgba(0,0,0,0.03) !important; }
+/* Hero headline: one word at a time, once, on load. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-word {
+    display: inline-block;
+    animation: rise-in 800ms var(--ease) both;
+    animation-delay: calc(80ms + var(--w, 0) * 90ms);
+  }
 
-/* Navbar / overlay backgrounds */
-html:not(.dark) .bg-\[\#080A0E\]\/80     { background-color: rgba(245,245,240,0.80) !important; }
-html:not(.dark) .bg-\[\#080A0E\]\/90     { background-color: rgba(245,245,240,0.90) !important; }
-html:not(.dark) .bg-\[\#080A0E\]\/95     { background-color: rgba(245,245,240,0.95) !important; }
+  .hero-after {
+    animation: fade-up 700ms var(--ease) both;
+    animation-delay: var(--d, 400ms);
+  }
+}
 
-/* Buttons */
-html:not(.dark) .bg-\[\#E8C97A\]         { background-color: #c4a35a !important; }
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
-/* Borders */
-html:not(.dark) .border-white\/7          { border-color: rgba(0,0,0,0.08) !important; }
-html:not(.dark) .border-white\/13         { border-color: rgba(0,0,0,0.12) !important; }
-html:not(.dark) .border-\[\#E8C97A\]\/20  { border-color: rgba(122,92,10,0.25) !important; }
-html:not(.dark) .border-\[\#E8C97A\]\/40  { border-color: rgba(122,92,10,0.35) !important; }
-
-/* ── Hide scrollbar on chip rows ───────────────────────────────────────────── */
-.scrollbar-none {
+/* ── Horizontal scroller (workflow builds) ────────────────────────────────── */
+.scroller {
   scrollbar-width: none;
+  overscroll-behavior-x: contain;
 }
-.scrollbar-none::-webkit-scrollbar {
+
+.scroller::-webkit-scrollbar {
   display: none;
 }

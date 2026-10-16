@@ -1,77 +1,35 @@
-# Ahmed Dizon — AI Portfolio
+# Automated by Med
 
-Interactive AI-powered portfolio. An animated avatar answers questions about Ahmed's background, projects, and automation work via streaming chat.
+Portfolio site for Ahmed Abdullah Dizon: AI automations, GoHighLevel builds and live dashboards. Live at [automated-by-med.vercel.app](https://automated-by-med.vercel.app).
 
 ## Stack
 
-- **Next.js 15** — App Router, Server Components
-- **Vercel AI SDK v4** — streaming chat (`useChat` + `streamText`)
-- **Groq / Llama 3.1 70B** — primary model (fast + free tier) with OpenAI GPT-4o-mini fallback
-- **Framer Motion** — avatar animations, message transitions
-- **Tailwind CSS v3** — utility-first styling
-- **Geist Sans/Mono** — Vercel's typeface
+- **Next.js 15** App Router. The page is a Server Component; motion and dialogs live in small client components under `components/site/`.
+- **Tailwind CSS v3** with design tokens as CSS variables in `app/globals.css`.
+- **Inter** via `next/font` as the fallback behind the system font stack (SF Pro on Apple devices).
+- No animation library: scroll reveals use IntersectionObserver and CSS, and all motion turns off under `prefers-reduced-motion`.
 
-## Setup
+## Where things live
 
-### 1. Install dependencies
+| File | What it holds |
+|------|---------------|
+| `lib/content.ts` | Every line of copy, the case studies, services and workflow builds |
+| `components/site/sections.tsx` | The page sections, in order |
+| `components/site/DashboardPlaceholder.tsx` | Stand-in for the BI dashboard screenshot (swap for the real redacted image) |
+| `app/opengraph-image.tsx` | Share image, generated at build time |
+| `public/case-studies/coaching/` | Redacted screenshots for case study 1 |
+
+## Run locally
 
 ```bash
 npm install
-```
-
-### 2. Configure AI
-
-Copy the example env file and add your key:
-
-```bash
-cp .env.example .env.local
-```
-
-Get a **free** Groq API key at [console.groq.com](https://console.groq.com) — Llama 3.1 70B is fast and has a generous free tier.
-
-```env
-GROQ_API_KEY=gsk_...
-```
-
-Or use OpenAI instead:
-
-```env
-OPENAI_API_KEY=sk-...
-```
-
-Groq is checked first. If both are set, Groq wins.
-
-### 3. Run locally
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). `npm run build` and `npm run lint` before pushing.
 
-## Deploy to Vercel
+## Rules for content
 
-```bash
-npm i -g vercel
-vercel
-```
-
-Set `GROQ_API_KEY` (or `OPENAI_API_KEY`) in Vercel's environment variables dashboard.
-
-## Deploy to Render
-
-1. Push repo to GitHub
-2. Create a **Web Service** on [render.com](https://render.com)
-3. Build command: `npm install && npm run build`
-4. Start command: `npm start`
-5. Add env variable: `GROQ_API_KEY`
-
-## Customization
-
-| File | What to change |
-|------|----------------|
-| `lib/prompt.ts` | Ahmed's full background / personality |
-| `app/page.tsx` | Suggestion chips, layout, colors |
-| `components/Avatar.tsx` | Avatar SVG shape, colors, animations |
-| `app/globals.css` | Blink animation timing, custom styles |
-| `app/api/chat/route.ts` | Model, temperature, max tokens |
+- No client names anywhere: copy, alt text, file names, comments or metadata.
+- No em dashes in visible copy.
+- Raw screenshots go in `_incoming/`, which is git-ignored. Only redacted images go in `public/`.

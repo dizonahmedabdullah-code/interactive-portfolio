@@ -1,44 +1,43 @@
 import type { Metadata, Viewport } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import { Inter } from 'next/font/google'
 import Script from 'next/script'
+import { BRAND, META, SITE_URL } from '@/lib/content'
 import './globals.css'
+
+// SF Pro on Apple devices through the system stack; Inter, self-hosted at build time, everywhere else.
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
+  themeColor: '#ffffff',
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://automated-by-med.vercel.app'),
-  title: 'AI Automation Specialist | Founder, MedVentures',
-  description:
-    'Ahmed Dizon builds systems that remove manual work, using n8n, Make, Zapier, GoHighLevel and Claude. Upwork Top Rated, 100% Job Success Score, 2,100+ hours.',
+  metadataBase: new URL(SITE_URL),
+  title: META.title,
+  description: META.description,
+  applicationName: BRAND,
+  authors: [{ name: 'Ahmed Abdullah Dizon' }],
   openGraph: {
-    title: 'AI Automation Specialist | Founder, MedVentures',
-    description:
-      'Ahmed Dizon builds systems that remove manual work, using n8n, Make, Zapier, GoHighLevel and Claude. Upwork Top Rated, 100% Job Success Score, 2,100+ hours.',
+    title: META.title,
+    description: META.description,
+    siteName: BRAND,
     type: 'website',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'MedVentures: AI Automation Specialist' }],
+    url: '/',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Automation Specialist | Founder, MedVentures',
-    description:
-      'Ahmed Dizon builds systems that remove manual work, using n8n, Make, Zapier, GoHighLevel and Claude. Upwork Top Rated, 100% Job Success Score, 2,100+ hours.',
-    images: ['/og-image.jpg'],
+    title: META.title,
+    description: META.description,
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} dark`}>
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="en" className={inter.variable}>
+      <body className="font-sans">{children}</body>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-5X4H7H11GK" strategy="afterInteractive" />
       <Script id="gtag-init" strategy="afterInteractive">{`
         window.dataLayer = window.dataLayer || [];
